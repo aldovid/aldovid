@@ -97,10 +97,10 @@
             + " <div id='div_grilla' style=' margin: left; height: 700px;'  >"
            
             
-            + "<div id='container' style='width: 2000px; margin: left;'>"
+            + "<div id='container' style='width: 1700px; margin: left;'>"
             + ""
             + ""
-            + "<div id='first' style=' width: 1300px; float: left; height: 700px;'> "
+            + "<div id='first' style=' width: 1000px; float: left; height: 700px;'> "
             
             
           //  + "<table id='tb_preembarque' class='stripe row-border order-column' style='width:100%'>"
@@ -458,8 +458,8 @@
           cont_fila++; 
         }
        
-              String cabecera_mixto="<div id='second' style=' width: 700px;  float: right;  height: 500px;'> "
-                      + " <table id='tb_preembarque_mixto' class='table table-bordered table-hover' style='width:100%'>"
+              String cabecera_mixto="<div id='second' style=' width: 700px;  float: left;  height: 500px;'> "
+                      + " <table id='tb_preembarque_mixto' class='stripe order-column dataTable no-footer' style='width:70%'>"
             + "<thead>"
                + " <tr>"
             + "<th colspan='6'  style='color: #fff; background: black;'  class='text-center'  ><b>CARROS MIXTOS</b></th>  </tr>"
