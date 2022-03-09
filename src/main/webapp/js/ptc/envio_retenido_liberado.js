@@ -63,7 +63,7 @@
             $('#caja_check').val(resultado_seleccionado);
                                         }    
                     
-    function enviar_datos_insert (){
+    function Enviar_datos_cambio_disposicion_lib (){
             
           setear_check();
                 var fecha_alimentacion= $("#calendario_alimentacion").val();
@@ -186,8 +186,7 @@
              aviso_registrado_dispo(data.tipo_mensaje,data.mensaje);
         }
                 });
- 
-                                              };     
+        };     
                                         
     function aviso(mensaje){
                                             
@@ -242,7 +241,7 @@
             title: mensaje,
             confirmButtonText: "CERRAR"
         });
-        traer_menu();  
+         $("#contenedor_principal").html("");  
     }
    else   {
          swal.fire({
@@ -292,7 +291,7 @@
         }
     }
             
-    function accion_combo()
+    function accion_combo_ptc()
     {
         var disposicion=$("#disposicion").val();
         if (disposicion==="6"||disposicion==="7")
@@ -611,7 +610,7 @@ else if( estado=="R"|| estado=="Z"){
             title: mensaje,
             confirmButtonText: "CERRAR"
         });
-        traer_menu();  
+         $("#contenedor_principal").html("");  
     }
    else   {
          swal.fire({
@@ -634,7 +633,7 @@ else if( estado=="R"|| estado=="Z"){
             });
             if (tipo_registro=="LIBERADO") 
             {
-                traer_registro();    
+                traer_registro_lib();    
             }
             else if(tipo_registro=="RETENIDO") 
             {
@@ -676,7 +675,7 @@ else if( estado=="R"|| estado=="Z"){
 
     }
  
-    function procesar(tipo_registro) {
+    function procesar_PTC(tipo_registro) {
                            
                                 var cod_carrito = $('#cod_carrito').val();
                                 var fecha_clasificacion=$('#calendario_registro').val();
@@ -728,7 +727,7 @@ else if( estado=="R"|| estado=="Z"){
                                       }, 1000);
                                     } 
                             });  
-                            enviar_datos_lotes(tipo_registro);        
+                            enviar_datos_lotes_ptc(tipo_registro);        
                         }
                   });  
                 }
@@ -786,7 +785,7 @@ else if( estado=="R"|| estado=="Z"){
                             Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft();    }, 1000)
                             } 
                             });  
-                            enviar_datos_lotes(tipo_registro);        
+                            enviar_datos_lotes_ptc(tipo_registro);        
                         }
                     });  
                 }
@@ -1217,7 +1216,7 @@ else if( estado=="R"|| estado=="Z"){
         }
         }); }
     
-    function validacion_eliminacion(clasificadora,cod_interno,cantidad,itemcode,fecha,  cod_carrito,cod_lote,tipo){
+    function validacion_eliminacion_ptc(clasificadora,cod_interno,cantidad,itemcode,fecha,  cod_carrito,cod_lote,tipo){
         
         if(tipo=="C"){
             

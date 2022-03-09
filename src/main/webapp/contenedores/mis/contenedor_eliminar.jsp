@@ -4,15 +4,24 @@
 <%@include  file="../../chequearsesion.jsp" %>
  
      <div class="container-fluid">
-        
-   
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>ELIMINACIÓN DE REGISTROS</b></center>
+</div>
+   </div>  <br>         
          <input   style="display: none"id="text_id_eliminar" name="text_id_eliminar" type="text" >
        
        
      <div class="input-append">  
-        <input id="calendario_eliminar" data-format="dd/mm/yyyy"  width="276" />
+         <a>Fecha de clasificación</a>
+         <input id="calendario_eliminar"  class="datepicker"  width="276" />
   </div>  
-         <button   class="btn btn-primary " onclick="traer_detalle_eliminar_mis($('#calendario_eliminar').val());">BUSCAR</button> 
+         <button   class="btn bg-navy "  onclick="traer_detalle_eliminar_mis($('#calendario_eliminar').val());">BUSCAR</button> 
     <br>
         <div id="div_eliminar"  >
             

@@ -50,15 +50,22 @@
 </script>
 
 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>RESUMEN DE CONTADORES DE HUEVOS POR AVIARIO</b></center>
+</div>
+   </div>  <br>
 
 <div class="card m-4">
     <input type="hidden" value="2" id="udepartamento" name="udepartamento">
     <section class="content" id="contenido">
         <div class="text-center">
-            <div class="card-header bg-navy">
-                <button type="button" id="volver" name="volver" onclick="grafico_mortandad();" class="btn-volver float-right bg-gradient-gray text-center" >Volver</button>
-                <h5 class="text-center">RESUMEN DE CONTADORES DE HUEVOS POR AVIARIO</h5>   
-            </div>
+            
             <table id="tabla" name="tabla" class=" tablagrilla compact-cs">
                 <th class="tablagrilla">
                 <center>

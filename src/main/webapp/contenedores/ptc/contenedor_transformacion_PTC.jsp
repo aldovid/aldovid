@@ -1,6 +1,16 @@
  
-     
-<form id="formulario_pallet_carro" name="formulario_carro">
+ 
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO DE TRANSFORMACIONES DE CARROS</b></center>
+</div>
+   </div>  <br>    
+   <form id="formulario_pallet_carro" name="formulario_carro">
  
     <div class="input-append">  
         <a>FECHA DE PUESTA</a>

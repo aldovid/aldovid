@@ -46,13 +46,25 @@
             setInputDate("#fecha");
 
         </script>
+        
+         
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>CONSUMO BALANCEADO POR BLOQUES</b></center>
+</div>
+   </div>  <br> 
+   
+   
  <div class="card m-4">
             <input type="hidden" value="2" id="udepartamento" name="udepartamento">
             <section class="content" id="contenido">
                 <div class="text-center">
-                    <div class="bg-navy">
-                        <div > <button class="informe bg-navy" disabled="true" " >CONSUMO BALANCEADO POR BLOQUES</button>  </div>
-                    </div>
+                     
                     <table id="tabla" name="tabla" class=" tablagrilla compact-cs">
                         <th class="tablagrilla">
                         <center>

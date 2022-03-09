@@ -74,7 +74,7 @@ $("tr").not(':first').hover(
                     + ",replace(a.estado_liberacion,'Z','R.') as estado  "
                     + "from lotes_retenidos  a,motivo_retencion b  "
                     + "where convert(varchar,a.fecha,103)=convert(varchar,'"+calendario+"',103) "
-                            + "and a.clasificadora='"+clasificadora+"' and a.estado_liberacion in ('R','Z') "
+                            + "and a.clasificadora_actual='"+clasificadora+"' and a.estado_liberacion in ('R','Z') "
                             + "and a.disposicion='"+disposicion+"' and a.estado_registro='a' and a.disposicion=b.id");
         
             while(rs.next()){

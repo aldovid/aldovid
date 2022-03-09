@@ -1,7 +1,14 @@
- 
- <div class="form-control bg-navy text-center " style='color: #fff; background: white; font-weight: bold; '>Reportes de pedidos generados</div>
-<br>
-<a style='color: #000; background: white; font-weight: bold; '> Tipo de reporte</a>
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+LOG
+</div>
+</div>
+    <center><b>REPORTES DE PEDIDOS GENERADOS</b></center>
+</div>
+   </div>  <br>  
+ <a style='color: #000; background: white; font-weight: bold; '> Tipo de reporte</a>
 <select id="cbox_tipo" class="bg-navy" style='color: #fff; background: white; font-weight: bold; ' onchange="filtro_reporte($('#cbox_tipo').val())">
     <option value="7">GENERADOS</option>
     <option value="1">PENDIENTES FACTURACION</option>

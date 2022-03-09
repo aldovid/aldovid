@@ -1,6 +1,18 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
- 
- <form id="frm_movimiento" method="post">      
+
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>MOVIMIENTO DE LIBERACIÓN Y RETENIDOS</b></center>
+</div>
+   </div>  <br>       
+   
+   
+   <form id="frm_movimiento" method="post">      
     <div class="form-group">
         <select  name="tipo"    id="tipo" class="form-control"   >
             <OPTION selected disabled>SELECCIONAR FILTRO POR FECHA DE PUESTA O CLASIFICACION</OPTION>
@@ -26,7 +38,7 @@
      <div id="boxColor">  
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora inicio</b></label>
+                <b>   Hora inicio</b>
                 <input type="text" data-field="time"  autocomplete="off"  placeholder="HORA DE INICIO"  name="desde" id="desde" required  >
                 <div class="dtBox"id="dtBox_inicio">
                 </div>
@@ -35,7 +47,7 @@
             
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora final</b></label>
+                <b>   Hora final</b>
                 <input type="text" data-field="time"  autocomplete="off"   placeholder="HORA DE FINALIZACION" name="hasta" id="hasta" required  >
                 <div class="dtBox" id="dtBox_final">
                 </div>
@@ -85,7 +97,7 @@
         <div class="input-append" id="divid_grilla_retenido" >
         </div>
         <input type="submit" value="REGISTRAR" class="form-control btn-primary">       
-        <table id="tabla_lotes"  data-row-style="rowStyle" class="cell-border stripe hover" data-toggle="table" data-click-to-select="true"">
+        <table id="tabla_lotes"  data-row-style="rowStyle" class="cell-border stripe hover no-footer dt-checkboxes-select dataTable" data-toggle="table" data-click-to-select="true"">
             <thead>
                 <tr>
                     <th ></th>

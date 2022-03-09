@@ -1,4 +1,14 @@
- 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REPORTE DE RETENIDOS HISTORICOS</b></center>
+</div>
+   </div>  <br>    
+    
      
 <form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="cruds/ptc/control_reporte_historico_retenido.jsp" target="_blank">
  

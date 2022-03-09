@@ -9,8 +9,17 @@
      String titulo_reproceso    = (String) sesionOk.getAttribute("titulo_reproceso");
 
 %> 
- <div class="form-control bg-primary" style="font-weight: bold;color:white;" > <center><%=titulo_reproceso%></center></div>
-
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b><%=titulo_reproceso%></b></center>
+</div>
+   </div>  <br>       
+   
  <div id="contenedor_boton"> </div>
  
  <br><!-- comment -->

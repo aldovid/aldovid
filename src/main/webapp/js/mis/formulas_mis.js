@@ -59,13 +59,13 @@
                     {                        
                         type: "POST",                 
                         url: ruta_cruds_mis+"control_registro.jsp",                    
-                        data: $("#form-reprocesos").serialize()+"&txt_cantidad_total="+total+"&hora_inicio_form="+$('#hora_desde').val()+':'+$('#minuto_desde').val()+"&hora_final_form="+$('#hora_hasta').val()+':'+$('#minuto_hasta').val(),
+                        data: $("#form-reprocesos").serialize()+"&txt_cantidad_total="+parseInt(total) +"&hora_inicio_form="+$('#hora_desde').val()+':'+$('#minuto_desde').val()+"&hora_final_form="+$('#hora_hasta').val()+':'+$('#minuto_hasta').val(),
                         success: function(data)            
                         {    
                              if(data.tipo_respuesta==1)
                              {
                                  Swal.fire(data.mensaje, '', 'success');
-                                 traer_registro();
+                                 traer_registro_mis();
                              }
                              else 
                              {

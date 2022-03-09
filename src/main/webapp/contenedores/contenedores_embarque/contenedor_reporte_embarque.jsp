@@ -1,6 +1,14 @@
- <div class="form-control bg-navy text-center " style='color: #fff; background: white; font-weight: bold; '>Reportes de embarques generados</div>
- 
-
+  <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+EMBARQUE
+</div>
+</div>
+    <center><b>REPORTE DE EMBARQUES GENERADOS</b></center>
+</div>
+   </div>  <br>    
+     
 <br><br>
 <a>INGRESAR FECHA DE EMBARQUE</a>
  <input  style=" font-weight: bold"class="datepicker"   type="text" id="calendario_embarque" name="calendario_embarque">              

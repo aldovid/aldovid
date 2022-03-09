@@ -33,7 +33,7 @@
             String nro_transferencia=rs.getString("id");
             %>
               
-            <form action="controles/control_reporte_transferencia.jsp" method="get" target="_black" > 
+   <form action="cruds/ptc/control_reporte_transferencia.jsp" method="get" target="_black" > 
                 
                 <input type="hidden" value="<%=nro_transferencia%>" name="nro_transferencia">
                 <input type="hidden" value="<%=rs.getString("tipo_transferencia")%>" name="tipo_transferencia">

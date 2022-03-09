@@ -22,8 +22,9 @@
 
     try {
 
-            clases.controles.connectarBD();   
-            Statement stmt = clases.controles.connect.createStatement();
+            controles.VerificarConexion();
+                     
+            Statement stmt = clases.controles.connectSesion.createStatement();
              ob = new JSONObject();
             ResultSet rs = stmt.executeQuery(" select convert(date,fecha_puesta) as fecha_puesta, cod_carrito,cantidad,origen,tipo_huevo,desFallaZona  "
                     + "from  v_mae_ptc_pendientes_alimentacion  order by  fecha_puesta asc");

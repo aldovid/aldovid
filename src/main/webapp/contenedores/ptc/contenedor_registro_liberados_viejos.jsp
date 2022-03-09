@@ -14,6 +14,18 @@
         }
         clases.controles.DesconnectarBD();
       %>    
+
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTROS DE CARROS LIBERADOS COSTEADOS</b></center>
+</div>
+   </div>  <br>       
+         
     <form method="post"   id="formulario">
       
         <div class="form-group">
@@ -53,7 +65,7 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <select style   ="font-weight: bold;" class="form-control" name="tipo_huevo" id="tipo_huevo" onchange="cargar_unidad_medida('tipo_huevo','unidad_medida');consulta_empacadora()" required>
+                <select style   ="font-weight: bold;" class="form-control" name="tipo_huevo" id="tipo_huevo" onchange="cargar_unidad_medida_PTC('tipo_huevo','unidad_medida');consulta_empacadora()" required>
                     <OPTION style="font-weight: bold;" selected disabled>Seleccione tipo de huevo</OPTION>
                     <OPTION style="font-weight: bold;" VALUE="1">G</OPTION>
                     <OPTION style="font-weight: bold;" VALUE="2">J</OPTION>

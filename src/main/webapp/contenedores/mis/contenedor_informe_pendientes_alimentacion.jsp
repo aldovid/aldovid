@@ -1,8 +1,17 @@
       <input type="hidden" id="tipo" name="tipo" value="RP">
-     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> VISUALIZACION DE PENDIENTES A ALIMENTAR.</center></div>  
-     <br>
+            <div class="container-fluid">
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>VISUALIZACIÓN DE PENDIENTES A ALIMENTAR</b></center>
+</div>
+   </div>  <br>      
+   
     
-     
                  
     
        <br>

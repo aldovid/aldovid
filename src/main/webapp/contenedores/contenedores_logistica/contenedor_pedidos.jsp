@@ -13,11 +13,18 @@
     rs2 = fuente.obtenerDato("select code,name  from maehara.dbo.[@CHOFERES] where U_estado='activo'");
 
 %>
-<div>
+   <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+LOG
+</div>
+</div>
+    <div id="titulo_menu"> <center><b>REGISTRO DE PEDIDOS</b></center></div>
+</div>
+   </div>  <br>    
      
-<div  class=" form-control bg-navy" role="alert">
-         <strong style="color: white;"  ><center>Registro de pedido.</center></strong> 
-    </div>   
+   
     
         <div id="div_pedido"> 
     <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
@@ -57,8 +64,8 @@
        </div>
        
        <div class="container my-4">
-        <button id="modalActivate" type="button" class="btn bg-navy form-control" data-toggle="modal" data-target="#exampleModalPreview">
-        Abrir ventana de pedidos
+           <button id="modalActivate" type="button" class="btn bg-navy form-control" data-toggle="modal" data-target="#exampleModalPreview"  >
+            Abrir ventana de pedidos
         </button>
         <!-- Modal -->
         <div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
@@ -70,8 +77,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <a style="font-weight: bold;color:black">CARROS RESTANTES:</a><input type="text" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
-                        <div id="contenido_grillas">
+                        <a style="font-weight: bold;color:black; display: none">CARROS RESTANTES:</a><input type="hidden" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
+                        <button type="button" class="btn bg-navy " onclick="generar_grilla_pedido(5);"><i class="fas fa-play"></i>&nbsp;Actualizar datos</button><!-- comment -->
+                        
+                         <div id="contenido_grillas"   class="table-responsive">
 
                         </div>  
 

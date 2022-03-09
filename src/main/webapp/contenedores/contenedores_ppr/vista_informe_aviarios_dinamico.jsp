@@ -7,9 +7,17 @@
  
 <div  >
     <form    id="form_reporte_aviario_dinamicop"  type="post" action="footer3" >
-        <div > <button class="informe bg-navy" disabled="true" " >GRAFICO / RESUMEN PRODUCCION PRIMARIA</button>  </div>
-        <br>
-        <table id="tabla_principal"  class="table table-bordered table-hover datat" >
+      
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>GRAFICO / RESUMEN PRODUCCION PRIMARIA</b></center>
+</div>
+   </div>  <br>        <table id="tabla_principal"  class="table table-bordered table-hover datat" >
             <thead>
                 <tr>
                     <th>DESDE</th>

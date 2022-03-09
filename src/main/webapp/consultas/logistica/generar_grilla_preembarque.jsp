@@ -97,10 +97,10 @@
             + " <div id='div_grilla' style=' margin: left; height: 700px;'  >"
            
             
-            + "<div id='container' style='width: 1700px; margin: left;'>"
+            + "<div id='container'   margin: left;'>"
             + ""
             + ""
-            + "<div id='first' style=' width: 1000px; float: left; height: 700px;'> "
+            + "<div id='first' style='  float: left; '> "
             
             
           //  + "<table id='tb_preembarque' class='stripe row-border order-column' style='width:100%'>"
@@ -458,7 +458,7 @@
           cont_fila++; 
         }
        
-              String cabecera_mixto="<div id='second' style=' width: 700px;  float: left;  height: 500px;'> "
+              String cabecera_mixto="<div id='second' style=' float: left;  '> "
                       + " <table id='tb_preembarque_mixto' class='stripe order-column dataTable no-footer' style='width:70%'>"
             + "<thead>"
                + " <tr>"
@@ -472,24 +472,27 @@
              + "</tr>"
             + "</thead> <tbody > ";
      String grilla_html2 ="";  
-         rs2 = fuente.obtenerDato("  SELECT cod,clasificadora_ACTUAL,convert(varchar,FECHA_PUESTA,103)AS FECHA_PUESTA,  stuff(( select   ','+  [tipo_huevo] + ':'+convert(varchar,[cantidad])   "
-                + "from [v_mae_stock_linea_mixtos] with (nolock) "
-                + "                 where cod_carrito =  cod for XML path('') ),1,1,'')as fecha_involucrada "
-                + "                 FROM  ( SELECT cod_carrito as cod,clasificadora_ACTUAL ,FECHA_PUESTA FROM v_mae_stock_linea_cajones12 with(nolock) "
-                + "WHERE cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos with(nolock) where estado in (1,2) and u_medida='MIXTO') ) T ORDER BY 2,3");
+         rs2 = fuente.obtenerDato("  "
+                + " SELECT "
+                 + "    cod,clasificadora_ACTUAL,convert(varchar,FECHA_PUESTA,103)AS FECHA_PUESTA,  stuff(( select   ','+  [tipo_huevo] + ':'+convert(varchar,[cantidad])   "
+                + " from "
+                 + "    [v_mae_stock_linea_mixtos] with (nolock) "
+                + " where "
+                 + "    cod_carrito =  cod for XML path('') ),1,1,'')as fecha_involucrada "
+                + "     FROM  ( SELECT cod_carrito as cod,clasificadora_ACTUAL ,FECHA_PUESTA FROM v_mae_stock_linea_cajones12 with(nolock) "
+                + " WHERE "
+                 + "    cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos with(nolock) where estado in (1,2) and u_medida='MIXTO') ) T ORDER BY 2,3");
        
-    //  rs2 = fuente.obtenerDato("  select *  from mae_log_ptc_reporte_mixtos ");
-     
         while(rs2.next())
         {
             grilla_html2=grilla_html2+ 
-                    "<tr>" + 
-                    "<td style='font-weight:bold'  >"+rs2.getString(1 )+"</td>"+  
-                    "<td style='font-weight:bold'  >"+rs2.getString(2)+"</td>"+   
-                    "<td style='font-weight:bold'  >"+rs2.getString(3)+"</td>"+ 
-                    "<td style='font-weight:bold' class='something' >"+rs2.getString(4)+"</td>"+ " "
-                    + "<td><div style='font-weight:bold' class='btn btn-dark btn-sm' id='"+rs2.getString(1 )+"' onclick='seleccionar_mixtos( "+rs2.getString(1 )+" )'>SELECCIONE</div>   </td> "
-                    + "</tr>";
+            "<tr>" + 
+            "<td style='font-weight:bold'  >"+rs2.getString(1 )+"</td>"+  
+            "<td style='font-weight:bold'  >"+rs2.getString(2)+"</td>"+   
+            "<td style='font-weight:bold'  >"+rs2.getString(3)+"</td>"+ 
+            "<td style='font-weight:bold' class='something' >"+rs2.getString(4)+"</td>"+ " "
+            + "<td><div style='font-weight:bold' class='btn btn-dark btn-sm' id='"+rs2.getString(1 )+"' onclick='seleccionar_mixtos( "+rs2.getString(1 )+" )'>SELECCIONE</div>   </td> "
+            + "</tr>";
         }
        
         clases.controles.DesconnectarBD();
@@ -498,6 +501,4 @@
  
         ob.put("grilla",cabecera+grilla_html+"</tbody></table></div>");
         ob.put("grilla_mixto",cabecera_mixto+grilla_html2+"</tbody></table></div></div></div></div>");
-        out.print(ob);  %>
-        
-         
+        out.print(ob);  %> 

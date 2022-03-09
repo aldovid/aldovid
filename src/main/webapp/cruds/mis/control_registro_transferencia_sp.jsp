@@ -10,7 +10,7 @@
 <%@page contentType="application/json; charset=utf-8" %>
 <%   
     String grilla         = request.getParameter("valor");
-    String usuario        = (String) sesionOk.getAttribute("usuario");
+    String usuario        = (String) sesionOk.getAttribute("nombre_usuario");
     String arr_chofer     = request.getParameter("chofer");
     String arr_camion     = request.getParameter("camion");
     String destino        = request.getParameter("destino");
@@ -22,8 +22,8 @@
     String id_camion      =camiones[0];
     String camion         =camiones[1];
     
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     int tipo_respuesta=0;
     String mensaje="";
     JSONObject ob = new JSONObject();
@@ -75,8 +75,8 @@
         }   
         else  
         {
-          //  cn.rollback(); 
-              cn.commit();
+           // cn.rollback(); 
+             cn.commit();
         }
     } catch (Exception e) 
     {

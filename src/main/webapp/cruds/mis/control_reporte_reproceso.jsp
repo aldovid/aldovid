@@ -6,25 +6,22 @@
 <%@page import="java.util.*"%>
 <%@page import="net.sf.jasperreports.engine.*"%>
 <%@page import="net.sf.jasperreports.view.JasperViewer"%>
-<%@include file="../../contenedores/mis/contenedor_pdf_reproceso.jsp" %>
-<%@include  file="../../chequearsesion.jsp" %>
+ <%@include  file="../../chequearsesion.jsp" %>
  
 <%   
     String calendario = request.getParameter("calendario_reporte_reproceso");
     String clasificadora = (String) sesionOk.getAttribute("clasificadora");
     
     controles.VerificarConexion();
-    Connection con = controles.connectSesion;
-    
+     
     SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha_puestav1 = sdformat.parse(calendario);
     Date fechav2 = sdformat.parse("30/10/2021");
   
     Date fechav2022 = sdformat.parse("23/01/2022");
-    
+    try {
+          
  
-        
-      
     
     if (fecha_puestav1.before(fechav2)) 
     {
@@ -37,7 +34,7 @@
         parameter.put("tipo_reproceso",new String(tipo_reproceso));
         parameter.put("categoria",new String(tipo_categoria));
 
-        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, con);
+        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, controles.connectSesion);
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
         ServletOutputStream outputstream = response.getOutputStream();
@@ -56,7 +53,7 @@
         parameter.put("tipo_reproceso",new String(tipo_reproceso));
         parameter.put("categoria",new String(tipo_categoria));
 
-        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, con);
+        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, controles.connectSesion);
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
         ServletOutputStream outputstream = response.getOutputStream();
@@ -76,7 +73,7 @@
         parameter.put("tipo_reproceso",new String(tipo_reproceso));
         parameter.put("categoria",new String(tipo_categoria));
 
-        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, con);
+        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, controles.connectSesion);
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
         ServletOutputStream outputstream = response.getOutputStream();
@@ -84,6 +81,9 @@
         outputstream.flush();
         outputstream.close(); 
     }
-   
+     
+        } catch (Exception e) {
+            String asdasd=e.getMessage();
+        }
 %>
    

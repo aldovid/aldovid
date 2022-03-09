@@ -1,13 +1,26 @@
- <form id="formulario_reporte_rotos" name="formulario_reporte_rotos" action="cruds/mis/control_reporte_rotos.jsp"  target="_blank">
+ 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REPORTES DE ROTOS</b></center>
+</div>
+   </div>  <br>
+ 
+<form id="formulario_reporte_rotos" name="formulario_reporte_rotos" action="cruds/mis/control_reporte_rotos.jsp"  target="_blank">
     
       
     <div class="input-append">  
-        <input id="calendario_reporte_rotos" name="calendario_reporte_rotos" data-format="dd/mm/yyyy"  width="276" required="true"  />
+        <b>Fecha de clasificacion</b>
+        <input id="calendario_reporte_rotos" name="calendario_reporte_rotos"  class="datepicker" width="276" required="true"  />
     
     
     </div> 
     <br>    <br> 
-         <input style="width:260px; height:80px" class="btn btn-success" type="submit" value="Generar reporte"> 
+         <input   class=" form-control btn bg-navy" type="submit" value="Generar reporte"> 
         
           
       </form> 

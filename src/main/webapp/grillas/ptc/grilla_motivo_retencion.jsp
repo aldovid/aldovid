@@ -8,7 +8,17 @@
  
     String area = (String) sesionOk.getAttribute("clasificadora");
     %>
-   
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>AGREGAR MOTIVO DE RETENCION A LOTES</b></center>
+</div>
+   </div>  <br>    
+     
    <table id="grilla_lotes_liberacion" class="table table-striped table-bordered" style="width:100%">
                      <thead>
 

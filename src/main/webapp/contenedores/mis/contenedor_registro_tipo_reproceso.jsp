@@ -15,6 +15,9 @@
           <div class="modal-header">
          REGISTRO DE TIPO DE REPROCESOS
       </div>
+        
+          
+          
           <div class="modal-body">
               
               <a>INGRESE TIPO DE REPROCESO</a>

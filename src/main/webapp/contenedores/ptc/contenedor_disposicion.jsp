@@ -4,11 +4,22 @@
 
 <!--<link href="estilos/css/styles_loading.css" rel="stylesheet">-->
       <% 
-         
-        clases.controles.connectarBD();   
-        Connection cn = clases.controles.connect; 
+         clases.controles.VerificarConexion();
+         Connection cn = clases.controles.connectSesion; 
         fuente.setConexion(cn);  %>
    
+ 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>CAMBIO DE DISPOSICIÓN Y LIBERACION DE REPROCESADOS</b></center>
+</div>
+   </div>  <br>              
+        
          <form id="formulario_reproceso" method="post" >
             <select  name="tipo" required   id="tipo" class="form-control"   >
             <OPTION selected disabled>SELECCIONAR FILTRO POR FECHA DE PUESTA O CLASIFICACION</OPTION>
@@ -23,7 +34,7 @@
  
         <span class="input-group-addon">-</span>
          Disposicion actual
-             <select class="form-control" required="true" name="disposicion" id="disposicion"  onchange="accion_combo();">
+             <select class="form-control" required="true" name="disposicion" id="disposicion"  onchange="accion_combo_ptc();">
             <OPTION selected disabled>Disposición actual</OPTION>
               <%  
 	// Asignar conexion al objeto manejador de datos
@@ -82,7 +93,7 @@
 
 
     <div id="div_registro" style="display: none">
-        <input type="button" class="form-control bg-primary "style="font-weight: bold;color:black;" value="REGISTRAR" onclick=" enviar_datos_insert();">
+        <input type="button" class="form-control bg-primary "style="font-weight: bold;color:black;" value="REGISTRAR" onclick=" Enviar_datos_cambio_disposicion_lib();">
            </div>
     <div id="contenedor_grilla_reproceso" >
 
@@ -90,4 +101,4 @@
 
   </form>
             
-    <% clases.controles.DesconnectarBD();%>
+ 

@@ -38,11 +38,11 @@ String user_name = (String) sesionOk.getAttribute("nombre_usuario");
                   <%
                       controles.VerificarConexion();
                       Connection cn = controles.connectSesion;
-	// Asignar conexion al objeto manejador de datos
-	fuente.setConexion(cn);
-      ResultSet rs = fuente.obtenerDato("select  *,convert(varchar,fecha_puesta,103) as Fecha_eliminar "
-              + "from lotes where convert(varchar,fecha,103)=convert(varchar,'"+calendario+"',103) "
-                      + "and clasificadora='"+clasificadora+"'and tipo_huevo in ('RP','PI','R') and estado not in('E','C')");
+                    // Asignar conexion al objeto manejador de datos
+                    fuente.setConexion(cn);
+                    ResultSet rs = fuente.obtenerDato("select  *,convert(varchar,fecha_puesta,103) as Fecha_eliminar "
+                    + "from lotes where convert(varchar,fecha,103)= '"+calendario+"'  "
+                    + "and clasificadora_actual='"+clasificadora+"'and tipo_huevo in ('RP','PI','R') and estado not in('E','C')");
        
     String tipohuevo="";
               
@@ -106,32 +106,3 @@ tipohuevo=rs.getString("tipo_huevo");
                    </tr><%}%> </tbody>   
           </table>
        </form>
-       
-              
-              
-               
-               
-     
- 
-    
-           
-           
-  
- 
- 
-
-        
-        
-      
-      
-        
-
-
-
-
-        
-        
-        
-        
-        
-      

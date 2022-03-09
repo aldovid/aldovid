@@ -4,20 +4,32 @@
          String fecha_clasificacion="";
          clases.controles.connectarBD();   
          Statement stmt = clases.controles.connect.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
+         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        
         while(rs.next())
         {          
             fecha_clasificacion=rs.getString(1);
         }    
             clases.controles.DesconnectarBD();  %>    
-    <form method="post"   id="formulario">
+
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO PTC</b></center>
+</div>
+   </div>  <br>       
+               <form method="post"   id="formulario">
       
         <div class="form-group">
             <div class="input-group">
                 <div class="form-groupss " >
-                    <label class="form-control-placeholder"><b>Fecha de clasificación inicial</b></label>
-                    <input style="font-weight: bold;" id="calendario_registro" name="calendario_registro"  class="datepicker" required   value="<%=fecha_clasificacion%>"  onchange=" $('#fecha_clas_final').val($('#calendario_registro').val());validar_fechaInicial_fechaFinal();"/>
+                    <b>Fecha de clasificación inicial</b>
+                    <input type="text" style="font-weight: bold;" id="calendario_registro" name="calendario_registro"  class="datepicker" required   value="<%=fecha_clasificacion%>"  onchange=" $('#fecha_clas_final').val($('#calendario_registro').val());validar_fechaInicial_fechaFinal();"/>
+ 
                 </div>
                 <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="BORROSO SI"     data-off="BORROSO NO"   id="chkToggle2"             data-onstyle="success" data-offstyle="warning">
                 <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="ESPECIAL SI"    data-off="ESPECIAL NO"  id="chkToggle_especial"     data-onstyle="primary" data-offstyle="danger">
@@ -32,7 +44,7 @@
         <div id="boxColor_red">
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   FECHAS INVOLUCRADAS</b></label>
+                <b>   FECHAS INVOLUCRADAS</b>
                 <input id="txt_fecha_involucrada" name="txt_fecha_involucrada" autocomplete="off"  type="text" placeholder="FECHAS INVOLUCRADAS (OPCIONAL)"/>
             </div>
               <br>
@@ -40,7 +52,7 @@
         <br>
         <div class="input-append">  
             <div class="form-groupss " >
-                <label class="form-control-placeholder"><b>TIPO MAPLES</b></label>
+                <b>TIPO MAPLES</b>
                 <select style="font-weight: bold;" class="form-control" name="tipo_maples" id="tipo_maples" required>
                     <OPTION style="font-weight: bold;" VALUE="IM">TIPO IM</OPTION>
                     <OPTION style="font-weight: bold;" VALUE="IIM">TIPO IIM</OPTION>
@@ -50,7 +62,7 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <select style   ="font-weight: bold;" class="form-control" name="tipo_huevo" id="tipo_huevo" onchange="cargar_unidad_medida('tipo_huevo','unidad_medida');consulta_empacadora()" required>
+                <select style   ="font-weight: bold;" class="form-control" name="tipo_huevo" id="tipo_huevo" onchange="cargar_unidad_medida_PTC('tipo_huevo','unidad_medida');consulta_empacadora()" required>
                     <OPTION style="font-weight: bold;" selected disabled>Seleccione tipo de huevo</OPTION>
                     <OPTION style="font-weight: bold;" VALUE="1">G</OPTION>
                     <OPTION style="font-weight: bold;" VALUE="2">J</OPTION>
@@ -63,7 +75,7 @@
                 <span class="input-group-addon">-</span>
                 <div class="input-append">  
                     <div class="form-groupss ">
-                        <label class="form-control-placeholder"><b>Fecha de puesta</b></label>
+                        <b>Fecha de puesta</b>
                         <input style="font-weight: bold;" id="fecha_puesta" name="fecha_puesta" class="datepicker"   width="276" value="<%=fecha_clasificacion%>" placeholder="Fecha puesta"  required="true"/>
                     </div>
                 </div>
@@ -79,7 +91,7 @@
         <br>
         <div class="input-append">  
             <div class="form-groupss " >
-                <label class="form-control-placeholder"><b>   SELECCIONE NRO DE EMPACADORA</b></label>
+                <b>   SELECCIONE NRO DE EMPACADORA</b>
                 <div id="div_empacadora"> 
                     <div id="combo" class="form-group">                 
                         <select  name="nro_empacadora"  id="nro_empacadora" class="form-control"  multiple="multiple" required >
@@ -90,7 +102,7 @@
             </div>  
         </div>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Cantidad</b></label>
+            <b>   Cantidad</b>
             <select  name="txt_cantidad"  id="txt_cantidad" class="form-control"    required >
                 <option selected disabled >SELECCIONE CANTIDAD</option>
                 <option value="1">1</option>
@@ -111,28 +123,34 @@
         <div id="boxColor">  
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora inicio</b></label>
-                <input type="text" data-field="time"  autocomplete="off"  placeholder="HORA DE INICIO"  name="hora_desde" id="hora_desde" required onchange="validar_fechaInicial_fechaFinal();">
+                <b>   Hora inicio</b>
+               <!--   <input type="text" data-field="time"  autocomplete="off"  placeholder="HORA DE INICIO"  name="hora_desde" id="hora_desde" required onchange="validar_fechaInicial_fechaFinal();">
                 <div class="dtBox"id="dtBox_inicio">
-                </div>
+                </div>-->
+               <input type="text" id="hora_desde" name="hora_desde" class="inputmask" required placeholder="HORA DE INICIO" onblur="validar_fechaInicial_fechaFinal()">             
+               
             </div>
             <br>
              <div class="input-group">
-                <label class="form-control-placeholder"><b>   Fecha final de clasificacion</b></label>
+                <b>   Fecha final de clasificacion</b>
                 <input type="text" id="fecha_clas_final"  name="fecha_clas_final" class="datepicker" placeholder="FECHA FINAL " value="<%=fecha_clasificacion%>" onchange="validar_fechaInicial_fechaFinal()" required >
             </div>
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora final</b></label>
-                <input type="text" data-field="time"  autocomplete="off"   placeholder="HORA DE FINALIZACION" name="hora_hasta" id="hora_hasta" required onchange="validar_fechaInicial_fechaFinal();">
+                <b>   Hora final</b>
+             <!--   <input type="text" data-field="time"  autocomplete="off"   placeholder="HORA DE FINALIZACION" name="hora_hasta" id="hora_hasta" required onchange="validar_fechaInicial_fechaFinal();">
+                
+                
                 <div class="dtBox" id="dtBox_final">
-                </div>
+                </div> -->
+             <input type="text" id="hora_hasta" name="hora_hasta"  class="inputmask" required placeholder="HORA DE FINALIZACION" onblur="validar_fechaInicial_fechaFinal()">             
+            
             </div>
              <br>
                 <div class="input-group" id="div_aviarios">
                     <input   type="hidden"    data-toggle="toggle" data-on="NO APLICA"     data-off="APLICA"   id="chkToggle_aviario"   data-onstyle="success" data-offstyle="warning">
 
-                    <label class="form-control-placeholder"><b>Aviarios disponibles segun horario</b></label>
+                    <b>Aviarios disponibles segun horario</b>
                     <select  name="cbox_aviarios" required  id="cbox_aviarios" class="form-control"  multiple="multiple" >
                     
                     </select>
@@ -143,7 +161,7 @@
              <br>
          <br>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Tipo de aviario</b></label>
+            <b>   Tipo de aviario</b>
                 <select style="font-weight: bold;" class="form-control" required="true" name="tipo_aviario" id="tipo_aviario">
                     <OPTION style="font-weight: bold;"  VALUE="M">M</OPTION> 
                     <OPTION style="font-weight: bold;"  VALUE="T">T</OPTION>
@@ -151,7 +169,7 @@
         </div>  
         <br>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Tipo de almacenamiento</b></label>
+            <b>   Tipo de almacenamiento</b>
             <select style="font-weight: bold;" class="form-control" name="tipo_almacenamiento" id="tipo_almacenamiento" required="true"  >
                 <OPTION style="font-weight: bold;" VALUE="C">C</OPTION> 
                 <OPTION style="font-weight: bold;" VALUE="P">P</OPTION>
@@ -161,17 +179,17 @@
         <br>
         <div class="form-group" id="div_responsable_liberado">
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Responsable</b></label>
+                <b>   Responsable</b>
                 <input name="txt_responsable" style="text-transform: uppercase;font-weight: bold;" autocomplete="off" id="txt_responsable" required="true"type="text"   placeholder="Responsable">
             </div>  
             <span class="input-group-addon">-</span>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Liberado por</b></label>
+                <b>   Liberado por</b>
                 <input name="txt_liberado"  style="text-transform: uppercase;font-weight: bold;" id="txt_liberado" autocomplete="off" required="true" type="text"   placeholder="Liberado por.">
             </div>  
         </div>  
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Comentario</b></label>
+            <b>   Comentario</b>
             <input name="txt_obs"    style="text-transform: uppercase;font-weight: bold;" id="txt_obs" type="text" autocomplete="off" class="text-negro"     placeholder="Comentario">
         </div>   
         <br> 

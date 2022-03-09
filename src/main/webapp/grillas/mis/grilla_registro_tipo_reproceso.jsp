@@ -9,6 +9,18 @@
  	fuente.setConexion(cn); 
  %>
    
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>CREACIONES DE TIPO REPROCESOS,SUBPRODUCTOS Y ROTOS</b></center>
+</div>
+   </div>  <br>   
+   
+   
         <input type="button" class="form-control bg-primary" value="CREAR TIPO DE REPROCESO" data-toggle="modal" data-target="#modal_agregar" >
         
         <table id="tabla_reproceso" class="table" border="1">

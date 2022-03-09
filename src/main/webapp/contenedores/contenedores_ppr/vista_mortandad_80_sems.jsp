@@ -47,13 +47,24 @@
     setInputDate("#idfechahasta");
 
 </script>
+
+     
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>MORTANDAD A 80 SEMANAS DE EDAD</b></center>
+</div>
+   </div>  <br> 
+   
   <div class="card m-4">
             <input type="hidden" value="2" id="udepartamento" name="udepartamento">
             <section class="content" id="contenido">
                 <div class="text-center">
-                    <div class="bg-navy">
-                        <div > <button class="informe bg-navy" disabled="true" " >MORTANDAD A 80 SEMANAS DE EDAD</button>  </div>
-                    </div>
+                    
                     <table id="tabla" name="tabla" class=" tablagrilla compact-cs">
                         <th class="tablagrilla">
                         <center>

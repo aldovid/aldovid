@@ -17,8 +17,8 @@
     ob=new JSONObject();
     String contenedor=""; 
     
-        clases.controles.connectarBD();   
-        Statement stmt = clases.controles.connect.createStatement();
+        controles.VerificarConexion();   
+        Statement stmt = clases.controles.connectSesion.createStatement();
         ResultSet rs = stmt.executeQuery("exec grupomaehara.dbo.[mae_ptc_select_aviariosInvolucrados] @area='"+clasificadora+"',"
         + "@inicio='"+fecha_inicio+"',@final='"+fecha_final+"' ");
         while(rs.next())

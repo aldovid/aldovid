@@ -16,8 +16,19 @@
         $('#<%=area%>').hide();
     </script>
     
-    
-       <span class="input-group-addon">Destino</span>
+ 
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO DE TRANSFERENCIAS SIN CLASIFICAR</b></center>
+</div>
+   </div>  <br>    
+   
+   <span class="input-group-addon">Destino</span>
       <select class="form-control" name="cbox_destino" id="cbox_destino" required>
                  <option    value=""       disabled="disabled"    selected="selected">DESTINO </option>
                  <option    id="A" value="A"  >CCHA </option>

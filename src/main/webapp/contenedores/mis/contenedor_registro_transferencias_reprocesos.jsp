@@ -18,8 +18,18 @@
         $('#<%=area%>').hide();
     </script>
     
-      <br><br>
-    <a>Destino</a>
+     <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REGISTRO DE TRANSFERENCIAS DE REPROCESOS</b></center>
+</div>
+   </div>  <br>    
+   
+     <a>Destino</a>
          <div class="input-group">
             
              <select class="form-control" name="cbox_destino" id="cbox_destino" required>
@@ -70,7 +80,7 @@
            <br>
            <div class="form-group">
             <div class="input-group">
-                <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key_trans();"/>
+                <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key_trans_mis();"/>
                  
             <span class="input-group-addon">-</span>
             <input type="button" value="INGRESAR" name="btn_ingresar" id="btn_ingresar" onclick="consulta_lotes_transferencias_reprocesos($('#txt_lote').val());" class="form-control btn btn-primary"/>

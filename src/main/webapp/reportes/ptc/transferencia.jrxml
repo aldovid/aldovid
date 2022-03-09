@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3c59e02-0aeb-46ec-882e-0e917e329709">
-	<property name="ireport.zoom" value="1.7715610000000197"/>
+	<property name="ireport.zoom" value="1.4641000000000162"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Colores">
@@ -210,7 +210,7 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 				<text><![CDATA[Camión:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="299" y="99" width="100" height="20" uuid="0f0397dd-afbc-44c9-8a1d-e467dde38d71"/>
+				<reportElement x="299" y="99" width="127" height="20" uuid="0f0397dd-afbc-44c9-8a1d-e467dde38d71"/>
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
@@ -536,21 +536,21 @@ liberación
 			<staticText>
 				<reportElement x="0" y="22" width="536" height="21" uuid="9a52d1bd-a7e9-4a82-b981-5b939ae69e1a"/>
 				<textElement>
-					<font fontName="Arial" size="9" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="9" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Para huevos sin clasificar el estado de liberación, estado del producto y motivo N/A.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="34" width="536" height="12" uuid="5ce3fe3f-1515-429c-b6f9-534bd8906449"/>
 				<textElement>
-					<font fontName="Arial" size="9" isBold="false" isUnderline="false"/>
+					<font fontName="Arial" size="9" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Para huevos almacenados el motivo y el estado del producto N/A.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="344" height="22" uuid="e4517fbb-e1c1-441a-84e0-5d13faf9b457"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Nota:]]></text>
 			</staticText>

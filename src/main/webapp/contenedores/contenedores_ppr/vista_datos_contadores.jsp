@@ -48,15 +48,21 @@
 
 </script>
 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>DATOS DE CONTADOR DE HUEVOS</b></center>
+</div>
+   </div>  <br>
 <div class="card m-4">
     <input type="hidden" value="2" id="udepartamento" name="udepartamento">
     <section class="content" id="contenido">
         <div class="text-center">
-            <div class="card-header bg-navy">
-                <a class='ocultar path'>path:n8/informes/DatosdeContadoresDeHuevos</a>
-                <button type="button" id="volver" name="volver" onclick="grafico_mortandad();" class="btn-volver float-right bg-gradient-gray text-center cargar" >Volver</button>
-                <h5 class="text-center">DATOS DE CONTADOR DE HUEVOS</h5>
-            </div>
+            
             <table id="tabla" name="tabla" class=" tablagrilla compact-cs">
                 <th class="tablagrilla">
                 <center>

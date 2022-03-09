@@ -7,7 +7,18 @@
 <%@include  file="../../chequearsesion.jsp" %>
 
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
- <%     
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+LOG
+</div>
+</div>
+    <center><b>PENDIENTES A EMBARCAR</b></center>
+</div>
+   </div>  <br>    
+
+<%     
     clases.controles.connectarBD();
     fuente.setConexion(clases.controles.connect);
     ResultSet rs,rs2,rs3,rs4; 

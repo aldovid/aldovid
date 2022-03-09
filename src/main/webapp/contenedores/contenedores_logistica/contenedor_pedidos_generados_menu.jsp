@@ -16,8 +16,16 @@
        
        
      
-    <br>
-             <table class="table table-striped">  
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+LOG
+</div>
+</div>
+    <center><b>MODIFICACION Y ANULACIÓN DE PEDIDOS</b></center>
+</div>
+   </div>  <br>              <table class="table table-striped">  
                  <thead>
                     <tr> 
                         <th>NRO PEDIDO</th> 

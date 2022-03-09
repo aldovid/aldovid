@@ -57,12 +57,18 @@ function generar_grilla_pedido(tipo, codigo)
     if (tipo == 1 || tipo == 4)
     {
         pagina = "generar_grilla_preembarque.jsp";
-    } else if (tipo == 2)
+    } 
+    else if (tipo == 2)
     {
         pagina = "generar_grilla_preembarque_editar_log.jsp?id=" + codigo;
-    } else if (tipo == 3)
+    } 
+    else if (tipo == 3)
     {
         pagina = "generar_grilla_preembarque_cyo.jsp?id=" + codigo;
+    }
+    else if (tipo == 5)
+    {
+        pagina = "generar_grilla_preembarque_cajones.jsp";
     }
     $.ajax({
         type: "POST",
@@ -156,13 +162,9 @@ function generar_grilla_pedido(tipo, codigo)
                     $("#th_cyo").hide();
                 }
             }
-            if (tipo == 4) {
+            if (tipo == 4 || tipo == 5 ) {
                 $("#div_pedido").hide();
                 $("#div_2").hide();
-                $("#container").attr("style", "width:1200px;margin: left;");
-                $("#first").attr("style", "width:700px;float: left; height: 700px;");
-                $("#second").attr("style", "width:500px;float: right;  height: 500px;");
- 
                 var columnsc = $("#tb_preembarque > tbody > tr:first > td").length;
 
                 var cchac = 0;// 3 al 13
@@ -231,7 +233,8 @@ function generar_grilla_pedido(tipo, codigo)
             //   if(tipo!=3)
             // {
             var myTable = $("#tb_preembarque").DataTable(
-                    {scrollY: "547px",
+                    {   
+                        scrollY: "547px",
                         scrollX: "500px",
                         responsive: true,
                         scrollCollapse: true,
@@ -2055,17 +2058,17 @@ function buscar_reporte() {
         data: ({estado: $('#cbox_tipo').val(), fecha_desde: $('#desde').val(), fecha_hasta: $('#hasta').val()}),
         beforeSend: function ()
         {
-            $('body').loadingModal('show');
+            cargar_load("Consultando..");
             $('#div_grilla').html("");
         },
         success: function (res)
         {
             $('#div_grilla').html(res.grilla);
-            $('body').loadingModal('hide');
+            cerrar_load();
         },
         error: function (error)
         {
-            $('body').loadingModal('hide');
+            cerrar_load();
         }
     });
 
@@ -2095,4 +2098,5 @@ function solo_numeros_td() {
         cont_filtro++;
     });
 }
+    
     

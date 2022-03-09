@@ -5,10 +5,17 @@
 <%@page import="java.sql.Connection"%>
 <%@ page session="true" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
-<div  class=" form-control bg-navy" role="alert">
-         <strong style="color: white;"  ><center>Registros pendientes a facturar.</center></strong> 
-    </div>    
    
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+LOG
+</div>
+</div>
+    <center><b>PENDIENTES A FACTURAR</b></center>
+</div>
+   </div>  <br>      
 <%     
     clases.controles.connectarBD();
     fuente.setConexion(clases.controles.connect);

@@ -17,12 +17,12 @@ function no_volver_atras() {
 
 function ir_informe_embarque() {
    
-  cargar_load();
+    cargar_load();
      $.get(ruta_contenedores_emb + 'contenedor_reporte_embarque.jsp', function (res) {
        
         $("#contenedor_principal").html("");
         $("#contenedor_principal").html(res);
-        cargar_estilo_calendario();
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
         cerrar_load();
 
         // $('#grilla_principal_sub').bootstrapTable();
@@ -54,14 +54,14 @@ function traer_embarque(id_camion, nro_factura, cod_chofer, fecha)
             validar_factura(nro_factura);
             // $('#chkToggle2').bootstrapToggle();
             factura_togle();
-            cargar_estilo_calendario();
+            cargar_estilo_calendario_insert("dd/mm/yyyy");
             cerrar_load();
         }
     });
 }
 
 function traer_informe_factura() {
-  cargar_load();
+    cargar_load();
     $.get(ruta_contenedores_emb + 'informe_factura.jsp', function (res) {
 
         $("#contenedor_principal").html("");
@@ -492,30 +492,10 @@ function teclado_formateado() {
         greedy: false
     });
 }
-
-function cargar_estilo_calendario() {
-    $('.datepicker').pickadate({
-        // Escape any “rule” characters with an exclamation mark (!).
-        format: 'dd/mm/yyyy',
-        formatSubmit: 'dd/mm/yyyy',
-        hiddenPrefix: 'prefix__',
-        hiddenSuffix: '__suffix',
-        cancel: 'Cancelar',
-        clear: 'Limpiar',
-        done: 'Ok',
-        today: 'Hoy',
-        close: 'Cerrar',
-        max: true,
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthsShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        weekdaysShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
-    });
-}
-
+ 
 function cargar_datos_key() {
     if (event.keyCode == 13 || event.which == 13) {
-        traer_control($('#txt_lote').val(), $('#calendario_embarque').val());
+        traer_control_embarque($('#txt_lote').val(), $('#calendario_embarque').val());
     }
 }
 

@@ -8,9 +8,18 @@
 
 <div id="cargaraviarios">
     
-<div  class=" form-control bg-black" role="alert">
-         <strong style="color: white;"  ><center>RESUMEN DE BLOQUES.</center></strong> 
-    </div>
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>RESUMEN DE BLOQUES</b></center>
+</div>
+   </div>  <br>
+
+ 
     <form id="formaviario">
      <div class="divinforme  "   >
         

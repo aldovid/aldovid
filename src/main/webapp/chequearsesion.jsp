@@ -7,7 +7,7 @@
 <%@ page session="true" %>
 <%
     HttpSession sesionOk = request.getSession();
-    sesionOk.setMaxInactiveInterval(300*6);
+    sesionOk.setMaxInactiveInterval(-1);
     if (sesionOk.getAttribute("id_usuario") == null ) 
     {
         clases.controles.connectSesion.close();

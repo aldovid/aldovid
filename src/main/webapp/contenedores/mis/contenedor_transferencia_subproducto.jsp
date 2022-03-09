@@ -17,8 +17,17 @@
     <script>
         $('#<%=area%>').hide();
     </script>
-     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> REGISTRO DE TRANSFERENCIAS DE SUBPRODUCTOS.</center></div>  
-      <br><br>
+    <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REGISTRO DE TRANSFERENCIAS DE SUBPRODUCTOS</b></center>
+</div>
+    </div>  <br><!-- comment -->
+       <br> 
        <a>Destino</a>
 
          <div class="input-group">
@@ -40,7 +49,7 @@
                     fuente2.setConexion(cn2);  
                     ResultSet rs_chofer,rs_camion;
                     
-                     rs_chofer = fuente2.obtenerDato(" select code,name from [@CHOFERES] with(nolock) order by 2 ");
+                     rs_chofer = fuente2.obtenerDato(" select code,name from maehara.dbo.[@CHOFERES] with(nolock) order by 2 ");
        while(rs_chofer.next()){ 
                 
                 %>
@@ -53,7 +62,7 @@
                  <option    value=""       disabled="disabled"    selected="selected">CAMION </option>
                  <%
                     
-            rs_camion = fuente2.obtenerDato("select code,name from [@CAMIONES] ");
+            rs_camion = fuente2.obtenerDato("select code,name from maehara.dbo.[@CAMIONES] ");
        while(rs_camion.next()){ 
       
             String camion_1=rs_camion.getString("code");

@@ -1,5 +1,15 @@
  <form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="cruds/mis/control_reporte_reproceso.jsp" target="_blank">
-    
+   <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REPORTES REPROCESOS Y SUBPRODUCTOS</b></center>
+</div>
+   </div>  <br>  
+   
      
     <div class="input-append">  
     <a>FECHA DE CLASIFICACION</a>  
@@ -23,8 +33,7 @@
                 <OPTION VALUE="LDO">LDO</OPTION>
         </select> 
             <br>    <br> 
-         <input style="width:260px; height:80px" class="btn btn-success" type="submit" value="Generar reporte"> 
+         <input   class="form-control btn bg-navy" type="submit" value="Generar reporte"> 
         
           
       </form> 
-   

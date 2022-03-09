@@ -12,13 +12,13 @@
                         {
                             $("#contenedor_principal").html(res);
 
-                            $('body').loadingModal('hide');
-                            cargar_estilo_calendario();
+                            cerrar_load()
+                            cargar_estilo_calendario_insert("dd/mm/yyyy");
                             cerrar_load();
                          },
                         error: function (error) 
                         {
-                         $('body').loadingModal('hide');
+                         cerrar_load()
                         // alert("HA OCURRIDO UN ERROR, INTENTE DE NUEVO.")
                         aviso_generico(2,'HA OCURRIDO UN ERROR, INTENTE DE NUEVO.');
                         }
@@ -32,14 +32,14 @@
                     url: ruta_consultas+'generar_menu.jsp',
                     beforeSend: function() 
                     {
-                        $('body').loadingModal('show');
+                        cargar_load("Consultando...")
                         $('#contenedor_principal').html("");    
                     },           
                     success: function (res) 
                     {
                         $("#contenido_modulos").html("");
                         $('#contenedor_principal').html(res.menu);  
-                        $('body').loadingModal('hide');
+                        cerrar_load()
                         
                         
         $('#div_cuadro_pedido').click(function(){
@@ -61,7 +61,7 @@
                     },
                     error: function (error) 
                     {
-                        $('body').loadingModal('hide');
+                        cerrar_load();
                     }
                 });  
     }  
@@ -79,7 +79,12 @@
             },           
             success: function (res) 
             {
+                
                 $("#contenedor_principal").html(res);
+                if(tipo==5){
+                    $("#titulo_menu").html("<center><b>INFORME STOCK CLASIFICADORAS</b></center>")
+                    $("#modalActivate").html("Abrir ventana de stock")
+                }
                 generar_grilla_pedido(tipo,codigo);
                 
             },

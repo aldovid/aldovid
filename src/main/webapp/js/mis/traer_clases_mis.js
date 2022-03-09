@@ -10,29 +10,12 @@ function traer_eliminar_mis()
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        $('#calendario_eliminar').datepicker();
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
         elminar_fila();
+        
 
     });
 }
-  
-function ir_registro_tipo_reproceso() {
-    $.get(ruta_contenedores_mis + 'contenedor_registro_tipo_reproceso.jsp', function (data) {
-        $("#contenedor_principal").html('');
-
-        $("#contenedor_principal").html(data);
-
-        llenar_grilla_tipo_reproceso();
-    });
-}
-
-function traer_grilla_carromesa(fecha_carromesa) {
-    $.get(ruta_grillas_mis + 'grilla_carros_mesas.jsp', {fecha_carromesa: fecha_carromesa}, function (res) {
-        $("#div_grilla_carromesa").html(res);
-        $('#tabla_carromesa').DataTable();
-    });
-}
-
 function traer_detalle_eliminar_mis(fecha) {
     $.get(ruta_grillas_mis + 'grilla_eliminar.jsp', {fecha: fecha}, function (res) {
 
@@ -43,6 +26,24 @@ function traer_detalle_eliminar_mis(fecha) {
 
     });
 }
+  
+function ir_registro_tipo_reproceso_mis() {
+    $.get(ruta_contenedores_mis + 'contenedor_registro_tipo_reproceso.jsp', function (data) {
+        $("#contenedor_principal").html('');
+
+        $("#contenedor_principal").html(data);
+
+        llenar_grilla_tipo_reproceso_mis();
+    });
+}
+
+function traer_grilla_carromesa(fecha_carromesa) {
+    $.get(ruta_grillas_mis + 'grilla_carros_mesas.jsp', {fecha_carromesa: fecha_carromesa}, function (res) {
+        $("#div_grilla_carromesa").html(res);
+        $('#tabla_carromesa').DataTable();
+    });
+}
+
 
 function traer_registro_mis()
 {
@@ -51,9 +52,9 @@ function traer_registro_mis()
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        inicializar_unidad_medida();
+        inicializar_unidad_medida_mis();
         $('.checkbox').bootstrapToggle();
-        cargar_estilo_calendario_insert('yyyy/mm/dd');
+        cargar_estilo_calendario_insert('dd/mm/yyyy');
         $("#tipo_huevo").prop('required', true);
 
         $('#chkToggle_aviario').change(function ()
@@ -116,15 +117,14 @@ function validar_fechaInicial_fechaFinal_mis()
     }
 }
 
-function ir_registro_reproceso_tradicional() {
+function ir_registro_reproceso_tradicional_mis() {
     $("#contenido_2").html("");
     $.get(ruta_contenedores_mis + 'contenedor_registro_tradicional.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        $('#calendario_registro').datepicker();
-        $('#fecha_puesta').datepicker();
-        inicializar_unidad_medida();
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
+        inicializar_unidad_medida_mis();
     });
 }
 
@@ -137,7 +137,7 @@ function ir_registro_sp_tradicional() {
 
         $('#calendario_registro').datepicker();
         $('#fecha_puesta').datepicker();
-        inicializar_unidad_medida();
+        inicializar_unidad_medida_mis();
     });
 }
 
@@ -147,7 +147,7 @@ function traer_informe_mis() {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        $('#calendario_informe').datepicker({uiLibrary: 'bootstrap4'});
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
     });
 }
 
@@ -182,18 +182,17 @@ function ir_carro_a_mesa() {
     });
 }
 
-function ir_reporte_rotos()
+function ir_reporte_rotos_mis()
 {
     $.get(ruta_contenedores_mis + 'contenedor_reporte_rotos.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
-
-        $('#calendario_reporte_rotos').datepicker();
-    });
+        cargar_estilo_calendario_insert("dd/mm/yyyy")
+     });
 
 }
 
-function ir_transferencias_reprocesos()
+function ir_transferencias_reprocesos_mis()
 {
     $.get(ruta_contenedores_mis + 'contenedor_registro_transferencias_reprocesos.jsp', function (res)
     {
@@ -203,7 +202,7 @@ function ir_transferencias_reprocesos()
     });
 
 }
-function ir_transferencias_subproductos()
+function ir_transferencias_subproductos_mis()
 {
     $.get(ruta_contenedores_mis + 'contenedor_transferencia_subproducto.jsp', function (res)
     {
@@ -213,18 +212,18 @@ function ir_transferencias_subproductos()
     });
 
 }
-function ir_informe_pendientes_alimentacion()
+function ir_informe_pendientes_alimentacion_mis()
 {
     $.get(ruta_contenedores_mis + 'contenedor_informe_pendientes_alimentacion.jsp', function (res)
     {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        llenar_grilla_pendientes_alimentacion();
+        llenar_grilla_pendientes_alimentacion_mis();
     });
 }
 
-function llenar_grilla_pendientes_alimentacion()
+function llenar_grilla_pendientes_alimentacion_mis()
 {
     $('#example').dataTable({
         "ajax": ruta_consultas_mis + 'consulta_gen_grilla_pendientes_alimentacion.jsp',
@@ -233,11 +232,11 @@ function llenar_grilla_pendientes_alimentacion()
             var sum = $('#example').DataTable().column(2, {filter: 'applied'}).data().sum();
             $('#total').html((sum).toLocaleString().replace(/,/g, ".", ));
         }, "language": {
-            "sUrl": "jquery/Spanish.txt"}, "pageLength": 100,
+            "sUrl": "plugins/Spanish.txt"}, "pageLength": 100,
     });
 }
 
-function traer_contendor_pdf_reproceso(pagina)
+function traer_contendor_pdf_reproceso_mis(pagina)
 {
     $.get(ruta_contenedores_mis + pagina + '.jsp', function (res) {
         $("#contenedor_principal").html('');
@@ -268,7 +267,7 @@ function cuadro_registro_mis(id_carrito, nro_carro) {
     });
 }
 
-function llenar_grilla_tipo_reproceso() {
+function llenar_grilla_tipo_reproceso_mis() {
 
     $.get(ruta_grillas_mis + 'grilla_registro_tipo_reproceso.jsp', function (data) {
         $("#div_grilla_registro").html('');
@@ -359,7 +358,7 @@ function aviso_editado_tipo_reproceso(mensaje_impresion, mensaje, tipo_mensaje, 
         $("#" + id + '_3').html(tipo);
 
         $('.modal').click();
-        llenar_grilla_tipo_reproceso();
+        llenar_grilla_tipo_reproceso_mis();
 
     }
 }
@@ -462,8 +461,7 @@ function enviar_datos_lotes_tradicionales(total) {
                             {
                                 Swal.fire(data.mensaje, '', 'success');
 
-                                traer_menu("U")
-                            } else
+                             } else
                             {
                                 Swal.fire(data.mensaje, '', 'error');
                             }
@@ -609,21 +607,9 @@ function limpiar_campos_mis()
     gramos = $('#txt_gramos').val('');
     kg = $('#txt_kg').val('');
 }
+ 
 
-function detalle_reproceso(calendario, combo_disposicion) {
-    $.get(ruta_grillas_mis + 'grilla_reproceso.jsp', {calendario: calendario, combo_disposicion: combo_disposicion}, function (res) {
-        $("#contenedor_grilla_reproceso").html(res);
-        $("#box_reproceso").on('click', function () {
-            chequear_reproceso();
-        });
-    });
-}
-
-function chequear_reproceso() {
-    var checked = $("#box_reproceso").prop('checked');
-    $('#contenedor_grilla_reproceso').find('input:checkbox').prop('checked', checked);
-}
-
+ 
 function aviso() {
     swal({
         title: "ERROR, COMPLETE TODOS LOS DATOS",
@@ -720,7 +706,7 @@ function  registrar_tipo_reproceso(area, desc, tipo_rep) {
                         confirmButtonText: "CERRAR"});
                     $('#modal_agregar').attr("style", "display:none");
                     $('.modal-backdrop').hide();
-                    ir_registro_tipo_reproceso();
+                    ir_registro_tipo_reproceso_mis();
                 }
 
             });
@@ -749,11 +735,12 @@ function ir_grilla_transferencia_reporte(fecha, tipo) {
         data: ({fecha: fecha, tipo: tipo, tipo_reporte: $('#tipo_reporte').val()}),
 
         beforeSend: function () {
-            $('#div_cargar').show();
+            cargar_load("Consultando");
         },
         success: function (data) {
             $('#div_grilla_tipo_transferencia').html("");
             $('#div_grilla_tipo_transferencia').html(data);
+            cerrar_load();
         }
     });
 

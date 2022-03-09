@@ -11,7 +11,17 @@
 
 
 
-
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>MODIFICACIÓN DE MOTIVO DE RETENCION, ESTADO DEL PRODUCTO Y DISPOSICIÓN</b></center>
+</div>
+   </div>  <br>       
+   
 
 
 <div id="div_grilla"></div>

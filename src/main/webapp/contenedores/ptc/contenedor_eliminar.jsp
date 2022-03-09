@@ -10,7 +10,17 @@
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
  
   
-      
+
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>ELIMINACIÓN DE REGISTROS</b></center>
+</div>
+   </div>  <br>             
  
      <div class="container-fluid">
         

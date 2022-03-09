@@ -69,7 +69,7 @@ function control_sincronizar_lotes() {
         }
     });
 }
-function traer_control(id, calendario)
+function traer_control_embarque(id, calendario)
 {
     $.ajax({
         type: "POST",
@@ -233,7 +233,7 @@ function aviso_registro_embarque(tipo, mensaje) {
                     title: mensaje,
                     confirmButtonText: "CERRAR"
                 });
-        traer_contenedor_menu();
+        traer_informe_factura();
     } else
     {
         swal.fire

@@ -16,22 +16,26 @@
         String fecha_desde = request.getParameter("fecha_desde");
         String fecha_hasta = request.getParameter("fecha_hasta");
           
-        clases.controles.connectarBD();  
-        Connection cn = clases.controles.connect; 
-        File reportfile = new File (application.getRealPath("reportes/ptc/"+archivo+".jasper"));
+    
+        controles.VerificarConexion();
+         File reportfile = new File (application.getRealPath("reportes/ptc/"+archivo+".jasper"));
         
         Map<String,Object> parameter = new HashMap<String,Object>();
         parameter.put("fecha",          fecha);
         parameter.put("area",           clasificadora);        
-        parameter.put("fecha_puesta",   fecha);
 
         parameter.put("fecha_desde",    fecha_desde );
         parameter.put("fecha_hasta",    fecha_hasta );
+        if(fecha_puesta==null){
+        parameter.put("fecha_puesta",   fecha);
+        }
+        else{
         parameter.put("fecha_puesta",   fecha_puesta );
+        }
         
  
          
-        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, cn);
+        byte [] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, clases.controles.connectSesion);
          
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition",  "inline; filename=Reporte.pdf");
@@ -41,6 +45,4 @@
 
         outputstream.flush();
         outputstream.close();
-        cn.close();
-        controles.DesconnectarBD();
-        %>
+          %>

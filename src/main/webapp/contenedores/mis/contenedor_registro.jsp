@@ -22,22 +22,31 @@
         indate=rs.getString(2);
         }
  %>    
-     
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REGISTRO DE ROTOS, SUBPRODUCTOS Y REPROCESOS</b></center>
+</div>
+   </div>  <br>         
  <form method="post"   id="form-reprocesos">
     <input id="id_date" name="id_date"  type="hidden"     value="<%=indate%>"   />
     <input id="id_clasificadora" name="id_clasificadora"   type="hidden"   value="<%=area_registro%>"   />
     <div class="input-group">
-        <label class="form-control-placeholder"><b>   Fecha de clasificación inicial</b></label>
+        <b>   Fecha de clasificación inicial</b>
         <input id="calendario_registro" name="calendario_registro"  class="datepicker" value="<%=fecha%>"    required/>
     </div> 
     <br> 
     <div class="input-group">
-        <label class="form-control-placeholder"><b>   Fecha puesta</b></label>
+        <b>   Fecha puesta</b>
         <input id="fecha_puesta" name="fecha_puesta"  class="datepicker"  value="<%=fecha%>" placeholder="Fecha puesta"  required/>
     </div> 
     <br><!-- comment -->
     <div class="input-group">
-        <label class="form-control-placeholder"><b>   Tipo de huevo</b></label>
+        <b>   Tipo de huevo</b>
         <select class="form-control" name="tipo_huevo" id="tipo_huevo"   onchange="limpiar_campos_mis();cargar_unidad_medida_mis();visualizar_zona_liberado()" required >
             <OPTION value="" selected  >SELECCIONAR TIPO</OPTION>
             <OPTION VALUE="8">SUBPRODUCTO</OPTION>
@@ -57,7 +66,7 @@
     <br>
     <div class="form-group">
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Cantidad</b></label>
+            <b>   Cantidad</b>
             <input name="txt_cantidad" id="txt_cantidad" style="display: none"  type="text"   class="form-control"   >
         </div>
        
@@ -172,7 +181,7 @@
     </div>
     <br>
     <div class="input-group">
-        <label class="form-control-placeholder"><b>   Fecha final de clasificacion</b></label>
+        <b>   Fecha final de clasificacion</b>
         <input   id="fecha_clas_final"  name="fecha_clas_final" class="datepicker" placeholder="FECHA FINAL "  value="<%=fecha%>"  onchange="validar_fechaInicial_fechaFinal_mis()"  required >
     </div> 
     <div class="form-group">
@@ -206,7 +215,7 @@
                 <OPTION VALUE="00">00</OPTION>
             </select>   
             <span class="input-group-addon">-</span>
-            <select class="form-control"   name="minuto_hasta" id="minuto_hasta" onchange="validar_fechaInicial_fechaFinal()" required  >
+            <select class="form-control"   name="minuto_hasta" id="minuto_hasta" onchange="validar_fechaInicial_fechaFinal_mis()" required  >
                 <OPTION selected value="">Minutos fin</OPTION>
                 <OPTION VALUE="00">00</OPTION>
                 <OPTION VALUE="01">01</OPTION>
@@ -271,7 +280,7 @@
             </select>   
         </div> 
     </div>
-    <label class="form-control-placeholder"><b>Aviarios disponibles segun horario</b></label>
+    <b>Aviarios disponibles segun horario</b>
     <div class="input-group" id="div_aviarios">
         <input   type="checkbox" class="checkbox"    data-toggle="toggle" data-on="NO APLICA"     data-off="APLICA"   id="chkToggle_aviario"   data-onstyle="success" data-offstyle="warning">
         <select  name="cbox_aviarios"   id="cbox_aviarios" class="form-control"  multiple="multiple"  style="height: 20%"  required>

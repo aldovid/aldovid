@@ -12,36 +12,36 @@
         
   %>
    
-   <script>
-          $('.record_table tr').click(function (event) {
-        if (event.target.type !== 'checkbox') {
-            $(':checkbox', this).trigger('click');
-        }
-    });
+  <script>
+         $('.record_table tr').click(function (event) {
+       if (event.target.type !== 'checkbox') {
+           $(':checkbox', this).trigger('click');
+       }
+   });
 
-    $("input[type='checkbox']").change(function (e) {
-        if ($(this).is(":checked")) {
-            $(this).closest('tr').addClass("highlight_row");
-        } else {
-            $(this).closest('tr').removeClass("highlight_row");
-        }
-    });  
-   //$('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A').css('.record_table tr:hover { background: #eee; }');
-    	$('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A');
-    $('#tabla_rep td:last-child:contains(.)').closest('tr').css('background-color', '#00FFFF');
-$("tr").not(':first').hover(
-  function () {
-    $(this).css("background","yellow");
-  }, 
-  function () {
-    $('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A');
-    $('#tabla_rep td:last-child:contains(.)').closest('tr').css('background-color', '#00FFFF');
-}
-);
-   //$('#tabla_rep td:last-child:contains(R)').hover("background","yellow");
+   $("input[type='checkbox']").change(function (e) {
+       if ($(this).is(":checked")) {
+           $(this).closest('tr').addClass("highlight_row");
+       } else {
+           $(this).closest('tr').removeClass("highlight_row");
+       }
+   });  
+  //$('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A').css('.record_table tr:hover { background: #eee; }');
+       $('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A');
+      $('#tabla_rep td:last-child:contains(.)').closest('tr').css('background-color', '#00FFFF');
+      $("tr").not(':first').hover(
+              function () {
+                  $(this).css("background", "yellow");
+              },
+              function () {
+                  $('#tabla_rep td:last-child:contains(R)').closest('tr').css('background-color', '#FFA07A');
+                  $('#tabla_rep td:last-child:contains(.)').closest('tr').css('background-color', '#00FFFF');
+              }
+      );
+      //$('#tabla_rep td:last-child:contains(R)').hover("background","yellow");
 
-               
-        </script>
+
+  </script>
   <form method="post" id="formulario" >
             <table  id="tabla_rep" data-row-style="rowStyle" class="table record_table"data-toggle="table" data-click-to-select="true">
                 <thead>
@@ -74,8 +74,8 @@ $("tr").not(':first').hover(
                 </thead>
                 <tbody id="grilla_rep">
                     <%
-                 clases.controles.connectarBD();   
-                Connection cn = clases.controles.connect; 
+                 clases.controles.VerificarConexion();   
+                Connection cn = clases.controles.connectSesion; 
                 fuente.setConexion(cn);       
                 ResultSet rs = fuente.obtenerDato(" exec [mae_ptc_select_reproceso] @clasificadora='"+clasificadora+"',@fecha='"+calendario+"',@disposicion="+Integer.parseInt(disposicion)+",@tipo_consulta='"+tipo_consulta+"'");
         //NOTA: LA CONSULTA select_reproceso_ptc, HACE REFERENCIA A LAS NUEVAS TABLAS DE LOTES m_lotes.
@@ -94,7 +94,7 @@ $("tr").not(':first').hover(
                 <td style="display: none" id="oculto"><%=rs.getString(6)%></td>          
                 <%}
                    cn.close();
-                clases.controles.DesconnectarBD(); %>   
+                %>   
             </tr> 
                 </tbody>   
                 </table>

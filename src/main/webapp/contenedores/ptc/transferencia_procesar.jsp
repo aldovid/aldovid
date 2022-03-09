@@ -14,11 +14,25 @@
  <% 
      String area =(String) sesionOk.getAttribute("clasificadora");
   %>
-           
+  
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO DE TRANSFERENCIAS PARA PROCESAR</b></center>
+</div>
+   </div>  <br>    
+   
+   
+   
 <div class="form-group">
     <script>
         $('#<%=area%>').hide();
     </script>
+    
     
     <a> <b>FECHA DE TRANSFERENCIA</b></a> 
             
@@ -89,7 +103,7 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-           <input  type="button" value="REGISTRAR" id="btn_registrar" name="btn_registrar" onclick="validar_transferencia_procesar();" class="form-control btn btn-danger example2" />
+           <input  type="button" value="REGISTRAR" id="btn_registrar" name="btn_registrar" onclick="validar_transferencia_procesar_PTC();" class="form-control btn btn-danger example2" />
                 
  
     <div id="carros_div">

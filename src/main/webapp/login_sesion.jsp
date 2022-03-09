@@ -21,7 +21,7 @@
     <div class="card-body">
         <p class="login-box-msg"><strong>Inicio de sesión</strong></p>
                        <br>
-       <form action="control/control_login.jsp" method="post">
+       <form action="cruds/control_login.jsp" method="post">
         
           <div class="input-group mb-3">
               <input type="text" name="usuario" class="form-control" placeholder="Usuario" required>

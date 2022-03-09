@@ -101,16 +101,7 @@ $("tr").not(':first').hover(
  //JOptionPane.showMessageDialog(null, estado_formateado );
 
      	// Asignar conexion al objeto manejador de datos
-	fuente.setConexion(cn);/*
- ResultSet rs = fuente.obtenerDato("  select  lotes.cod_lote,lotes.cod_carrito,lotes.tipo_huevo    from lotes lotes, lotes_retenidos lr  "
-         + "where "
-         + "convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(lotes.hora_clasificacion,1,charindex('-',lotes.hora_clasificacion,1)-1))))),2))>='"+hora_desde+"' "
-         + "and  convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(lotes.hora_clasificacion,1,charindex('-',lotes.hora_clasificacion,1)-1))))),2))<='"+hora_fin+"'  "
-         + "and convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(lotes.hora_clasificacion,charindex('-',lotes.hora_clasificacion,1)+1,len(lotes.hora_clasificacion)))))),2))<='"+hora_fin+"'"
-         + "and convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(lotes.hora_clasificacion, charindex('-',lotes.hora_clasificacion,1)+1,len(lotes.hora_clasificacion)))))),2))>='"+hora_desde+"' "
-         + "and convert(varchar,lr.fecha,103)=convert(varchar,'"+calendario+"',103) and right(lotes.estado_liberacion,1)='"+estado_formateado+"' "
-         + "and lotes.hora_clasificacion!='-' and lotes.tipo_huevo not in ('PI','R','RP') and  lotes.clasificadora='"+clasificadora+"' and lr.movimiento='a' and lotes.cod_lote=lr.cod_lote " );
-    */
+	fuente.setConexion(cn); 
         ResultSet rs = fuente.obtenerDato("  select  *, replace(right (replace(estado_liberacion,'Z','R.'),1),'.','R.') as local   "
          + "from lotes "
          + "where "
@@ -118,8 +109,9 @@ $("tr").not(':first').hover(
          + "and  convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(hora_clasificacion,1,charindex('-',hora_clasificacion,1)-1))))),2))<='"+hora_fin+"'  "
          + "and convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(hora_clasificacion,charindex('-',hora_clasificacion,1)+1,len(hora_clasificacion)))))),2))<='"+hora_fin+"'"
          + "and convert(int,right('00' + ltrim(rtrim(ltrim(rtrim(substring(hora_clasificacion, charindex('-',hora_clasificacion,1)+1,len(hora_clasificacion)))))),2))>='"+hora_desde+"' "
-         + "and convert(varchar,fecha,103)='"+calendario+"' and right(estado_liberacion,1)in ("+estado_formateado+") "
-         + "and hora_clasificacion!='-' and tipo_huevo not in ('PI','R','RP') and clasificadora='"+clasificadora+"'" );
+         + "and convert(varchar,fecha,103)='"+calendario+"'"
+                 + " and right(estado_liberacion,1)in ("+estado_formateado+") "
+         + "and hora_clasificacion!='-' and tipo_huevo not in ('PI','R','RP') and clasificadora_actual='"+clasificadora+"'" );
     
      while(rs.next()){
           

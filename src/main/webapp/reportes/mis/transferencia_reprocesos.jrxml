@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3c59e02-0aeb-46ec-882e-0e917e329709">
-	<property name="ireport.zoom" value="1.3310000000000137"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.210000000000014"/>
+	<property name="ireport.x" value="54"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Colores">
 		<conditionalStyle>
@@ -47,6 +47,7 @@
 	<field name="cantidad_planchas" class="java.lang.Integer"/>
 	<field name="unidades" class="java.math.BigDecimal"/>
 	<field name="TITULO" class="java.lang.String"/>
+	<field name="comentario" class="java.lang.String"/>
 	<variable name="cantidad_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
 	</variable>
@@ -60,7 +61,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Rev. 00]]></text>
+				<text><![CDATA[Rev. 01]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="0" width="97" height="30" uuid="86c454d5-b0f3-4dc8-96cf-c9a4820fafec"/>
@@ -272,12 +273,22 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 				<text><![CDATA[Planchas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="4" width="206" height="14" uuid="ed6778a0-7f7b-490e-aa1a-c780b048acac"/>
+				<reportElement x="347" y="4" width="55" height="14" uuid="ed6778a0-7f7b-490e-aa1a-c780b048acac"/>
 				<textElement textAlignment="Center">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidades]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="403" y="4" width="150" height="14" uuid="3bb13071-4232-4cfa-b0fb-f1d4b67af586"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="402" y="0" width="1" height="22" uuid="b9832646-40da-426b-a96b-ee225fe45118"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
@@ -335,7 +346,7 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="346" y="0" width="207" height="19" uuid="9254c22d-aa95-4521-991d-a54c9d6a17b8"/>
+				<reportElement x="346" y="0" width="53" height="19" uuid="9254c22d-aa95-4521-991d-a54c9d6a17b8"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
@@ -348,6 +359,16 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cantidad_planchas}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="403" y="0" width="150" height="19" uuid="09ad43dc-f0d0-4813-b907-60923400fe60"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_retencion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="402" y="-1" width="1" height="20" uuid="ceedbd39-9f2d-4e9a-a90f-6a287720c64a"/>
+			</line>
 		</band>
 	</detail>
 	<summary>

@@ -91,7 +91,7 @@
             <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key();"/>
                  
             <span class="input-group-addon">-</span>
-            <input type="button" value="INGRESAR" name="btn_ingresar" id="btn_ingresar" onclick="traer_control($('#txt_lote').val(),$('#calendario_embarque').val());" class="form-control btn btn-primary"/>
+            <input type="button" value="INGRESAR" name="btn_ingresar" id="btn_ingresar" onclick="traer_control_embarque($('#txt_lote').val(),$('#calendario_embarque').val());" class="form-control btn btn-primary"/>
             </div>
           </div>
        

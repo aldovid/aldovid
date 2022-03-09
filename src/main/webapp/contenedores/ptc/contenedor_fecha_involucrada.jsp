@@ -3,7 +3,17 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
    
-        
+       
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTROS DE FECHAS INVOLUCRADAS</b></center>
+</div>
+   </div>  <br>        
             <label for="calendario_correccion"><b>FECHA DE PUESTA</b></label>
             <input id="calendario_correccion"  class="datepicker" type="text" onchange="traer_detalle_fecha_involucrada($('#calendario_correccion').val());filtro_eliminar(); visible_div_eliminar()"   />
       

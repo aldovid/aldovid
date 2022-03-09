@@ -17,13 +17,14 @@
             String carro =  request.getParameter("carro");
             ResultSet rs_GM ;
             String area_cch =(String) sesionOk.getAttribute("area_cch");
-            clases.controles.connectarBD();
-            Connection cn_GM = clases.controles.connect;
+
+                controles.VerificarConexion();
+            Connection cn_GM = clases.controles.connectSesion;
             fuente_GM.setConexion(cn_GM);  
                
                     
             int verificador_SAP=0;
-             rs_GM = fuente_GM.obtenerDato(" exec [mae_ptc_select_lotes_disponiblesTransferencias]  @area='"+area+"',@area_cch='"+area_cch+"',@cod_carrito='"+carro+"',@tipo_transferencia='REP'") ;
+             rs_GM = fuente_GM.obtenerDato(" exec [mae_ptc_select_lotes_disponiblesTransferencias_rp_sub]  @area='"+area+"',@area_cch='"+area_cch+"',@cod_carrito='"+carro+"',@tipo_transferencia='REP'") ;
         while(rs_GM.next())
         {      
             ob=new JSONObject();

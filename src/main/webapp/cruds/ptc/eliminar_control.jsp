@@ -12,8 +12,8 @@
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
         <%
     int res_out=1;
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+   controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     fuente.setConexion(cn);   
                
         int id= Integer.valueOf(request.getParameter("id")) ; 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90d7b137-626e-48b6-bcdc-3eb0fc045a44">
 	<property name="ireport.zoom" value="1.6105100000000132"/>
-	<property name="ireport.x" value="70"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="fecha_puesta" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -167,7 +167,9 @@
 			</staticText>
 			<staticText>
 				<reportElement x="482" y="1" width="70" height="13" uuid="67f41579-5cbe-4717-abf6-e8b37464a8d6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
 				<text><![CDATA[Fecha de]]></text>
 			</staticText>
 			<line>
@@ -326,14 +328,14 @@
 			<textField pattern="#,##0">
 				<reportElement x="40" y="0" width="124" height="20" uuid="9ffdfc5e-6ed9-443d-a9b9-31d35d0ca29b"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{cantidad_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="0" width="38" height="20" uuid="0051875f-fcb6-4e59-aea3-57858d7a3290"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>

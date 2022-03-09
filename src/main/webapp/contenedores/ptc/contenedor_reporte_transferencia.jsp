@@ -6,11 +6,23 @@
       sesionOk.setAttribute("area",clasificadora);
  %>
  
-    
-<a>FECHA DE TRANSFERENCIA</a>
+ <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REPORTE DE TRANSFERENCIAS</b></center>
+</div>
+   </div>  <br>    
+   
+   
+   
+ <b>FECHA DE TRANSFERENCIA</b>
        <input id="calendario_informe"   class="datepicker" type="text"   width="276"    />
         <br>
- <a>SELECCIONAR TIPO DE TRANSFERENCIA</a>
+ <b>SELECCIONAR TIPO DE TRANSFERENCIA</b>
        
 <select class="form-control" name="estado" id="estado"  >
              
@@ -19,14 +31,10 @@
             <OPTION VALUE="SC">SIN CLASIFICAR</OPTION> 
             </select>             
        <br>
-       <input type="button" value="BUSCAR" onclick="ir_grilla_transferencia($('#calendario_informe').val(),$('#estado').val())" class="form-control btn-primary">
+       <input type="button" value="BUSCAR" onclick="ir_grilla_transferencia($('#calendario_informe').val(),$('#estado').val())" class="form-control bg-navy">
     
-       <br>
        
-        <div id="div_cargar" class="text-center" style="display: none">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
+       <br>
+        
     <div id="div_grilla_tipo_transferencia"> </div>
            

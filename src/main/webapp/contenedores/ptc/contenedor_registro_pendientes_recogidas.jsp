@@ -9,6 +9,18 @@
       String clasificadora = (String) sesionOk.getAttribute("clasificadora");
  %>
 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO DE HUEVOS PENDIENTES DE RECOGIDAS</b></center>
+</div>
+   </div>  <br>       
+   
+   
     <form id="formulario" action="post">
         <div class="form-control bg-warning" style="font-weight: bold;color:black;" onclick="grilla_recogidas_liberadas()" ><center>Huevos pendientes de recogidas</center></div>
         <a>Fecha puesta</a>

@@ -20,7 +20,16 @@
         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10), GETDATE(), 5),'-','') ");
        while(rs.next()){          
  %>    
-    
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REGISTRO DE CARRO A MESA</b></center>
+</div>
+   </div>  <br>      
 <form method="post" id="formulario_carro_mesa">
      <br> <br>
             <div class="input-append">  

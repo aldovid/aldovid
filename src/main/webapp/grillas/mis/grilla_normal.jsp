@@ -37,16 +37,19 @@
         <%
       
       
-         ResultSet rs = fuente.obtenerDato("select convert(varchar(10),fecha,111) as 'Fecha de clasificación',cod_carrito as 'Nro. de carro',tipo_huevo as 'Tipo de huevo',"
+         ResultSet rs = fuente.obtenerDato(""
+                 + "select convert(varchar(10),fecha,111) as 'Fecha de clasificación',"
+                 + "cod_carrito as 'Nro. de carro',tipo_huevo as 'Tipo de huevo',"
                  + "cod_clasificacion as 'Categoria',convert(varchar,fecha_puesta,111) as 'Fecha de puesta',"
-                 + "hora_clasificacion as 'Hora de clasificación',cod_lote as 'Lote',"
+                 + " case	when  hora_inicio is NULL	then hora_clasificacion	else   concat(FORMAT(hora_inicio,'HH:mm dd/MM/yyyy'),CHAR(13) + CHAR(10),FORMAT(hora_fin,'HH:mm dd/MM/yyyy'))	end as  'Hora de clasificación',"
+                 + "cod_lote as 'Lote',"
                  + "resp_clasificacion as 'Responsable de clasificación',u_medida as 'Unidad de medida',"
                  + "cantidad as Cantidad,estado as Estado,clasificadora as Clasificadora,aviario as Aviario,"
                  + "empacadora as Empacadora,tipo_almacenamiento as 'Tipo de almacenamiento',liberado_por as 'Liberado por',"
                  + "comentario as Comentario,estado_liberacion as 'Estado de liberación', isnull(cod_cambio,'') "
                  + "from "
-                 + "lotes where  tipo_huevo in ('R','RP','PI')  and convert(varchar(10),fecha,121)=convert(varchar(10),'"+calendario+"',121) and "
-                    + "estado<>'e' and clasificadora='"+area+"' order by tipo_huevo,cod_carrito");
+                 + "lotes where  tipo_huevo in ('R','RP','PI')  and convert(varchar,fecha,103)= '"+calendario+"'  and "
+                    + "estado<>'e' and clasificadora_actual='"+area+"' order by tipo_huevo,cod_carrito");
        
      while(rs.next()){
          

@@ -50,7 +50,7 @@
                     <td> <b><%=rs.getString("tipo_huevo")%></b></td> 
                     <td> <b><%=rs.getString("cantidad")%></b></td>
                     <td> <b><%=rs.getString("tipo")%></b></td>
-                    <td> <i class="fas fa-trash fa-2x text-danger" onclick="validacion_eliminacion('<%=clasificadora_cch%>','<%=rs.getString("cod_interno")%>','<%=rs.getString("cantidad")%>','<%=rs.getString("itemcode")%>','<%=calendario%>','<%=rs.getString("cod_carrito")%>','<%=rs.getString("cod_lote")%>','<%=rs.getString("tipo")%>');" ></i>
+                    <td> <i class="fas fa-trash fa-2x text-danger" onclick="validacion_eliminacion_ptc('<%=clasificadora_cch%>','<%=rs.getString("cod_interno")%>','<%=rs.getString("cantidad")%>','<%=rs.getString("itemcode")%>','<%=calendario%>','<%=rs.getString("cod_carrito")%>','<%=rs.getString("cod_lote")%>','<%=rs.getString("tipo")%>');" ></i>
                     </td>  
                 <%}
                     cn.close();

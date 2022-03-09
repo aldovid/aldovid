@@ -1,5 +1,3 @@
-   
- 
  
      
 <form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="control_reporte_reproceso.jsp" >

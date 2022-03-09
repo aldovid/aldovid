@@ -9,15 +9,24 @@
         controles.VerificarConexion();
         Connection cn = controles.connectSesion;
         fuente.setConexion(cn);           //CAMBIAR BASE DE DATOS                                                                                                                                                                                                                                                                                                                                                                                                                //CAMBIAR BASE DE DATOS       
-        ResultSet rs = fuente.obtenerDato("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
+        ResultSet rs = fuente.obtenerDato("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        while(rs.next()){          
  %>    
-     
+     <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REGISTRO DE HUEVOS AVIARIOS TRADICIONALES LAVADOS</b></center>
+</div>
+   </div>  <br>    
  <form method="post"   id="formulario">
      
             <div class="input-append">  
             <span class="input-group-addon">Fecha de recepcion</span>
-            <input id="calendario_registro" name="calendario_registro" data-format="yyyy/mm/dd"  width="276"  value="<%=rs.getString(1)%>"   />
+            <input id="calendario_registro" name="calendario_registro" class="datepicker"  width="276"  value="<%=rs.getString(1)%>"   />
            
             <input id="id_date" name="id_date" style="display: none" type="text"  width="276"  value="<%=rs.getString(2)%>"   />
             <input id="id_clasificadora" name="id_clasificadora" style="display: none"  type="text"  width="276"  value="<%=area_registro%>"   />
@@ -31,7 +40,7 @@
             <br>
             
             <span class="input-group-addon">Fecha de puesta</span>
-            <input id="fecha_puesta" name="fecha_puesta" data-format="yyyy/mm/dd"  width="276"   placeholder="Fecha puesta"  />
+            <input id="fecha_puesta" name="fecha_puesta" class="datepicker"   placeholder="Fecha puesta"  />
                     <%} %> 
          
     

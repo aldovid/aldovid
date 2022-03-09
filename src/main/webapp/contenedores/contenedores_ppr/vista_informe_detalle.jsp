@@ -11,10 +11,17 @@
 }
 </style>
 
-<div  style=" background-color: #0066cc;" class="bg-navy form-control " role="alert">
-    <strong style="color: white;"  ><center>Resumen de Producción de huevos.</center></strong> 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
 </div>
-
+</div>
+    <center><b>RESUMEN DE PRODUCCIÓN DE HUEVOS</b></center>
+</div>
+</div>  <br><!-- comment -->
+ 
 <div>
     <div  id="divR" class="black"></div>
 </div>

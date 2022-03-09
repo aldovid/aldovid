@@ -10,18 +10,17 @@
   
  <body>
     <%    
-        try {
-        
-    String area =(String) sesionOk.getAttribute("clasificadora");
-    String fecha =request.getParameter("fecha");
-    String tipo =request.getParameter("tipo");
-    String tipo_reporte =request.getParameter("tipo_reporte");
+    try 
+    {
+        String area =(String) sesionOk.getAttribute("clasificadora");
+        String fecha =request.getParameter("fecha");
+        String tipo =request.getParameter("tipo");
+        String tipo_reporte =request.getParameter("tipo_reporte");
+        clases.controles.VerificarConexion();
+        Connection cn = clases.controles.connectSesion;
     
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
-    
-    fuente.setConexion(cn); 
-    ResultSet rs ;
+        fuente.setConexion(cn); 
+        ResultSet rs ;
         
         String bd_area="area ";
         String bd_areaRs="";
@@ -46,7 +45,7 @@
             }
             %>
               <br>
-              <form action="controles/control_reporte_transferencias.jsp" method="post" target="_black" > 
+              <form action="cruds/mis/control_reporte_transferencias.jsp" method="get" target="_black" > 
                 
                 <input type="hidden" value="<%=nro_transferencia%>" name="nro_transferencia">
                 <input type="hidden" value="<%=rs.getString("tipo_transferencia")%>" name="tipo_transferencia">
@@ -64,7 +63,7 @@
                 {
 
                 }
-         clases.controles.DesconnectarBD();        
+         
         %>
          
  </body>

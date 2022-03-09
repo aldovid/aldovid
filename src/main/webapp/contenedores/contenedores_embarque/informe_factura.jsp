@@ -46,6 +46,17 @@
             int sum = 0;
 
     %>
+    <div class="col-lg-20 ">
+        <div class="position-relative p-3 bg-navy"  >
+            <div class="ribbon-wrapper">
+                <div class="ribbon bg-warning">
+                    EMBARQUE
+                </div>
+            </div>
+            <center><b>EMBARQUES DISPONIBLES</b></center>
+        </div>
+    </div>  <br>    
+
     <form id="form1">
         <%                String factura_formato = "";
             while (rs.next()) {
@@ -131,7 +142,7 @@
 
                                 </tr> 
                                 <%}
-                                        rs2.close();%>
+                                    rs2.close();%>
 
                             </tbody> 
 
@@ -147,7 +158,7 @@
             </div>
         </div>     
 
-     <br><br>
+        <br><br>
         <%
                 sum++;
             }
@@ -159,13 +170,13 @@
         <button type="button" class="btn btn-danger btn-block btn-lg ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
                 id="ui-id-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="false" style="">
             <i class="fa fa-bell"></i>NO DISPONE DE EMBARQUES PENDIENTES</button>
-        
-        
+
+
         <%    }   %>
     </form> 
 
     <%   } catch (Exception e) {
-         out.print(e.toString());
-     }%>
+            out.print(e.toString());
+        }%>
 
 </body>

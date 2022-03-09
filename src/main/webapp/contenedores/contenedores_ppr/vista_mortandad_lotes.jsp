@@ -48,15 +48,23 @@
 
         </script>
 
-        <div class="card m-4">
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PPR
+</div>
+</div>
+    <center><b>MORTANDAD POR LOTES (ORDENADAS POR MORTANDAD)</b></center>
+</div>
+   </div>  <br> 
+   
+   
+   <div class="card m-4">
             <input type="hidden" value="2" id="udepartamento" name="udepartamento">
             <section id="contenido">
                 <div class="text-center">
-                    <div class="text-center card-header bg-navy">
-                        <a class='ocultar path'>path:n8/informes/MortandadLotesOrdenPorMortandad</a>
-                        <button type="button" id="volver" name="volver" onclick="grafico_mortandad();" class="btn-volver float-right bg-gradient-gray text-center cargar" >Volver</button>
-                        <h5 class="text-center">MORTANDAD POR LOTES (ORDENADAS POR MORTANDAD)</h5>
-                    </div>
+                     
                     <table id="tabla" name="tabla" class=" tablagrilla compact-cs">
                         <th class="tablagrilla">
                         <center>

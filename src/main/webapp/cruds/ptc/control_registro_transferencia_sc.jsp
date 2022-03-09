@@ -4,7 +4,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.io.IOException"%>
 <%@page import="com.google.gson.JsonArray"%>
-<%@page import="clases.lotes_transferencias"%>
+<%@page import="ptc.lotes_transferencias"%>
 <%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <%@include  file="../../chequearsesion.jsp" %>
 <%@page contentType="application/json; charset=utf-8" %>

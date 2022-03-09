@@ -1,7 +1,16 @@
       <input type="hidden" id="tipo" name="tipo" value="RP">
-     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> GENERACION DE REPORTES DE TRANSFERENCIAS.</center></div>  
-     <br>
-    
+  
+    <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+MIS
+</div>
+</div>
+    <center><b>REPORTES DE TRANSFERENCIAS DE REPROCESOS Y SUBPRODUCTOS</b></center>
+</div>
+    </div>  <br><!-- comment -->
+     
      
      <div class="input-append">  
         <a>FECHA DE REGISTRO</a>
@@ -23,7 +32,7 @@
             <OPTION VALUE="SP">SUBPRODUCTOS</OPTION> 
     </select>             
        <br>
-       <input type="button" value="BUSCAR" onclick="ir_grilla_transferencia_reporte($('#calendario_informe').val(),$('#estado').val())" class="form-control btn-primary">
+       <input type="button" value="BUSCAR" onclick="ir_grilla_transferencia_reporte($('#calendario_informe').val(),$('#estado').val())" class="form-control bg-navy">
     
       
         

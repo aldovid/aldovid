@@ -9,10 +9,20 @@
 
 
 
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>VISUALIZACIÓN DE REGISTROS POR FECHA DE CLASIFICACIÓN </b></center>
+</div>
+   </div>  <br>       
 
 <div class="form-group">
     <div class="input-group">
-
+        <b>Fecha de clasificación</b>
         <input id="calendario_informe"   class="datepicker" type="text"   width="276"    />
 
 

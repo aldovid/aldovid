@@ -6,17 +6,29 @@
       sesionOk.setAttribute("area",clasificadora);
 %>
 
-    <form action="cruds/ptc/control_reporte.jsp" target="_blank">
+<div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REPORTE DE HUEVOS RECIBIDOS</b></center>
+</div>
+   </div>  <br>       
+   
+   
+     <form action="cruds/ptc/control_reporte.jsp" target="_blank">
     
         <a>Busqueda por fecha puesta</a>
         <input type="text" id="fecha_puesta" name="fecha_puesta" placeholder="Ingrese fecha de puesta" class="form-control  datepicker" onchange="consulta_huevos_recibidos($('#fecha_puesta').val());">
         <br>
-        <input type="button" class="btn invisible" id="backButton" value="< Atras"> 
+        <input type="button" class="btn invisible bg-navy" id="backButton" value="< Atras"> 
         <br>
-        <br> 
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        <input type="submit" id="btn_buscar" class="form-control btn-success"  style="font-weight: bold;color:black; display: none"  value="Descargar resumen"  >
-        <input type="button"   class="form-control btn-warning"  style="font-weight: bold;color:black;"   value="Reportes varios"    data-toggle="modal" data-target="#modal_reporte_varios"    >
+        
+         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <input type="submit" id="btn_buscar" class=" form-control bg-navy"  style="font-weight: bold;color:black; display: none"  value="Descargar resumen"  >
+        <input type="button"   class="btn form-control bg-black"    value="Reportes varios"    data-toggle="modal" data-target="#modal_reporte_varios"    >
         <input type="hidden"   name="tipo" value="FP">
         <input  type="hidden" name="archivo" value="huevos_recibidos_dia">
     </form>
@@ -32,7 +44,7 @@
 <div class="modal fade" id="modal_reporte_varios" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <div class="modal-header" > 
+        <div class="modal-header bg-navy" > 
             <a style="font-weight: bold;color:black;  "  > OPCIONES DE REPORTES </a> 
         </div>
         <div class="modal-body">
@@ -44,12 +56,12 @@
                             <form action="cruds/ptc/control_reporte.jsp" target="_blank" >
                                 <a style=" color:white;"  class="accordion-titulo">CON DETALLES<span class="toggle-icon"></span></a>
                                 <div class="accordion-content">
-                                    <a>INGRESE FECHAS DE PUESTAS</a>
+                                    <a>INGRESE FECHAS DE PUESTAS</a><br>
                                     <input  type="hidden" name="archivo" value="huevos_recibidos_detallado">
-                                    <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL">
-                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL">
+                                    <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL" required>
+                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL" required><br><br><br>
                                     <input type="hidden" name="tipo" value="D">
-                                    <input type="submit" class="form-control bg-gradient-primary"  style="font-weight: bold;color:black;" value="Generar reporte">
+                                    <input type="submit" class="form-control bg-navy"  style="font-weight: bold;color:black;" value="Generar reporte">
                                 </div>
                             </form>
                         </div>
@@ -59,11 +71,11 @@
                                 <a  style=" color:white;"  class="accordion-titulo">SIN DETALLES<span class="toggle-icon"></span></a>
                                 <div class="accordion-content">
                                     <input  type="hidden" name="archivo" value="huevos_recibidos">
-                                 <a>INGRESE FECHAS DE PUESTAS</a>
+                                 <a>INGRESE FECHAS DE PUESTAS</a><br>
                                     <input type="hidden"  name="tipo" value="SD">
-                                    <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL">
-                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL">
-                                    <input type="submit" class="form-control bg-gradient-primary"  style="font-weight: bold;color:black;" value="Generar reporte">
+                                    <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL" required>
+                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL" required><br><br><br>
+                                    <input type="submit" class="form-control bg-navy"  style="font-weight: bold;color:black;" value="Generar reporte">
                                 </div>
                            </form>  
                         </div>
@@ -72,10 +84,10 @@
                                 <a  style=" color:white;"  class="accordion-titulo">REPOSICION DE HUEVOS ALIMENTADOS<span class="toggle-icon"></span></a>
                                 <div class="accordion-content">
                                     <input  type="hidden" name="archivo" value="reposicion_alimentados">
-                                 <a>INGRESE FECHAS DE PUESTAS</a>
-                                     <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL">
-                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL">
-                                    <input type="submit" class="form-control bg-gradient-primary"  style="font-weight: bold;color:black;" value="Generar reporte">
+                                 <a>INGRESE FECHAS DE PUESTAS</a><br>
+                                     <input type="text" class="datepicker" name="fecha_desde" placeholder="FECHA INICIAL" required>
+                                    <input type="text" class="datepicker" name="fecha_hasta" placeholder="FECHA FINAL" required><br><br><br>
+                                    <input type="submit" class="form-control bg-navy"  style="font-weight: bold;color:black;" value="Generar reporte">
                                 </div>
                            </form>  
                         </div>
@@ -118,16 +130,16 @@
 	padding: 20px;
 	font-size: 24px;
 	font-weight: 300;
-	background: #2c3e50;
+	background: #001f3f;
 	color: #fff;
 	text-decoration: none;
 }
 .accordion-titulo.open {
-	background: #16a085;
+    background: #000000;
 	color: #fff;
 }
 .accordion-titulo:hover {
-	background: #1abc9c;
+    background: #000000;
 }
 
 .accordion-titulo span.toggle-icon:before {

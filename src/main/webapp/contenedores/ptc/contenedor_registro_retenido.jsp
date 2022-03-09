@@ -12,11 +12,21 @@
             fecha_clasificacion=rs.getString(1);
         }  
        %>  
+       <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>REGISTRO DE CARROS RETENIDOS</b></center>
+</div>
+   </div>  <br>       
     <form method="post" id="formulario"  >
         <div class="form-group">
             <div class="input-group">
                 <div class="form-groupss " >
-                    <label class="form-control-placeholder"><b>Fecha de clasificación inicial</b></label>
+                    <b>Fecha de clasificación inicial</b>
                     <input style="font-weight: bold;" id="calendario_registro" name="calendario_registro"  class="datepicker"    value="<%=fecha_clasificacion%>"  onchange=" $('#fecha_clas_final').val($('#calendario_registro').val());validar_fechaInicial_fechaFinal();"  />
                 </div>
                 <input type="checkbox"  data-toggle="toggle"    data-on="BORROSO SI"    data-off="BORROSO NO"   id="chkToggle2"             data-onstyle="success" data-offstyle="warning"  class="checkbox">
@@ -31,7 +41,7 @@
         <div id="boxColor_red">
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   FECHAS INVOLUCRADAS</b></label>
+                <b>   FECHAS INVOLUCRADAS</b></label>
                 <input id="txt_fecha_involucrada" name="txt_fecha_involucrada" autocomplete="off"  type="text" placeholder="FECHAS INVOLUCRADAS (OPCIONAL)"/>
             </div>
               <br>
@@ -47,7 +57,7 @@
             
         <div class="form-group">
             <div class="input-group">
-                <select style="font-weight: bold;" class="form-control" name="tipo_huevo_retenido" id="tipo_huevo_retenido" required="true"  onchange="cargar_unidad_medida('tipo_huevo_retenido','unidad_medida_retenido');consulta_empacadora_retenido();">
+                <select style="font-weight: bold;" class="form-control" name="tipo_huevo_retenido" id="tipo_huevo_retenido" required="true"  onchange="cargar_unidad_medida_PTC('tipo_huevo_retenido','unidad_medida_retenido');consulta_empacadora_retenido();">
                     <OPTION selected disabled>Seleccione tipo de huevo</OPTION>
                     <OPTION VALUE="1">G</OPTION>
                     <OPTION VALUE="2">J</OPTION>
@@ -97,7 +107,7 @@
             <br>
         </div>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Cantidad</b></label>
+            <b>   Cantidad</b></label>
             <select  name="txt_cantidad"  id="txt_cantidad" class="form-control"    required >
                 <option selected disabled >SELECCIONE CANTIDAD</option>
                 <option value="1">1</option>
@@ -123,29 +133,26 @@
         <div id="boxColor">  
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora inicio</b></label>
-                <input type="text" data-field="time"  autocomplete="off"  placeholder="HORA DE INICIO"  name="hora_desde" id="hora_desde" required onchange="validar_fechaInicial_fechaFinal();">
-                <div class="dtBox"id="dtBox_inicio">
+                <b>   Hora inicio</b></label>
+                <input type="text"   placeholder="HORA DE INICIO"  name="hora_desde" id="hora_desde" class="inputmask" required onblur="validar_fechaInicial_fechaFinal()">
                 
-                </div>
             </div>
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Fecha final de clasificacion</b></label>
+                <b>   Fecha final de clasificacion</b></label>
                 <input type="text" id="fecha_clas_final"  name="fecha_clas_final" class="datepicker" placeholder="FECHA FINAL " value="<%=fecha_clasificacion%>" onchange="validar_fechaInicial_fechaFinal()" >
             </div>
             <br>
             <div class="input-group">
-                <label class="form-control-placeholder"><b>   Hora final</b></label>
-                <input type="text" data-field="time"  autocomplete="off"   placeholder="HORA DE FINALIZACION" name="hora_hasta" id="hora_hasta" required onchange="validar_fechaInicial_fechaFinal();">
-                <div class="dtBox" id="dtBox_final">
-                </div>
+                <b>   Hora final</b></label>
+                <input type="text"   class="inputmask" placeholder="HORA DE FINALIZACION" name="hora_hasta" id="hora_hasta" required onblur="validar_fechaInicial_fechaFinal()">
+                
             </div>
              <br>
             <div class="input-group"id="div_aviarios">
                 <input type="hidden"  data-toggle="toggle" data-on="NO APLICA"     data-off="APLICA"   id="chkToggle_aviario"             data-onstyle="success" data-offstyle="warning">
 
-                    <label class="form-control-placeholder"><b>Aviarios disponibles segun horario</b></label>
+                    <b>Aviarios disponibles segun horario</b></label>
                     <select  name="cbox_aviarios"  id="cbox_aviarios" class="form-control"  multiple="multiple" required >
                     
                     </select>
@@ -154,7 +161,7 @@
         </div>
         <br>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Tipo de aviario</b></label>
+            <b>   Tipo de aviario</b></label>
                 <select style="font-weight: bold;" class="form-control" required="true" name="tipo_aviario" id="tipo_aviario">
                     <OPTION style="font-weight: bold;"  VALUE="M">M</OPTION> 
                     <OPTION style="font-weight: bold;"  VALUE="T">T</OPTION>
@@ -162,7 +169,7 @@
         </div>  
         <br>
         <div class="input-group">
-            <label class="form-control-placeholder"><b>   Tipo de almacenamiento</b></label>
+            <b>   Tipo de almacenamiento</b></label>
             <select style="font-weight: bold;" class="form-control" name="tipo_almacenamiento" id="tipo_almacenamiento" required="true"  >
                 <OPTION style="font-weight: bold;" VALUE="C">C</OPTION> 
                 <OPTION style="font-weight: bold;" VALUE="P">P</OPTION>
