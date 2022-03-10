@@ -93,3 +93,9 @@ LOG
         </div>
     </div>
 
+    <style>
+    #tb_preembarque {
+  width: 100%;
+}
+
+    </style>

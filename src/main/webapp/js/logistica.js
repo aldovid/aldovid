@@ -98,6 +98,8 @@ function generar_grilla_pedido(tipo, codigo)
                     }
 
             );
+  
+
             if (tipo == 1 || tipo == 2)
             {
                 var columns = $("#tb_preembarque > tbody > tr:first > td").length;
@@ -232,7 +234,7 @@ function generar_grilla_pedido(tipo, codigo)
             seleccionar_todo_input();
             //   if(tipo!=3)
             // {
-            var myTable = $("#tb_preembarque").DataTable(
+             $("#tb_preembarque").DataTable(
                     {   
                         scrollY: "547px",
                         scrollX: "500px",
@@ -251,7 +253,8 @@ function generar_grilla_pedido(tipo, codigo)
                                 },
                    
                     });
-
+                    
+                     
 
 
             //  }

@@ -18,8 +18,8 @@
 
 <%     
     
-    clases.controles.connectarBD();
-    fuente.setConexion(clases.controles.connect);
+    clases.controles.VerificarConexion();
+    fuente.setConexion(clases.controles.connectSesion);
  
     ResultSet rs,rs2,rs3;
     String grilla_html="";
@@ -42,7 +42,7 @@
     String style_s="style='display:none'";
     String style_j="style='display:none'";
      //rs3 = fuente.obtenerDato("  select min(convert(date,fecha_puesta)) as fecha_puesta ,tipo_huevo from  v_mae_preembarque  with(nolock)  group by tipo_huevo  ");
-     rs3 = fuente.obtenerDato("  select min(convert(date,fecha_puesta)) as fecha_puesta ,tipo_huevo ,SUM(cantidad) AS cantidad from [v_mae_log_stock_1] as cantidad  with(nolock)  group by tipo_huevo  ");
+     rs3 = fuente.obtenerDato("  select min(convert(date,fecha_puesta)) as fecha_puesta ,tipo_huevo ,SUM(cantidad) AS cantidad from [v_mae_log_stock_pedidos_maehara] as cantidad  with(nolock)  group by tipo_huevo  ");
     
     // mae_log_ptc_reporte_carros_total_min
      while(rs3.next())
@@ -147,7 +147,7 @@
             + "</thead> <tbody >";
     int cont_fila=0;
     int cont_id=0;
-     rs = fuente.obtenerDato(" SELECT * FROM ( select *,convert(varchar,fecha_puesta,103)as fecha_format from  v_mae_log_preembarque  with(nolock) ) T WHERE tipo_huevo NOT IN ('-')   order by 1,2  ");
+     rs = fuente.obtenerDato(" SELECT * FROM ( select *,convert(varchar,fecha_puesta,103)as fecha_format from  v_mae_log_stock_pedidos_maehara_2  with(nolock) ) T WHERE tipo_huevo NOT IN ('-')   order by 1,2  ");
      //  rs = fuente.obtenerDato(" select *,convert(varchar,fecha_puesta,103)as fecha_format from mae_log_ptc_reporte_carros;");
        
       
@@ -467,30 +467,73 @@
               + "</tr>"
             + "</thead> <tbody > ";
      String grilla_html2 ="";  
-         rs2 = fuente.obtenerDato("  "
-                + " SELECT "
-                 + "    cod,clasificadora_ACTUAL,convert(varchar,FECHA_PUESTA,103)AS FECHA_PUESTA,  stuff(( select   ','+  [tipo_huevo] + ':'+convert(varchar,[cantidad])   "
-                + " from "
-                 + "    [v_mae_stock_linea_mixtos] with (nolock) "
-                + " where "
-                 + "    cod_carrito =  cod for XML path('') ),1,1,'')as fecha_involucrada "
-                + "     FROM  ( SELECT cod_carrito as cod,clasificadora_ACTUAL ,FECHA_PUESTA FROM v_mae_stock_linea_cajones12 with(nolock) "
-                + " WHERE "
-                 + "    cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos with(nolock) where estado in (1,2) and u_medida='MIXTO') ) T ORDER BY 2,3");
-       
+         rs2 = fuente.obtenerDato("select cod_carrito,cantidad_caj,clasificadora_actual,convert(varchar,fecha_puesta,103) as fecha_puesta,tipo_huevo "
+                 + "from v_mae_log_stock_pedidos_maehara_cajones"
+                 + " where   cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos with(nolock) where estado in (1,2) and u_medida='MIXTO') order by 1,4");
+       String cod_carrito="";
+       String cajones_unidos="";
+       String fp_unido="";
+       String area_unido="";
+       String cod_carro_bd="";
+       String tipo_huevo_bd="";
+       int f=0;
         while(rs2.next())
         {
-            grilla_html2=grilla_html2+ 
-            "<tr>" + 
-            "<td style='font-weight:bold'  >"+rs2.getString(1 )+"</td>"+  
-            "<td style='font-weight:bold'  >"+rs2.getString(2)+"</td>"+   
-            "<td style='font-weight:bold'  >"+rs2.getString(3)+"</td>"+ 
-            "<td style='font-weight:bold' class='something' >"+rs2.getString(4)+"</td>"+ " "
-             + "</tr>";
+           cod_carro_bd=rs2.getString("cod_carrito");
+           tipo_huevo_bd=rs2.getString("tipo_huevo");
+           if(f==0){
+              cod_carrito=rs2.getString("cod_carrito");
+                fp_unido=rs2.getString("fecha_puesta");
+                area_unido=rs2.getString("clasificadora_actual");
+                cajones_unidos=cajones_unidos+rs2.getString("tipo_huevo")+":"+rs2.getString("cantidad_caj"); 
+           }
+           else if(cod_carrito.equals(""))
+            {
+                cod_carrito=fp_unido;
+                fp_unido=fp_unido;
+                area_unido=area_unido;
+                cajones_unidos=cajones_unidos;
+            }
+            else if(cod_carrito.equals(rs2.getString("cod_carrito")))
+            {
+                 cajones_unidos=cajones_unidos+","+rs2.getString("tipo_huevo")+":"+rs2.getString("cantidad_caj");
+            }
+            else
+            {
+                grilla_html2=grilla_html2+ 
+                "<tr>" + 
+                "<td style='font-weight:bold'  >"+cod_carrito+"</td>"+  
+                "<td style='font-weight:bold'  >"+area_unido+"</td>"+   
+                "<td style='font-weight:bold'  >"+fp_unido+"</td>"+ 
+                "<td style='font-weight:bold' class='something' >"+cajones_unidos+"</td>"+ " "
+                 + "</tr>";
+                cod_carrito="";
+                cajones_unidos="";
+                fp_unido="";
+                area_unido="";
+                
+                cod_carrito=rs2.getString("cod_carrito");
+                fp_unido=rs2.getString("fecha_puesta");
+                area_unido=rs2.getString("clasificadora_actual");
+                cajones_unidos=cajones_unidos+rs2.getString("tipo_huevo")+":"+rs2.getString("cantidad_caj");
+                
+            }
+            f++; 
+        }
+        
+        if(f>0){ //LA ULTIMA FILA YA NO TRAE, ENTONCES CONSULTO SI EXISTIO ENTONCES TRAE.
+             grilla_html2=grilla_html2+ 
+                "<tr>" + 
+                "<td style='font-weight:bold'  >"+cod_carrito+"</td>"+  
+                "<td style='font-weight:bold'  >"+area_unido+"</td>"+   
+                "<td style='font-weight:bold'  >"+fp_unido+"</td>"+ 
+                "<td style='font-weight:bold' class='something' >"+cajones_unidos+"</td>"+ " "
+                + "</tr>";
         }
        
-        clases.controles.DesconnectarBD();
-        JSONObject ob = new JSONObject();
+        
+       
+         JSONObject ob = new JSONObject();
         ob=new JSONObject();
  
         ob.put("grilla",cabecera+grilla_html+"</tbody></table></div>");
