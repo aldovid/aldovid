@@ -5,7 +5,7 @@
 --%>
 
         <div style=" background-color: #0066cc;" class="bg-navy form-control" role="alert">
-            <button type="button" id="buscar" name="buscar" onclick="llamar_mortandad_lotes() " class="bg-navy form-control text-center cargar" >Volver</button></strong>
+            <button type="button" id="buscar" name="buscar" onclick="llamar_mortandad_lotes_ppr() " class="bg-navy form-control text-center cargar" >Volver</button></strong>
             
             <img src="img/pantallamuestra.png">
         </div>                     

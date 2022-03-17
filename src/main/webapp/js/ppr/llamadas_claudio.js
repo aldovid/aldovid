@@ -10,7 +10,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
   
    
  
-    function ir_informes() 
+    function ir_informes_ppr() 
     {
     direccion = "1";
     $.ajax({
@@ -29,13 +29,13 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
             $('#contenido_row').html(res);
 
              $('#div_informe_mortandad').click(function () {
-                grafico_mortandad();
+                grafico_mortandad_ppr();
             });
             $('#div_informe_huevos').click(function () {
-                grilla_huevos();
+                grilla_huevos_ppr();
             });
             $('#div_informe_muerte').click(function () {
-                grilla_muertes();
+                grilla_muertes_ppr();
             });
            
         }
@@ -43,7 +43,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
 
     }
      
-    function grafico_aviarios_general()
+    function grafico_aviarios_general_ppr()
     {
         $.ajax({
         type: "POST",
@@ -70,7 +70,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
                 a +=    '    </div> ' ;
                 a +=    ' <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div> ' ;
                 a +=    '   <canvas id="' +result.charts[c].options.plugins.title.text+ '"></canvas>' ;
-                a +=    ' <button class="btn btn-sm   btn-secondary float-right" id="btnzoom" onclick="grafico_zoom_menu_principal( ' +"'" +result.charts[c].options.plugins.title.text+ '\')" type="button"  ><i class="fa fa-search-plus"></i></button></div> ' 
+                a +=    ' <button class="btn btn-sm   btn-secondary float-right" id="btnzoom" onclick="grafico_zoom_menu_principal_ppr( ' +"'" +result.charts[c].options.plugins.title.text+ '\')" type="button"  ><i class="fa fa-search-plus"></i></button></div> ' 
                 a +=    '  </div> ' ;
           
                 
@@ -96,7 +96,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
        
     }
 
-    function grafico_mortandad() 
+    function grafico_mortandad_ppr() 
     {
         $.ajax({
             url: ruta_vistas_ppr+"vista_informe_aviarios.jsp",
@@ -104,21 +104,24 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
             success: function (data) {
                 $('#contenedor_principal').html(data);
                 $('#contenido_row').html("");
-                grafico_aviarios_general();
-                 temperatura();
+                grafico_aviarios_general_ppr();
+                 temperatura_ppr();
             }});
     }
     
-    function grilla_huevos() 
+    function grilla_huevos_ppr() 
     {
         $.ajax({
                 url: ruta_vistas_ppr+"vista_grilla_contadores_de_huevos.jsp",
                 type: "post",
+                 beforeSend: function (xhr) {
+              cargar_load(); },
                 success: function (data) {
                     $('#contenedor_principal').html(data);
                     $('#contenido_row').html("");
-                    contador_u_registro();
-                    //  $('#select_modulos').selectpicker();  
+                    contador_u_registro_ppr();
+                    //  $('#select_modulos').selectpicker();
+                    cerrar_load();
                 }});
     }
 

@@ -224,55 +224,89 @@ function ir_registro_carros_alimentados() {
         },
     });
 }
-function ir_registro_reprocesos() {
+function ir_registro_reprocesos_lista_ptc() {
     $.ajax({
         type: "POST",
-        url: ruta_contenedores_ptc + "contenedor_registro_reprocesos.jsp",
+       // url: ruta_contenedores_ptc + "contenedor_registro_reprocesos.jsp",
+        url: ruta_contenedores_ptc + "contenedor_registro_reprocesos_lista.jsp",
         beforeSend: function () {
             cargar_load(),
             $("#contenedor_principal").html("");
         },
         success: function (e) {
-            $("#div_cargar_menu").hide(), $("#contenedor_principal").html(e), $("#contenedor_principal").show(), cerrar_load(), generar_boton_reproceso();
+              $("#contenedor_principal").html(e), 
+                $("#contenedor_principal").show(), 
+                cerrar_load();
+                //generar_boton_reproceso_ptc();
         },
     });
 }
-function generar_boton_reproceso() {
+
+function ir_registro_reprocesos_ptc(id) {
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ptc + "generar_btn_reprocesar.jsp",
+        url: ruta_contenedores_ptc + "contenedor_registro_reprocesos.jsp?id="+id,
+        beforeSend: function () 
+        {
+            cargar_load(),
+            $("#contenedor_principal").html("");
+        },
+        success: function (e) 
+        {
+            $("#contenedor_principal").html(e), 
+            $("#contenedor_principal").show(), 
+            $("#id").val(id), 
+            
+            cerrar_load();
+            generar_boton_reproceso_ptc(id);
+        },
+    });
+}
+
+
+function generar_boton_reproceso_ptc(id) {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ptc + "generar_btn_reprocesar.jsp?id="+id,
         beforeSend: function () {},
         success: function (e) {
             $("#contenedor_boton").html(e.boton);
         },
     });
 }
-function registrar_reproceso(e) {
+function registrar_reproceso_ptc(e) {
     var t = "DESEA INICIAR LA ALIMENTACION?",
             o = "",
             r = 1;
-    if (2 == e) {
+    if (2 == e) 
+    {
         t = "DESEA FINALIZAR LA ALIMENTACION?";
         var a = document.querySelectorAll("#grilla_transfer tbody tr");
         (jsonObj = []),
                 (r = 0),
                 a.forEach(function (e) {
                     var t = e.querySelectorAll("td");
-                    (item = {}), (item.cod_interno = t[0].textContent), (item.cod_carrito = t[1].textContent), (item.cantidad = t[2].textContent), (item.tipo_huevo = t[6].textContent), jsonObj.push(item), r++;
+                    (item = {}), (item.cod_interno = t[0].textContent), (item.cod_carrito = t[1].textContent), 
+                    (item.cantidad = t[2].textContent), (item.tipo_huevo = t[6].textContent), jsonObj.push(item), 
+                    r++;
                 }),
                 (o = JSON.stringify(jsonObj));
     }
     r >= 1
-            ? Swal.fire({title: t, type: "warning", showCancelButton: !0, confirmButtonColor: "#3085d6", cancelButtonColor: "#d33", confirmButtonText: "REGISTRAR", cancelButtonText: "CANCELAR"}).then((t) => {
+            ? Swal.fire({title: t, type: "warning", showCancelButton: !0, confirmButtonColor: "#3085d6", cancelButtonColor: "#d33", 
+                confirmButtonText: "REGISTRAR", cancelButtonText: "CANCELAR"}).then((t) => {
         t.value &&
                 $.ajax({
                     type: "POST",
                     url: ruta_controles_ptc + "control_aper_cierre_reproceso.jsp",
-                    data: {registro: e, jsonObj: o},
+                    data: {registro: e, jsonObj: o,id_cab:$("#id").val()},
                     beforeSend: function () {
                         Swal.fire({
                             title: "PROCESANDO!",
                             html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                             
                             allowOutsideClick: !1,
                             onBeforeOpen: () => {
                                 Swal.showLoading(),
@@ -284,9 +318,11 @@ function registrar_reproceso(e) {
                     },
                     success: function (e) {
                         1 == e.tipo_respuesta
-                                ? (swal.fire({type: "success", title: e.mensaje, confirmButtonText: "CERRAR"}), generar_boton_reproceso())
+                                ? (
+                                        swal.fire({type: "success", title: e.mensaje, confirmButtonText: "CERRAR"}),generar_boton_reproceso_ptc(e.id_cab),$("#id").val(e.id_cab)
+                                   )
                                 : 2 == e.tipo_respuesta
-                                ? (swal.fire({type: "success", title: e.mensaje, confirmButtonText: "CERRAR"}), ir_registro_reprocesos())
+                                ? (swal.fire({type: "success", title: e.mensaje, confirmButtonText: "CERRAR"}), ir_registro_reprocesos_lista_ptc())
                                 : swal.fire({type: "error", title: e.mensaje, confirmButtonText: "CERRAR"});
                     },
                 });
@@ -806,6 +842,8 @@ function registro_transformacion_pallet_carro(e, t, o) {
                             Swal.fire({
                                 title: "PROCESANDO!",
                                 html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                 allowOutsideClick: !1,
                                 onBeforeOpen: () => {
                                     Swal.showLoading(),
@@ -859,6 +897,8 @@ function control_retenidos_pendientes(e, t, o, r, a) {
                         Swal.fire({
                             title: "PROCESANDO!",
                             html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                             allowOutsideClick: !1,
                             onBeforeOpen: () => {
                                 Swal.showLoading(),
@@ -914,6 +954,8 @@ function registro_transformacion_ptc(e, t, o, r, a, n, i) {
                         Swal.fire({
                             title: "PROCESANDO!",
                             html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                             allowOutsideClick: !1,
                             onBeforeOpen: () => {
                                 Swal.showLoading(),
@@ -954,6 +996,8 @@ function registro_cambio_fp_ptc(e, t) {
                             Swal.fire({
                                 title: "PROCESANDO!",
                                 html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                 allowOutsideClick: !1,
                                 onBeforeOpen: () => {
                                     Swal.showLoading(),
@@ -996,6 +1040,8 @@ function registro_cambio_nro_ptc(e, t) {
                             Swal.fire({
                                 title: "PROCESANDO!",
                                 html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                 allowOutsideClick: !1,
                                 onBeforeOpen: () => {
                                     Swal.showLoading(),
@@ -1270,6 +1316,8 @@ function get_checkbox_selected_movimientos() {
                             Swal.fire({
                                 title: "PROCESANDO!",
                                 html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                 allowOutsideClick: !1,
                                 onBeforeOpen: () => {
                                     Swal.showLoading(),
@@ -1362,6 +1410,8 @@ function registrar_fecha_involucradas() {
             Swal.fire({
                 title: "PROCESANDO!",
                 html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                 allowOutsideClick: !1,
                 onBeforeOpen: () => {
                     Swal.showLoading(),

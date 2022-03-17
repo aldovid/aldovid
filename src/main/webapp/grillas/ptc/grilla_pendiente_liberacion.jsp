@@ -9,7 +9,27 @@
   
     String area = (String) sesionOk.getAttribute("clasificadora");
     %>
-    <form >
+   
+</head>
+ 
+
+    <form > 
+        <label  ><b></b></label> 
+
+        <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"  data-toggle="modal" data-target=".bd-example-modal-xx"  
+             onclick="cargar_datos_modal_version('0068-REP-15032022-A','VERSION: 0068-REP-15032022-A')" >
+    <label neme="label_contenido" id="label_contenido" >0068-REP-15032022-A</label>  
+</div>
+        <div class="col-lg-20 ">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning">
+PTC
+</div>
+</div>
+    <center><b>PENDIENTES A LIBERAR</b></center>
+</div>
+   </div>
    <table id="grilla_lotes_liberacion" class="table table-striped table-bordered" style="width:100%">
                      <thead>
     <tr>                

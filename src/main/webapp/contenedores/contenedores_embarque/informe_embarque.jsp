@@ -10,6 +10,8 @@
    <%@include  file="../../chequearsesion.jsp" %>
 
 <!DOCTYPE html>
+
+ 
 <body>
     <%     
         
@@ -45,6 +47,8 @@
               user=rs.getString("usuario_grupomaehara");
               
    %>
+   
+ 
    <form  action="cruds/embarques/control_reporte_embarque.jsp" target="_blank" >
             
        <div class="row">

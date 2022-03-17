@@ -1,4 +1,12 @@
- <div class="col-lg-20 ">
+
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0008-REP-01032022-A','VERSION: 0008-REP-01032022-A')">
+    <label >0008-REP-01032022-A</label>  
+</div>
+</head>
+<div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">
 <div class="ribbon bg-warning">

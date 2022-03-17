@@ -19,35 +19,31 @@
     JSONObject ob = new JSONObject();
     ob=new JSONObject();
 
-    String id            = request.getParameter("txt_id");
+     String id            = request.getParameter("txt_id");
     String nombre        = request.getParameter("txt_nombre");
-    String apellido      = request.getParameter("txt_apellido");
-    String txt_usuario   = request.getParameter("txt_usuario");
-    String txt_email     = request.getParameter("txt_email");
-    String select_estado = request.getParameter("select_estado");
-    String select_rolm   = request.getParameter("select_rolm");
-    
+    String usuario      = request.getParameter("txt_usuario");
+    String clasificadora   = request.getParameter("txt_clasificadora");
+    String select_rolm     = request.getParameter("select_rol2");
+    String select_estado     = request.getParameter("select_estado");
     String mensaje      ="";
     String tipo_respuesta="";    
     try 
     { 
         clases.controles.connectSesion.setAutoCommit(false);
         CallableStatement  call;   
-                call = clases.controles.connectSesion.prepareCall("{call [stp_mae_ppr_update_usuario](?,?,?,?,?,?,?,?,?)}");
+                call = clases.controles.connectSesion.prepareCall("{call [stp_mae_ppr_update_usuario](?,?,?,?,?,?,?,?)}");
                 call .setInt(1,    Integer.parseInt(id) );
                 call .setString(2, nombre);
-                call .setString(3, apellido);
-                call .setString(4, txt_usuario);
-                call .setString(5, txt_email);
+                call .setString(3, usuario);
+                call .setString(4, clasificadora);
+                call .setString(5, select_rolm);
                 call .setString(6, select_estado);
-                call .setString(7, select_rolm);
-               
         
+                call.registerOutParameter(7, java.sql.Types.VARCHAR);
                 call.registerOutParameter(8, java.sql.Types.VARCHAR);
-                call.registerOutParameter(9, java.sql.Types.VARCHAR);
                 call.execute(); 
-                tipo_respuesta=call.getString(8);
-                mensaje=call.getString(9);
+                tipo_respuesta=call.getString(7);
+                mensaje=call.getString(8);
                
                  if (tipo_respuesta=="1")
                 {

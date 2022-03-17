@@ -7,8 +7,14 @@
          clases.controles.VerificarConexion();
          Connection cn = clases.controles.connectSesion; 
         fuente.setConexion(cn);  %>
-   
- 
+     <head>  
+      <label  ><b></b></label>
+<div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
+     data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0038-REP-01032022-A','VERSION: 0038-REP-01032022-A')" >
+    <label neme="label_contenido" id="label_contenido" >0038-REP-01032022-A</label>  
+</div>
+</head>
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">

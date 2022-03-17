@@ -23,48 +23,46 @@
         String apellido;
         String usuario;
         String pass;
-        String email;
+        String clasificadora;
         String rol;
         String estado;
         String foto; 
       
   
         nombre= request.getParameter("nombre");
-        apellido = request.getParameter("apellido");
-        usuario = request.getParameter("usuario");
         pass = request.getParameter("pass");
-        email = request.getParameter("correo");
+        usuario = request.getParameter("usuario");
+        clasificadora = request.getParameter("clasificadora");
         rol= request.getParameter("select_rol");
-        foto= request.getParameter("image");
+        
  
-        String fullText ="image";
-        byte[] binaryFullText = fullText.getBytes();
+       
         String mensaje="";
         String tipo_registro="";
         controles.VerificarConexion();
 
     fuente.setConexion(clases.controles.connectSesion);
          
-    try{
+             try{
                 clases.controles.connectSesion.setAutoCommit(false);
 
-         CallableStatement call;
+                 CallableStatement call;
        
-            call = clases.controles.connectSesion.prepareCall("{call stp_mae_ppr_insert_usuarios(?,?,?,?,?,?,?,?)}");
-               
-            call.setString           (1, nombre);
-            call.setString           (2, apellido);
-            call.setString           (3, usuario);
-            call.setString           (4, email);
+         call = clases.controles.connectSesion.prepareCall("{call stp_mae_ppr_insert_usuarios(?,?,?,?,?,?,?)}");
+        
+            call.setString           (1, usuario);
+            call.setString           (2, pass);
+            call.setString           (3, clasificadora);
+            call.setString           (4, nombre);
             call.setInt              (5, Integer.parseInt(rol) );
-            call.setBytes            (6, binaryFullText);
+     
             
+            call.registerOutParameter(6, java.sql.Types.VARCHAR);
             call.registerOutParameter(7, java.sql.Types.VARCHAR);
-            call.registerOutParameter(8, java.sql.Types.VARCHAR);
             call.execute();
             
-             mensaje=call.getString(8);
-             tipo_registro=call.getString(7);
+             mensaje=call.getString(7);
+             tipo_registro=call.getString(6);
            if (tipo_registro=="1")
                 {
                     clases.controles.connectSesion.rollback();

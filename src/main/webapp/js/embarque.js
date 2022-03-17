@@ -7,16 +7,23 @@ var counter = 0;//VARIABLE PARA COLOCAR PREPEND EL ULTIMO CARRO INGRESADO ARRIBA
  
 function no_volver_atras() {
 
-    window.location.hash = "no-back-button";
-    window.location.hash = "Again-No-back-button" //chrome
+  //  window.location.hash = "no-back-button";
+   // window.location.hash = "Again-No-back-button" //chrome
     window.onhashchange = function () {
-        window.location.hash = "no-back-button";
+        if(window.location.hash === '#embarque') {
+            ir_informe_embarque();
+            li_active_menu("sub_rep_embarque");
+        }       else if (window.location.hash === '#traer_informe_factura'){
+            li_active_menu("sub_embarque_reg");
+
+  traer_informe_factura();
+}
     }
 
 }
 
 function ir_informe_embarque() {
-   
+   window.location.hash = "embarque";
     cargar_load();
      $.get(ruta_contenedores_emb + 'contenedor_reporte_embarque.jsp', function (res) {
        
@@ -35,6 +42,7 @@ function ir_informe_embarque() {
 
 function traer_embarque(id_camion, nro_factura, cod_chofer, fecha)
 {
+     
     $.ajax({
         type: "POST",
         url: ruta_contenedores_emb + 'embarque.jsp',
@@ -61,6 +69,7 @@ function traer_embarque(id_camion, nro_factura, cod_chofer, fecha)
 }
 
 function traer_informe_factura() {
+    window.location.hash = "traer_informe_factura";
     cargar_load();
     $.get(ruta_contenedores_emb + 'informe_factura.jsp', function (res) {
 

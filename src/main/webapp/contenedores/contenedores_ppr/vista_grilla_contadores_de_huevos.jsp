@@ -48,7 +48,13 @@
     setInputDate("#idfechahasta");
 
 </script>
-
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0011-REP-01032022-A','VERSION: 0011-REP-01032022-A')">
+    <label neme="label_contenido" id="label_contenido">0011-REP-01032022-A</label>  
+</div>
+</head>
 
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
@@ -118,7 +124,7 @@ PPR
                 </center>
                 <center>
                     <div class="input-group-append">
-                        <button type="button" id="buscar" name="buscar" onclick="contador_h(), llamar_grafico_detalles(), max_min()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
+                        <button type="button" id="buscar" name="buscar" onclick="contador_huevos_ppr(), llamar_grafico_detalles_ppr(), max_min_ppr()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
 
                     </div>
                 </center></th>
@@ -145,135 +151,135 @@ PPR
                                     <td class="tablagrilla" rowspan="7" style="width:40px;background-color:#666;"></td>
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(116), llamar_grafico_detalles_fi(116)">116</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(116), llamar_grafico_detalles_fila_ppr(116)">116</td>
                                     <td id="celda116" class="tablagrilla text-right textcolor cero"></td>
                                     <td id="celda126" class="tablagrilla text-right textcolor cero"></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(126), llamar_grafico_detalles_fi(126)">126</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(126), llamar_grafico_detalles_fila_ppr(126)">126</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(216), llamar_grafico_detalles_fi(216)">216</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(216), llamar_grafico_detalles_fila_ppr(216)">216</td>
                                     <td id="celda216" class="tablagrilla text-right textcolor cero"  ></td>
                                     <td id="celda226" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(226), llamar_grafico_detalles_fi(226)">226</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(226), llamar_grafico_detalles_fila_ppr(226)">226</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(316), llamar_grafico_detalles_fi(316)">316</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(316), llamar_grafico_detalles_fila_ppr(316)">316</td>
                                     <td id="celda316" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda326" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(326), llamar_grafico_detalles_fi(326)">326</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(326), llamar_grafico_detalles_fila_ppr(326)">326</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(416), llamar_grafico_detalles_fi(416)">416</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(416), llamar_grafico_detalles_fila_ppr(416)">416</td>
                                     <td id="celda416" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda426" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(426), llamar_grafico_detalles_fi(426)">426</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(426), llamar_grafico_detalles_fila_ppr(426)">426</td>
 
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(115), llamar_grafico_detalles_fi(115)">115</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(115), llamar_grafico_detalles_fila_ppr(115)">115</td>
                                     <td id="celda115" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda125" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(125), llamar_grafico_detalles_fi(125)">125</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(125), llamar_grafico_detalles_fila_ppr(125)">125</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(215), llamar_grafico_detalles_fi(215)">215</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(215), llamar_grafico_detalles_fila_ppr(215)">215</td>
                                     <td id="celda215" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda225" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(225), llamar_grafico_detalles_fi(225)">225</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(225), llamar_grafico_detalles_fila_ppr(225)">225</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(315), llamar_grafico_detalles_fi(315)">315</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(315), llamar_grafico_detalles_fila_ppr(315)">315</td>
                                     <td id="celda315" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda325" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(325), llamar_grafico_detalles_fi(325)">325</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(325), llamar_grafico_detalles_fila_ppr(325)">325</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(415), llamar_grafico_detalles_fi(415)">415</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(415), llamar_grafico_detalles_fila_ppr(415)">415</td>
                                     <td id="celda415" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda425" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(425), llamar_grafico_detalles_fi(425)">425</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(425), llamar_grafico_detalles_fila_ppr(425)">425</td>
 
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(114), llamar_grafico_detalles_fi(114)">114</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(114), llamar_grafico_detalles_fila_ppr(114)">114</td>
                                     <td id="celda114" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda124" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(124), llamar_grafico_detalles_fi(124)">124</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(124), llamar_grafico_detalles_fila_ppr(124)">124</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(214), llamar_grafico_detalles_fi(214)">214</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(214), llamar_grafico_detalles_fila_ppr(214)">214</td>
                                     <td id="celda214" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda224" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(224), llamar_grafico_detalles_fi(224)">224</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(224), llamar_grafico_detalles_fila_ppr(224)">224</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(314), llamar_grafico_detalles_fi(314)">314</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(314), llamar_grafico_detalles_fila_ppr(314)">314</td>
                                     <td id="celda314" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda324" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(324), llamar_grafico_detalles_fi(324)">324</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(324), llamar_grafico_detalles_fila_ppr(324)">324</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(414), llamar_grafico_detalles_fi(414">414</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(414), llamar_grafico_detalles_fila_ppr(414">414</td>
                                     <td id="celda414" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda424" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(424), llamar_grafico_detalles_fi(424)">424</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(424), llamar_grafico_detalles_fila_ppr(424)">424</td>
 
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(113), llamar_grafico_detalles_fi(113)">113</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(113), llamar_grafico_detalles_fila_ppr(113)">113</td>
                                     <td id="celda113" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda123" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(123), llamar_grafico_detalles_fi(123);">123</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(123), llamar_grafico_detalles_fila_ppr(123);">123</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(213), llamar_grafico_detalles_fi(213)">213</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(213), llamar_grafico_detalles_fila_ppr(213)">213</td>
                                     <td id="celda213" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda223" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(223), llamar_grafico_detalles_fi(223)">223</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(223), llamar_grafico_detalles_fila_ppr(223)">223</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(313), llamar_grafico_detalles_fi(313)">313</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(313), llamar_grafico_detalles_fila_ppr(313)">313</td>
                                     <td id="celda313" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda323" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(323), llamar_grafico_detalles_fi(323)">323</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(323), llamar_grafico_detalles_fila_ppr(323)">323</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(413), llamar_grafico_detalles_fi(413)">413</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(413), llamar_grafico_detalles_fila_ppr(413)">413</td>
                                     <td id="celda413" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda423" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(423), llamar_grafico_detalles_fi(423)">423</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(423), llamar_grafico_detalles_fila_ppr(423)">423</td>
 
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(112), llamar_grafico_detalles_fi(112)">112</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(112), llamar_grafico_detalles_fila_ppr(112)">112</td>
                                     <td id="celda112" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda122" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(122), llamar_grafico_detalles_fi(122)">122</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(122), llamar_grafico_detalles_fila_ppr(122)">122</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(212), llamar_grafico_detalles_fi(212)">212</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(212), llamar_grafico_detalles_fila_ppr(212)">212</td>
                                     <td id="celda212" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda222" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(222), llamar_grafico_detalles_fi(222)">222</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(222), llamar_grafico_detalles_fila_ppr(222)">222</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(312), llamar_grafico_detalles_fi(312)">312</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(312), llamar_grafico_detalles_fila_ppr(312)">312</td>
                                     <td id="celda312" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda322" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(322), llamar_grafico_detalles_fi(322)">322</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(322), llamar_grafico_detalles_fila_ppr(322)">322</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(412), llamar_grafico_detalles_fi(412)">412</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(412), llamar_grafico_detalles_fila_ppr(412)">412</td>
                                     <td id="celda412" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda422" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(422), llamar_grafico_detalles_fi(422)">422</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(422), llamar_grafico_detalles_fila_ppr(422)">422</td>
 
                                 </tr>
                                 <tr class="tablagrilla">
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(111), llamar_grafico_detalles_fi(111)">111</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(111), llamar_grafico_detalles_fila_ppr(111)">111</td>
                                     <td id="celda111" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda121" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(121), llamar_grafico_detalles_fi(121)">121</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(121), llamar_grafico_detalles_fila_ppr(121)">121</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(211), llamar_grafico_detalles_fi(211)">211</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(211), llamar_grafico_detalles_fila_ppr(211)">211</td>
                                     <td id="celda211" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda221" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(221), llamar_grafico_detalles_fi(221)">221</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(221), llamar_grafico_detalles_fila_ppr(221)">221</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(311), llamar_grafico_detalles_fi(311)">311</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(311), llamar_grafico_detalles_fila_ppr(311)">311</td>
                                     <td id="celda311" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda321" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(321), llamar_grafico_detalles_fi(321)">321</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(321), llamar_grafico_detalles_fila_ppr(321)">321</td>
 
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(411), llamar_grafico_detalles_fi(411)">411</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(411), llamar_grafico_detalles_fila_ppr(411)">411</td>
                                     <td id="celda411" class="tablagrilla text-right textcolor cero" ></td>
                                     <td id="celda421" class="tablagrilla text-right textcolor cero" ></td>
-                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_h(421), llamar_grafico_detalles_fi(421)">421</td>
+                                    <td class="tablagrilla text-center cursor-pointer btn-link" onclick="resumen_detalle_huevos_ppr(421), llamar_grafico_detalles_fila_ppr(421)">421</td>
 
                                 </tr>
                             </tbody>

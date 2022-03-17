@@ -2,7 +2,7 @@
      
 <form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="control_reporte_reproceso.jsp" >
     
-     
+ 
     <div class="input-append">  
         <input id="calendario_reporte_reproceso" name="calendario_reporte_reproceso" data-format="dd/mm/yyyy"  width="276" required="true"  />
     

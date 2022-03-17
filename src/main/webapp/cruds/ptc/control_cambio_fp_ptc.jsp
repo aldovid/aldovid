@@ -11,8 +11,8 @@
 <%  
     JSONObject ob = new JSONObject();
     ob=new JSONObject();
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     fuente.setConexion(cn);   
     String id=request.getParameter("id");
     String fecha_puesta=request.getParameter("fecha_puesta");
@@ -34,8 +34,7 @@
                    mensaje=e.toString();
            }
                 cn.close();
-                controles.DesconnectarBD();
-                        
+                         
                 ob.put("tipo", tipo);
                 ob.put("mensaje", mensaje); 
                 out.print(ob);

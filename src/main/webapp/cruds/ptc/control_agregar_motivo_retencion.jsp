@@ -6,15 +6,14 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
-<jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
 <%@ page contentType="application/json; charset=utf-8" %>
 
 <%@include  file="../../chequearsesion.jsp" %>
 <%
     
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     fuente.setConexion(cn);
     JSONObject ob = new JSONObject();
     ob=new JSONObject();
@@ -75,6 +74,5 @@
                 ob.put("tipo_respuesta", "0");         
               }    
                 cn.close();
-                controles.DesconnectarBD();
-                out.print(ob);
+                 out.print(ob);
               %>

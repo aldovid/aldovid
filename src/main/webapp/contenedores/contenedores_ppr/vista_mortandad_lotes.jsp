@@ -47,7 +47,13 @@
             setInputDate("#idfechahasta");
 
         </script>
-
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0012-REP-01032022-A','VERSION: 0012-REP-01032022-A')">
+    <label neme="label_contenido" id="label_contenido">0012-REP-01032022-A</label>  
+</div>
+</head>
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">
@@ -91,7 +97,7 @@ PPR
                             <label class="tablagrilla">Año</label>
                         </center>
                         <center>
-                            <input onchange="ocultar()" style="width:120px" type="number" id="anolote" step="1" name="anolote" class="tablagrilla form-control text-center" required="true" value="2022">
+                            <input onchange="ocultar_ppr()" style="width:120px" type="number" id="anolote" step="1" name="anolote" class="tablagrilla form-control text-center" required="true" value="2022">
                         </center>
                         </th>
 
@@ -101,7 +107,7 @@ PPR
                         </center>
                         <center>
                             <div class="input-group-append">
-                                <button type="button" id="buscar" name="buscar" onclick="lote_mortandad()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
+                                <button type="button" id="buscar" name="buscar" onclick="lote_mortandad_ppr()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
                                     <%-- 
                                     <button type="button" id="buscar" name="buscar" onclick="llamar_temp_mortandad_lotes()" class="bg-gradient-white form-control text-center cargar" ><img src="img/botonmuestra.png" height="40" width="500" alt=""/></button>
                                     --%>
@@ -114,7 +120,7 @@ PPR
                         <div id="btn_excel" class=" tablagrilla ocultar"><button type="button" id="excel" name="excel" onclick="exportTableToExcel()" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
                         --%>
                             <div id="btn_excel" class=" tablagrilla ocultar">
-                                <button type="button" id="excel" name="excel" onclick="ExportToExcel(jQuery('#datosmorlote').prop('outerHTML'))" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
+                                <button type="button" id="excel" name="excel" onclick="ExportToExcel_ppr(jQuery('#datosmorlote').prop('outerHTML'))" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
                         </div>
 
                     </center>

@@ -4,7 +4,13 @@
     Author     : aespinola
 --%>
 
- 
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0009-REP-01032022-A','VERSION: 0009-REP-01032022-A')">
+    <label neme="label_contenido" id="label_contenido">0009-REP-01032022-A</label>  
+</div>
+</head>
 <div  >
     <form    id="form_reporte_aviario_dinamicop"  type="post" action="footer3" >
       
@@ -39,20 +45,20 @@ PPR
                         <input type="date" id="fecha_hasta" name="fecha_hasta">
                     </td>
                     <td><select class="selectpicker "  multiple data-live-search="true" name="aviarios"  required="true" data-actions-box="true">
-                            <option class="text-center" value="A2">A2</option>
-                            <option class="text-center" value="A3">A3</option>
-                            <option class="text-center" value="A4">A4</option>
-                            <option class="text-center" value="A6">A6</option>
-                            <option class="text-center" value="A7">A7</option>
-                            <option class="text-center" value="A8">A8</option>
-                            <option class="text-center" value="A9">A9</option>
-                            <option class="text-center" value="A10">A10</option>
-                            <option class="text-center" value="A11">A11</option>
+                            <option class="text-center" value="A2">A2  </option>
+                            <option class="text-center" value="A3">A3  </option>
+                            <option class="text-center" value="A4">A4  </option>
+                            <option class="text-center" value="A6">A6  </option>
+                            <option class="text-center" value="A7">A7  </option>
+                            <option class="text-center" value="A8">A8  </option>
+                            <option class="text-center" value="A9">A9  </option>
+                            <option class="text-center"value="A10">A10</option>
+                            <option class="text-center"value="A11">A11</option>
                             <option class="text-center" value="A12">A12</option>
-                            <option class="text-center" value="B2">B2</option>
-                            <option class="text-center" value="B3">B3</option>
-                            <option class="text-center" value="B4">B4</option>
-                            <option class="text-center" value="B5">B5</option>
+                            <option class="text-center" value="B2">B2  </option>
+                            <option class="text-center" value="B3">B3  </option>
+                            <option class="text-center" value="B4">B4  </option>
+                            <option class="text-center" value="B5">B5  </option>
                             <option class="text-center" value="B6">B6</option>
                             <option class="text-center" value="B7">B7</option>
                             <option class="text-center" value="B8">B8</option>
@@ -92,7 +98,7 @@ PPR
                         <button type="submit" class="btn btn-sm  bg-navy btn-block" ><i class="fa fa-search"></i> Buscar</button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm  bg-navy btn-block" onclick="generar_cuadros_consultas_aviarios_dinamicos()"><i class="fa fa-plus"></i> Mas cuadros</button>
+                        <button type="button" class="btn btn-sm  bg-navy btn-block" onclick="generar_cuadros_consultas_aviarios_dinamicos_ppr()"><i class="fa fa-plus"></i> Mas cuadros</button>
                     </td>              
                 </tr>
             </tbody>

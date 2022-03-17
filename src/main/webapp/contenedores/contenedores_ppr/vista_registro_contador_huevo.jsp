@@ -61,7 +61,7 @@
                                             <label class="">Aviario</label>
                                         </center>
                                         <center>
-                                            <select onchange="consulta_contador_huevo(),traer_grilla_contador_huevo()" style="width:100px" id="avi" name="avi" class="form-control">
+                                            <select onchange="consulta_contador_huevo_ppr(),traer_grilla_contador_huevo_ppr()" style="width:100px" id="avi" name="avi" class="form-control">
                                                 <option class="text-center" ></option>
                                                 <option class="text-center" value="A2">A2</option>
                                                 <option class="text-center" value="A3">A3</option>
@@ -92,7 +92,7 @@
                                         </center>
                                         <center>
                                             <input   type="date" id="fecha" name="fecha" class="form-control text-center"
-                                                     onchange="consulta_contador_huevo(),traer_grilla_contador_huevo()" >
+                                                     onchange="consulta_contador_huevo_ppr(),traer_grilla_contador_huevo_ppr()" >
                                         </center></th>
                                         
                                             <br>

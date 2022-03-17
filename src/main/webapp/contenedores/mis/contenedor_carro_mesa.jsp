@@ -20,6 +20,13 @@
         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10), GETDATE(), 5),'-','') ");
        while(rs.next()){          
  %>    
+ <head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0019-REP-01032022-A','VERSION: 0019-REP-01032022-A')">
+    <label ></label>0019-PAN-01032022-A  
+</div>
+</head>
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">

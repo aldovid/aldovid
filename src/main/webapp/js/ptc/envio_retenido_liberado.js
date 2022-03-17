@@ -113,7 +113,9 @@
         if (result.value) {
  Swal.fire({
                 title: 'PROCESANDO!',
-                html: 'ESPERE<strong></strong>...',
+                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                 allowOutsideClick: false,
                 onBeforeOpen: () => {
                     Swal.showLoading()
@@ -154,7 +156,9 @@
         if (result.value) {
  Swal.fire({
                 title: 'PROCESANDO!',
-                html: 'ESPERE<strong></strong>...',
+                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                 allowOutsideClick: false,
                 onBeforeOpen: () => {
                     Swal.showLoading()
@@ -351,7 +355,9 @@
         if (result.value) {
                 Swal.fire({
                 title: 'PROCESANDO!',
-                html: 'ESPERE<strong></strong>...',
+                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                 allowOutsideClick: false,
                 onBeforeOpen: () =>     {
                 Swal.showLoading();
@@ -393,7 +399,9 @@ else if( estado=="R"|| estado=="Z"){
         if (result.value) {
                 Swal.fire({
                 title: 'PROCESANDO!',
-                html: 'ESPERE<strong></strong>...',
+                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                 allowOutsideClick: false,
                 onBeforeOpen: () => {
                     Swal.showLoading()
@@ -717,7 +725,9 @@ else if( estado=="R"|| estado=="Z"){
                             Swal.fire
                             ({
                                   title: 'PROCESANDO!',
-                                  html: 'ESPERE<strong></strong>...',
+                                  html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                   allowOutsideClick: false,
                                   onBeforeOpen: () => 
                                     {
@@ -777,7 +787,9 @@ else if( estado=="R"|| estado=="Z"){
                         {
                             Swal.fire({
                             title: 'PROCESANDO!',
-                            html: 'ESPERE<strong></strong>...',
+                            html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                             allowOutsideClick: false,
                             onBeforeOpen: () => {
                             Swal.showLoading()
@@ -849,7 +861,9 @@ else if( estado=="R"|| estado=="Z"){
                             Swal.fire
                             ({
                                   title: 'PROCESANDO!',
-                                  html: 'ESPERE<strong></strong>...',
+                                  html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                   allowOutsideClick: false,
                                   onBeforeOpen: () => 
                                     {
@@ -1204,7 +1218,9 @@ else if( estado=="R"|| estado=="Z"){
             if (result.value) {
             Swal.fire({
             title: 'PROCESANDO!',
-            html: 'ESPERE<strong></strong>...',
+            html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
             allowOutsideClick: false,
             onBeforeOpen: () => {
             Swal.showLoading();
@@ -1233,7 +1249,9 @@ else if( estado=="R"|| estado=="Z"){
             if (result.value) {
             Swal.fire({
             title: 'PROCESANDO!',
-            html: 'ESPERE<strong></strong>...',
+            html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
             allowOutsideClick: false,
             onBeforeOpen: () => {
             Swal.showLoading();
@@ -1367,7 +1385,9 @@ else if( estado=="R"|| estado=="Z"){
                             Swal.fire
                             ({
                                   title: 'PROCESANDO!',
-                                  html: 'ESPERE<strong></strong>...',
+                                  html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
                                   allowOutsideClick: false,
                                   onBeforeOpen: () => 
                                     {

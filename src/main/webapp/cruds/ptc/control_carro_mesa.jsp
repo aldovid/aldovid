@@ -5,13 +5,12 @@
 <%@include  file="../../chequearsesion.jsp" %>
 <%     
    
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     fuente.setConexion(cn);   
     String  codigo_mesa  = request.getParameter("codigo_mesa");
     String id_lote=request.getParameter("codigo_carro");
     PreparedStatement pss = cn.prepareStatement("update lotes set cod_cambio ='"+codigo_mesa+"' where cod_interno='"+id_lote+"' ");
     pss.executeUpdate();
     cn.close();
-    controles.DesconnectarBD();
-%> <a> CARRITO NRO <b> </b>, REGISTRADO COMO </a><br><br>     
+ %> <a> CARRITO NRO <b> </b>, REGISTRADO COMO </a><br><br>     

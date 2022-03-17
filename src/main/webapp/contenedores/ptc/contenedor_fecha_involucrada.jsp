@@ -2,7 +2,14 @@
  <%@include  file="../../chequearsesion.jsp" %>
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
-   
+     <head>  
+      <label  ><b></b></label>
+<div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
+     data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0039-REP-01032022-A','VERSION: 0039-REP-01032022-A')" >
+    <label neme="label_contenido" id="label_contenido" >0039-REP-01032022-A</label>  
+</div>
+</head>
        
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >

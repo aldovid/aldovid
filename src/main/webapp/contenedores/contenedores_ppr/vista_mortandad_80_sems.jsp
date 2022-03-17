@@ -48,7 +48,13 @@
 
 </script>
 
-     
+   <head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0014-REP-01032022-A','VERSION: 0014-REP-01032022-A')">
+    <label neme="label_contenido" id="label_contenido">0014-REP-01032022-A</label>  
+</div>
+</head>  
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">
@@ -101,7 +107,7 @@ PPR
                         </center>
                         <center>
                             <div class="input-group-append">
-                                <button type="button" id="buscar" name="buscar" onclick="mortandad_80_sems()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
+                                <button type="button" id="buscar" name="buscar" onclick="mortandad_80_sems_ppr()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
                                   
                             </div>
                         </center></th>

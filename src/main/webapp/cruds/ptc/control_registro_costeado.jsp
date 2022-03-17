@@ -12,8 +12,8 @@
 <%@ page contentType="application/json; charset=utf-8" %>
 <%@include  file="../../chequearsesion.jsp" %>
 <%  
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     fuente.setConexion(cn);
     JSONObject ob = new JSONObject();
     ob=new JSONObject();
@@ -226,5 +226,4 @@
             ob.put("cajones_cargados", table_cuerpo);
          }
             cn.close();
-            controles .DesconnectarBD();
-            out.print(ob); %>
+             out.print(ob); %>

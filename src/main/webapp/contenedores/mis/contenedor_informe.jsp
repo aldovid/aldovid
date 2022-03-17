@@ -5,9 +5,20 @@
       String clasificadora = (String) sesionOk.getAttribute("clasificadora");
       sesionOk.setAttribute("area",clasificadora);
  %>
-    <div class="input-append">  
+    
+ 
+ <head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0020-REP-01032022-A','VERSION: 0020-REP-01032022-A')">
+    <label ></label>0020-REP-01032022-A  
+</div>
+</head>
+ 
+ 
+ <div class="input-append">  
         
-           <div class="container-fluid">
+    <div class="container-fluid">
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">

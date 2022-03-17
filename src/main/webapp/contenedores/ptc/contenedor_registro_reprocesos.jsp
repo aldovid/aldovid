@@ -5,21 +5,6 @@
     Author     : hvelazquez
 --%>
  <%@include  file="../../chequearsesion.jsp" %>
-<%
-     String titulo_reproceso    = (String) sesionOk.getAttribute("titulo_reproceso");
-
-%> 
- <div class="col-lg-20 ">
-<div class="position-relative p-3 bg-navy"  >
-<div class="ribbon-wrapper">
-<div class="ribbon bg-warning">
-PTC
-</div>
-</div>
-    <center><b><%=titulo_reproceso%></b></center>
-</div>
-   </div>  <br>       
-   
  <div id="contenedor_boton"> </div>
  
  <br><!-- comment -->
@@ -28,7 +13,7 @@ PTC
  
    <div class="form-group">
        
-       
+       <input type="hidden" id="id">
             <div class="input-group">
                 <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key_reproceso_alimentacion();"/>
                  

@@ -12,8 +12,8 @@
 <%@include  file="../../chequearsesion.jsp" %>
 <%
     
-    clases.controles.connectarBD();  
-    Connection cn = clases.controles.connect;
+    clases.controles.VerificarConexion();
+    Connection cn = clases.controles.connectSesion;
     
     fuente.setConexion(cn);
     JSONObject ob = new JSONObject();
@@ -57,6 +57,5 @@
         ob.put("tipo_respuesta", "0");         
     }    
         cn.close();
-        controles .DesconnectarBD();
-        out.print(ob);
+         out.print(ob);
               %>

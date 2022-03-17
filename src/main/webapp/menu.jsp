@@ -3,8 +3,10 @@
 
 <html lang="en">
     <head>
-        <%     String usuario = (String) sesionOk.getAttribute("nombre_usuario");
+        <% String usuario = (String) sesionOk.getAttribute("nombre_usuario");
+           String id_usuario = (String) sesionOk.getAttribute("id_usuario");
            String area  = (String) sesionOk.getAttribute("clasificadora");
+           String nav_area  = (String) sesionOk.getAttribute("nav_area");
 
         %> 
         <meta charset="utf-8">
@@ -32,11 +34,36 @@
         <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
         <link href="plugins/lib/themes/default.css" rel="stylesheet" id="theme_base" />
         <link href="plugins/lib/themes/default.date.css" rel="stylesheet" id="theme_date" />
-        <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.3.0/datatables.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/> -->   
+        <!-- LIBRERIA DATATABLE CSS-->>
+       <!--  <link href="plugins/PLUGINS/v/dt/dt-1.10.16/sl-1.3.6/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
+-->
+<link href="plugins/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
+     
+        <link rel="stylesheet" type="text/css" href="plugins/autoFill.bootstrap4.min.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/buttons.bootstrap4.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/colReorder.bootstrap4.css"/>
+        <link href="plugins/dataTables.dateTime.css" rel="stylesheet" type="text/css"/>
+
+        <link href="plugins/fixedColumns.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/fixedHeader.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/keyTable.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/rowGroup.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/rowReorder.bootstrap4.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" type="text/css" href="plugins/scroller.bootstrap4.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/searchBuilder.bootstrap4.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/searchPanes.bootstrap4.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/select.bootstrap4.css"/>
+        <link rel="stylesheet" type="text/css" href="plugins/stateRestore.bootstrap4.css"/>
+ 
+        
+        
+        
         <link href="css/estilos_pedidos.css" rel="stylesheet" type="text/css"/>
         <link href="css/colores.css" rel="stylesheet" type="text/css"/><!-- css para colocar el color azul a la celda editable al momento de ingresar en el -->
-        <link href="plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
         <link href="plugins/jquery.loadingModal.css" rel="stylesheet" type="text/css"/>
         <link href="css/ppr/aldo.css" rel="stylesheet" type="text/css"/>
         <link href="css/ppr/claudio.css" rel="stylesheet" type="text/css"/>
@@ -48,7 +75,6 @@
 
         <link href="plugins/jquery-ui.multidatespicker.css" rel="stylesheet" type="text/css"/>
         <link href="css/parpadeo.css" rel="stylesheet" type="text/css"/>
-        <link href="plugins/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
          
     </head>
@@ -80,35 +106,25 @@
                     </li>
 
                 </ul>
-
-                <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
-                    <!-- Navbar Search -->
+                     <li class="nav-item">
+                         <a class="nav-link"  >
+                             <%=nav_area%>
+                         </a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <!-- ESTO VA EN LA TABLA PADRE MODULO -->
+                        <a class="nav-link  " data-toggle="dropdown" href="#" aria-expanded="false">
+                            <i class="far fa-bell "></i>
+                            <span class="badge badge-danger navbar-badge animacion" id="contador_notificacion">0</span>
+                        </a>
+                        <!--------------------------------------------------->   
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right " style="left: inherit; right: 0px;" id="notificacion">
 
+                            <span class="dropdown-item dropdown-header bg-navy">Notificaciones</span>
+                        </div>
 
-                    <!-- Messages Dropdown Menu -->
-
-                    <!-- Notifications Dropdown Menu -->
-<li class="nav-item dropdown ">
-
-    <!-- ESTO VA EN LA TABLA PADRE MODULO -->
-    <a class="nav-link  " data-toggle="dropdown" href="#" aria-expanded="false">
-<i class="far fa-bell "></i>
-<span class="badge badge-danger navbar-badge animacion" id="contador_notificacion">0</span>
-</a>
-  <!--------------------------------------------------->   
-  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right " style="left: inherit; right: 0px;" id="notificacion">
-    
-        <span class="dropdown-item dropdown-header bg-navy">Notificaciones</span>
-            
-             
-            
-            
-           
-    
-    </div>
-    
-</li>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                             <i class="fas fa-expand-arrows-alt"></i>
@@ -118,13 +134,14 @@
                         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                             <i class="fas fa-th-large"></i>
                         </a>
-                    </li>
+                    </li> 
+                  
                 </ul>
             </nav>
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <aside class="main-sidebar elevation-4 sidebar-light-navy">
+            <aside class="main-sidebar elevation-4 sidebar-light-navy ">
                 <!-- Brand Logo -->
 
                 <a href="javascript:home();" class="brand-link">
@@ -144,16 +161,12 @@
                             <a href="#" class="d-block"><%=usuario%></a>
                         </div>
                     </div>
-                    <div class="form-inline">
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </button>
-                            </div>
+                    
+                        <div class="form-inline " id="div_buscador">
+                        
+                            
+                            
                         </div>
-                    </div>
 
 
 
@@ -182,12 +195,21 @@
 
                         <div class="modal fade bd-example-modal-xl" id="modal_reporte_varios" tabindex="-1" role="dialog"   aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 
+                        <iframe width="700" height="900" frameborder="0" scrolling="no" src="https://grupomaehara-my.sharepoint.com/personal/hvelazquez_yemita_com_py/_layouts/15/Doc.aspx?sourcedoc={4ea7d63d-aa51-430a-ae79-139c8406e042}&action=embedview&wdAllowInteractivity=False&Item=Tabla2&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+
+                        </div>
+                        
+                        
+                         <div class="modal fade bd-example-modal-xx" id="modal_reporte_varios" tabindex="-1" role="dialog"   aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            <button class="close" type="button"  class="position-relative p-3 bg-navy"  data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="col-lg-20 ">
                                     <div class="position-relative p-3 bg-navy"  >
                                         <div class="ribbon-wrapper ribbon-xl">
-                                            <div class="ribbon bg-warning">
-                                                <b>VERSIÓN. 22022022A</b>
+                                            <div class="ribbon bg-warning"  id="ribbon_version">
+                                                 
                                             </div>
                                         </div>
                                         <center><h1>DESCRIPCI&Oacute;N DEL SISTEMA ACTUALIZADO</h1></center>
@@ -197,37 +219,13 @@
 
 
 
-                                    <div class="modal-body bg-navy">
+                                    <h5><div class="modal-body bg-navy" id="ribbon_titulo"></h5> 
 
 
-                                        <p><span style="color: #ff0000;"><h1>Versi&oacute;n 22022022A</h1></span></p>
-                                        <h2><a name="_Toc95923392"></a>1.1 M&oacute;dulo de transferencias</h2>
-                                        <ul>
-                                            <li>Transferencias de reprocesos a Lavado.</li>
-                                            <li>Transferencias de huevos sin clasificar a Lavado.</li>
-                                            <li>Transferencias de huevos tipo subproductos.</li>
-                                        </ul>
-                                        <h2><a name="_Toc95923393"></a>1.2 M&oacute;dulo de reprocesos, subproductos y rotos.</h2>
-                                        <ul>
-                                            <li>Aviarios involucrados.</li>
-                                            <li>Horas m&aacute;s minutos.</li>
-                                        </ul>
-                                        <h2><a name="_Toc95923394"></a>1.3 Funcionalidades</h2>
-                                        <ul>
-                                            <li><strong>M&oacute;dulo de transferencias</strong>
-                                                <ul>
-                                                    <li style="text-align: justify;">Transferencias de reprocesos a Lavado: la creaci&oacute;n del m&oacute;dulo consiste en que lavados reciba los reprocesos de todas las clasificadoras disponibles, con el fin de realizar la alimentaci&oacute;n de estos.</li>
-                                                    <li style="text-align: justify;">Transferencias de huevos sin clasificar a Lavado: la creaci&oacute;n del m&oacute;dulo consiste en que lavados reciba los huevos sin clasificar de todas las clasificadoras disponibles, con el fin de realizar la alimentaci&oacute;n de estos.</li>
-                                                    <li style="text-align: justify;">Transferencias de huevos tipo subproductos: La creaci&oacute;n del m&oacute;dulo consiste en que se realicen las transferencias al sector subproductos, sin importar si el carro se encuentre o no costeado. Con el cambio se logra realizar las transferencias en el momento, actualmente el m&oacute;dulo disponible solo permite realizar transferencias de carros costeados, imposibilitando as&iacute; realizarlo en el momento.</li>
-                                                </ul>
-                                            </li>
-                                            <li><strong>Modulo de reprocesos, subproductos y rotos</strong>
-                                                <ul>
-                                                    <li style="text-align: justify;">Se agregaron los minutos de inicio y finales de clasificaci&oacute;n, con esto se logra obtener los aviarios que involucraron en ese momento a la fecha de clasificaci&oacute;n.</li>
-                                                    <li style="text-align: justify;">Se agregaron los Aviarios involucrados, teniendo con finalidad, obtener el origen del huevo clasificado</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        
+                                       
+                                        
+                                       
                                         <div class="modal-footer">
 
                                         </div>
@@ -236,11 +234,10 @@
                             </div>       
 
 
-
-
-
-
-                        </div>
+                             
+                             
+                             
+                             
                     </div>
 
                 </section>
@@ -248,8 +245,8 @@
                 <footer class="main-footer" >
                     <strong>Copyright © 2022 - Grupo Maehara.</strong>
                     Todos los derechos reservados.
-                    <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <label  ><b>Version</b></label> 22022022A
+                    <div class="float-right d-none d-sm-inline-block"  >
+                         <a href="img/Versionado Yemsys 13Mar2022.xlsx">Documento Versión</a>
                     </div>
                 </footer>
 
@@ -260,6 +257,11 @@
                         <div class="pt-5 pl-2 pr-2 col-12">
 
                         </div>
+                         <div class="pt-5 pl-2 pr-2 col-12">
+                       <div class="form-group">
+                       <button class="mx-auto btn bg-navy" style="width:100%;" onclick="modalnuevocambiopassword_ppr()"><i class="fa fa-fw fa-key"></i> Cambio de Contraseña</button>
+                       </div>
+                         </div>
                         <div class="pl-2 pr-2 col-12">
                             <div class="form-group">
                                 <button class="mx-auto btn bg-dark" style="width:100%;" onclick="document.location = 'cruds/control_cerrar_sesion.jsp';"><i class="fa fa-fw fa-power-off"></i> Salir</button>
@@ -269,12 +271,52 @@
 
                     </div>
                 </aside>
-
+               <div class="modal fade " id="modal_nuevocambio_pass2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                <div class="form-control bg-black" >
+                      <h5 class="modal-title" id="exampleModalLabel">CAMBIO USUARIO</h5>
+                    <button class="close" type="button"  class="position-relative p-3 bg-navy"  data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+               
+                <form  id="form_nuevo_password" action="POST"  class="form-control bg-navy" style=" height: 350px"
+                      oninput='passnueva2.setCustomValidity(passnueva2.value != passnueva.value ? "CONTRASEÑAS NO COINCIDEN" : "")'>
+                    <div class="modal-body">  
+                        
+                        <input  hidden="true" style="width: 100%"  value="<%=id_usuario%>" disabled="true"  id="txt_id_cambiopas" name="txt_id_cambiopas" required class="form-control text-left">
+                        <br>
+                     <input style="width: 100%" type="hidden" disabled="true" value="<%=usuario%>" id="txt_usuario_p" name="txt_usuario_p" class="form-control text-left"> 
+                        <br>
+                         <a>INGRESE CONTRASEÑA ACTUAL</a>
+                        <br>
+                        
+                        <input  style="width: 100%" type="password" class="form-control text-left" required  id="passactual" name="passactual"  >
+                        <br>
+                        <a>INGRESE NUEVA CONTRASEÑA</a>
+                        <br>
+                        <input minlength="4" style="width: 100%" type="password" class="form-control text-left" required  id="passnueva" name="passnueva"  >
+                         <a>INGRESAR NUEVA CONTRASEÑA</a>
+                        <br>
+                        <input minlength="4" style="width: 100%" type="password" class="form-control text-left"  required id="passnueva2" name="passnueva2"  >
+                    </div>
+                   
+                        
+                        <div class="modal-footer align-right"  >
+                            <input class="btn bg-white" type="button" onclick="nuevocambio_pass_usuario_ppr()"    value="REGISTRAR" >
+                            <input class="btn bg-white" type="button" data-dismiss="modal"    value="CANCELAR" >
+                        </div>
+                     
+                    </form>
+                      </div>
+                      </div>
+                    </div>
                 <!-- /.control-sidebar -->
             </div>
             <!-- ./wrapper -->
 
-            <!-- jQuery -->
+          <!-- jQuery -->
             <script src="plugins/jquery/jquery.min.js"></script>
             <!-- jQuery UI 1.11.4 -->
             <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -303,34 +345,51 @@
             <script src="plugins/lib/legacy.js"></script>
             <script src="plugins/lib/main.js"></script>
             <script src="plugins/lib/rainbow.js"></script>
-            <script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="plugins/toastr/toastr.min.js" type="text/javascript"></script>
-            <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
-            <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js" type="text/javascript"></script>
-             <script src="plugins/bootstrap4-toggle.js" type="text/javascript"></script>
+            <script src="plugins/bootstrap4-toggle.js" type="text/javascript"></script>
             <script src="plugins/DateTimePicker.js" type="text/javascript"></script>
             <script src="plugins/jquery-ui.multidatespicker.js" type="text/javascript"></script>
             <script src="plugins/canvasjs.min.js" type="text/javascript"></script>
+        <!-- LIBRERIA DATATABLE CSS--> 
+     
+            <script src="plugins/jszip.min.js" type="text/javascript"></script>
+            <script type="text/javascript" src="plugins/pdfmake.min.js"></script>
+            <script type="text/javascript" src="plugins/vfs_fonts.js"></script>
+            <script src="plugins/jquery.dataTables.min.js" type="text/javascript"></script> 
+            <script src="plugins/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+            
+            <script type="text/javascript" src="plugins/dataTables.autoFill.min.js"></script>
+            <script type="text/javascript" src="plugins/autoFill.bootstrap4.min.js"></script>
+            
+            <script type="text/javascript" src="plugins/dataTables.buttons.min.js"></script>
+            <script type="text/javascript" src="plugins/buttons.bootstrap4.min.js"></script>
+            <script type="text/javascript" src="plugins/buttons.colVis.min.js"></script>
+            <script type="text/javascript" src="plugins/buttons.html5.min.js"></script>
+            <script type="text/javascript" src="plugins/buttons.print.min.js"></script>
+            
+            <script src="plugins/dataTables.checkboxes.min.js" type="text/javascript"></script>
             <script src="plugins/sum().js" type="text/javascript"></script>
-  
+            <script src="plugins/jquery.inputmask.bundle.js" type="text/javascript"></script>
+            
             <script src="js/principal.js?v=1.0" type="text/javascript"></script>
             <script src="js/embarque.js" type="text/javascript"></script>
             <script src="js/embarque_funciones.js" type="text/javascript"></script>
             <script src="js/logistica.js" type="text/javascript"></script>
             <script src="js/logistica_funciones.js" type="text/javascript"></script>
             <script src="js/ppr/control_claudio.js" type="text/javascript"></script>
-            <script src="js/ppr/llamadas_aldo.js?v=3.0" type="text/javascript"></script>
+            <script src="js/ppr/llamadas_aldo.js?v=3.6" type="text/javascript"></script>
             <script src="js/ppr/llamadas_claudio.js?v=1.0" type="text/javascript"></script>
-            <script src="js/ptc/enviar_datos.js?v=3.0" type="text/javascript"></script>
-            <script src="js/ptc/envio_retenido_liberado.js?v=3.0" type="text/javascript"></script>
-            <script src="js/ptc/traer_clases.js?v=3.0" type="text/javascript"></script>
-            <script src="js/ptc/transferencia.js?v=3.0" type="text/javascript"></script>
-            <script src="js/mis/formulas_mis.js?v=3.0" type="text/javascript"></script>
-            <script src="js/mis/traer_clases_mis.js?v=3.0" type="text/javascript"></script>
-            <script src="js/mis/transferencia_mis.js?v=3.0" type="text/javascript"></script>
-            <script src="plugins/dataTables.checkboxes.min.js" type="text/javascript"></script>
-            <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-
+            <script src="js/ptc/enviar_datos.js?v=3.6" type="text/javascript"></script>
+            <script src="js/ptc/envio_retenido_liberado.js?v=3.6" type="text/javascript"></script>
+            <script src="js/ptc/traer_clases.js?v=3.6" type="text/javascript"></script>
+            <script src="js/ptc/transferencia.js?v=3.6" type="text/javascript"></script>
+            <script src="js/mis/formulas_mis.js?v=3.6" type="text/javascript"></script>
+            <script src="js/mis/traer_clases_mis.js?v=3.6" type="text/javascript"></script>
+            <script src="js/mis/transferencia_mis.js?v=3.6" type="text/javascript"></script>
+              
+              
+                
+              
     </body>
 </html>
 

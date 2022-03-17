@@ -1,12 +1,13 @@
 var ruta_cruds_ppr = "./cruds/ppr/";
 var ruta_consultas_ppr = "./consultas/ppr/";
 var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
-
+var ruta_grilla_ppr = "./grillas/ppr/";
+var ruta_vistas_general = "./contenedores/";
 
 var serial = 0;
 
 
-function registrar_usuario() {
+function registrar_usuario_ppr() {
     Swal.fire({
         title: 'CONFIRMACION',
         text: "DESEA CREAR EL NUEVO USUARIO?",
@@ -21,14 +22,27 @@ function registrar_usuario() {
         {
             $.ajax({
                 type: "POST",
-                url: ruta_cruds_ppr+"crud_agregar_usuario.jsp",
+                url: ruta_cruds_ppr + "crud_agregar_usuario.jsp",
                 data: {nombre: $('#nombre').val(),
-                    apellido: $('#apellido').val(),
+                    pass: $('#pass').val(),
                     usuario: $('#usuario').val(),
-                    correo: $('#correo').val(),
-                    image: $('#image').val(),
+                    clasificadora: $('#clasificadora').val(),
                     select_rol: $('#select_rol').val()},
-
+                   beforeSend: function () {
+                            Swal.fire({
+                                title: "PROCESANDO!",
+                                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                                allowOutsideClick: !1,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading(),
+                                            (timerInterval = setInterval(() => {
+                                                Swal.getContent().querySelector("strong").textContent = Swal.getTimerLeft();
+                                            }, 1e3));
+                                },
+                            });
+                        },    
                 success: function (res)
                 {
                     if (res.tipo_registro == "2") {
@@ -38,9 +52,9 @@ function registrar_usuario() {
                             confirmButtonText: "CERRAR"
                         });
 
-                        $('#modal_add_usuarios').modal('toggle');
+                        //$('#modal_add_usuarios').modal('toggle');
 
-                        traer_vista_usuario();
+                        traer_vista_usuario_ppr();
                     } else {
                         swal.fire({
                             type: 'error',
@@ -54,7 +68,7 @@ function registrar_usuario() {
     });
 }
 
-function registrar_usuario_pendiente() {
+function registrar_usuario_pendiente_ppr() {
     Swal.fire({
         title: 'CONFIRMACION',
         text: "DESEA ENVIAR SOLICITUD USUARIO?",
@@ -69,7 +83,7 @@ function registrar_usuario_pendiente() {
         {
             $.ajax({
                 type: "POST",
-                url: ruta_cruds_ppr+"crud_agregar_usuario_pendientes.jsp",
+                url: ruta_cruds_ppr + "crud_agregar_usuario_pendientes.jsp",
                 data: {nombrepend: $('#nombrepend').val(),
                     apellidopend: $('#apellidopend').val(),
                     select_area: $('#select_area').val()
@@ -98,7 +112,7 @@ function registrar_usuario_pendiente() {
     });
 }
 
-function registrar_peticion_reset() {
+function registrar_peticion_reset_ppr() {
     Swal.fire({
         title: 'CONFIRMACION',
         text: "ENVIAR PETICION?",
@@ -113,7 +127,7 @@ function registrar_peticion_reset() {
         {
             $.ajax({
                 type: "POST",
-                url: ruta_cruds_ppr+"crud_agregar_peticion_reset.jsp",
+                url: ruta_cruds_ppr + "crud_agregar_peticion_reset.jsp",
                 data: {peticionn: $('#peticionn').val()
 
                 },
@@ -144,7 +158,7 @@ function registrar_peticion_reset() {
 }
 
 //function insert roles
-function registrar_roles() {
+function registrar_roles_ppr() {
     Swal.fire({
         title: 'CONFIRMACION',
         text: "DESEA CREAR EL NUEVO ROL?",
@@ -159,11 +173,25 @@ function registrar_roles() {
         {
             $.ajax({
                 type: "POST",
-                url: ruta_cruds_ppr + "/crud_agregar_rol.jsp",
+                url: ruta_cruds_ppr + "crud_agregar_rol.jsp",
                 data: {
                     descripcion: $('#descripcion').val()
 
-                },
+                },   beforeSend: function () {
+                            Swal.fire({
+                                title: "PROCESANDO!",
+                                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                                allowOutsideClick: !1,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading(),
+                                            (timerInterval = setInterval(() => {
+                                                Swal.getContent().querySelector("strong").textContent = Swal.getTimerLeft();
+                                            }, 1e3));
+                                },
+                            });
+                        },
                 success: function (res) {
                     if (res.tipo_registro == "2") {
                         swal.fire({
@@ -172,7 +200,7 @@ function registrar_roles() {
                             confirmButtonText: "CERRAR"
                         });
                         $('#modal_add_roles').modal('toggle');
-                        grilla_roles();
+                        cancelar_usuarios_ppr();
                     } else {
                         swal.fire({
                             type: 'error',
@@ -185,8 +213,27 @@ function registrar_roles() {
         }
     });
 }
+
+function cargar_grilla_roles_ppr() {
+
+    $.ajax({
+        url: ruta_grilla_ppr + "grilla_rol.jsp",
+        type: "post",
+        beforeSend: function (xhr) {
+            cargar_load();
+        },
+        success: function (data) {
+
+            $('#contenedor_principal').html(data);
+            $('#contenido_row').html("");
+            $('#idresumen_det').html("");
+            $('#idresumen_huevos').html(data);
+            $("#tabla_roles").dataTable({language: {sUrl: "js/Spanish.txt"}});
+            cerrar_load();
+        }});
+}
 //fncion mensaje
-function aviso_registro_user(tipo, mensaje) {
+function aviso_registro_user_ppr(tipo, mensaje) {
     if (tipo == "2") {
         swal.fire({
             icon: 'success',
@@ -207,27 +254,25 @@ function aviso_registro_user(tipo, mensaje) {
 
 }
 
-function edit_usuario(id, nombre, apellido, usuario, email, id_estado, id_rol) {
+function edit_usuario_ppr(id, usuario, nombre, clasificadora, desc_rol,select_estado) {
     $("#txt_id").val(id);
-    $("#txt_nombre").val(nombre);
-    $("#txt_apellido").val(apellido);
     $("#txt_usuario").val(usuario);
-    $("#txt_email").val(email);
-    $("#select_rolm").val(id_rol);
-    $("#select_estado").val(id_estado);
+    $("#txt_nombre").val(nombre);
+    $("#txt_clasificadora").val(clasificadora);
+    $("#select_rol2").val(desc_rol);
+     $("#select_estado").val(select_estado);
+
 
     $("#modal_upd_user").modal("show");
 
 }
 
-function edit_rol(id, descripcion, desc_estado) {
+function edit_rol_ppr(id, descripcion, desc_estado) {
     $("#txt_id_rol").val(id);
     $("#txt_decri_rol").val(descripcion);
-    $("#select_estado_rol").val(desc_estado);
+    $("#select_estado_roles").val(desc_estado);
 
-    $(".modal-header").css("background-color", "#007bff");
-    $(".modal-header").css("color", "white");
-    $(".modal-title").text("MODIFICAR ROL");
+
 
 
     $("#modal_upd_rol").modal("show");
@@ -235,7 +280,7 @@ function edit_rol(id, descripcion, desc_estado) {
 
 }
 
-function edit_modulos(id, descripcion, desc_estado) {
+function edit_modulos_ppr(id, descripcion, desc_estado) {
     $("#txt_id_modulo").val(id);
     $("#txt_decri_modulo").val(descripcion);
     $("#select_estado_modulo").val(desc_estado);
@@ -248,15 +293,15 @@ function edit_modulos(id, descripcion, desc_estado) {
     $("#modal_upd_modulos").modal("show");
 }
 
-function modificar_usuario() {
+function modificar_usuario_ppr() {
 
-    id = $.trim($("#txt_id").val());
-    nombre = $.trim($("#txt_nombre").val());
-    apellido = $.trim($("#txt_apellido").val());
-    usuario = $.trim($("#txt_usuario").val());
-    email = $.trim($("#txt_email").val());
-    desc_estado = $.trim($("#select_estado").val());
-    desc_rolm = $.trim($("#select_rolm").val());
+    txt_id = $.trim($("#txt_id").val());
+    txt_nombre = $.trim($("#txt_nombre").val());
+    txt_usuario = $.trim($("#txt_usuario").val());
+    txt_clasificadora = $.trim($("#txt_clasificadora").val());
+    select_rol2 = $.trim($("#select_rol2").val());
+    select_estado = $.trim($("#select_estado").val());
+    
     Swal.fire({
         title: 'CONFIRMACION',
         text: "DESEA GUARDAR LOS CAMBIOS?",
@@ -272,8 +317,23 @@ function modificar_usuario() {
 
             $.ajax({
                 type: "POST",
-                url: ruta_cruds_ppr+"crud_modificar_usuario.jsp",
-                data: {txt_id: id, txt_nombre: nombre, txt_apellido: apellido, txt_usuario: usuario, txt_email: email, select_estado: desc_estado, select_rolm: desc_rolm},
+                url: ruta_cruds_ppr + "crud_modificar_usuario.jsp",
+                data: {txt_id: txt_id, txt_nombre: txt_nombre, txt_usuario: txt_usuario, txt_clasificadora: txt_clasificadora, select_rol2: select_rol2,   select_estado: select_estado},
+                beforeSend: function () 
+                {
+                    Swal.fire({
+                                title: "PROCESANDO!",
+                                html: "<strong>ESPERE</strong>...",
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                                allowOutsideClick: !1,
+                                onBeforeOpen: () => {
+                                Swal.showLoading(), (timerInterval = setInterval(() => 
+                                { Swal.getContent().querySelector("strong").textContent = Swal.getTimerLeft();
+                                }, 1e3));
+                                },
+                            });
+                        },
                 success: function (res)
                 {
                     if (res.tipo_respuesta == "2") {
@@ -285,9 +345,11 @@ function modificar_usuario() {
 
                         $('#modal_upd_user').modal('toggle');
 
-                        grilla_usuarios();
+                        grilla_usuarios_ppr();
                         $('.modal-backdrop').remove();
-                    } else {
+                    } 
+                    else 
+                    {
                         swal.fire({
                             type: 'error',
                             text: res.mensaje,
@@ -301,13 +363,27 @@ function modificar_usuario() {
         }
     });
 }
+function traer_vista_roles_ppr() {
+    cargar_load();
 
-function modificar_rol() {
+    $.ajax({
+        url: ruta_vistas_ppr + "vista_registrar_roles.jsp",
+        type: "post",
+        success: function (data) {
 
-    id = $.trim($("#txt_id_rol").val());
-    descripcion = $.trim($("#txt_decri_rol").val());
-    desc_estadoo = $.trim($("#select_estado_rol").val());
-    Swal.fire({
+            $('#contenedor_principal').html(data);
+            $('#contenido_row').html("");
+            $('#idresumen_det').html("");
+            $('#idresumen_huevos').html(data);
+            cerrar_load();
+        }});
+}
+
+function modificar_rol_ppr() {
+
+    txt_id_rol = $.trim($("#txt_id_rol").val());
+    txt_decri_rol = $.trim($("#txt_decri_rol").val());
+     Swal.fire({
         title: 'CONFIRMACION',
         text: "DESEA GUARDAR LOS CAMBIOS?",
         type: 'warning',
@@ -323,7 +399,22 @@ function modificar_rol() {
             $.ajax({
                 type: "POST",
                 url: ruta_cruds_ppr + 'crud_modificar_rol.jsp',
-                data: {txt_id_rol: id, txt_decri_rol: descripcion, select_estado_rol: desc_estadoo},
+                data: {txt_id_rol: txt_id_rol, txt_decri_rol: txt_decri_rol, select_estado_roles: $("#select_estado_roles").val() },
+                   beforeSend: function () {
+                            Swal.fire({
+                                title: "PROCESANDO!",
+                                html: "<strong>ESPERE</strong>...",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                                allowOutsideClick: !1,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading(),
+                                            (timerInterval = setInterval(() => {
+                                                Swal.getContent().querySelector("strong").textContent = Swal.getTimerLeft();
+                                            }, 1e3));
+                                },
+                            });
+                        },
                 success: function (ress)
                 {
                     if (ress.tipo_respuesta == "2") {
@@ -333,7 +424,9 @@ function modificar_rol() {
                             confirmButtonText: "CERRAR"
                         });
                         $('#modal_upd_rol').modal('toggle');
-                        grilla_roles()
+                        
+                        $('.modal-backdrop').remove();
+                       cargar_grilla_roles_ppr() ;
                     } else {
                         swal.fire({
                             type: 'error',
@@ -349,7 +442,7 @@ function modificar_rol() {
     });
 }
 
-function modificar_modulos() {
+function modificar_modulos_ppr() {
 
     id = $.trim($("#txt_id_modulo").val());
     descripcion = $.trim($("#txt_decri_modulo").val());
@@ -396,22 +489,22 @@ function modificar_modulos() {
     });
 }
 
-function restablecer_pass_usuario() {
+function restablecer_pass_usuario_ppr() {
     id = $.trim($("#txt_id_reset").val());
     $.ajax({
         type: "POST",
-        url: ruta_cruds_ppr+"crud_restablecer_pass.jsp",
+        url: ruta_cruds_ppr + "crud_restablecer_pass.jsp",
         data: {txt_id_reset: id},
-
+   
         success: function (res)
         {
-
+            
             Swal.fire({
                 type: 'success',
                 //title: 'Oops...',
                 text: res.mensaje,
                 timer: '2000'
-
+           
             });
 
             $('#modal_restablecer_pass').modal('toggle');
@@ -423,14 +516,16 @@ function restablecer_pass_usuario() {
     });
 }
 
-function nuevocambio_pass_usuario() {
-    id = $.trim($("#txt_id_cambiopas").val());
+
+
+function nuevocambio_pass_usuario_ppr() {
+    txt_id_cambiopas = $.trim($("#txt_id_cambiopas").val());
     passnueva = $.trim($("#passnueva").val());
     passactual = $.trim($("#passactual").val());
     $.ajax({
         type: "POST",
-        url: ruta_cruds_ppr+"crud_nuevo_pass.jsp",
-        data: {txt_id_cambiopas: id, passnueva: passnueva, passactual: passactual},
+        url: ruta_cruds_ppr + "crud_nuevo_pass.jsp",
+        data: {txt_id_cambiopas: txt_id_cambiopas, passnueva: passnueva, passactual: passactual},
         beforeSend: function ()
         {
             Swal.fire({
@@ -454,7 +549,7 @@ function nuevocambio_pass_usuario() {
                     confirmButtonText: "CERRAR"
                 });
                 $("#modal_nuevocambio_pass2").modal("hide");
-                grilla_roles();
+                grilla_roles_ppr();
             } else {
                 swal.fire({
                     type: 'error',
@@ -466,7 +561,7 @@ function nuevocambio_pass_usuario() {
     });
 }
 
-function cerrar_sesion() {
+function cerrar_sesion_ppr() {
     $.ajax({
         url: "control/control_cerrarsesion.jsp",
         type: "post",
@@ -475,66 +570,81 @@ function cerrar_sesion() {
         }});
 }
 
-function cancelar_usuarios()
+function cancelar_usuarios_ppr()
 {
     $('#nombre').val("");
     $('#apellido').val("");
     $('#usuario').val("");
     $('#pass').val("");
     $('#correo').val("");
+    $('#descripcion').val("");
+    
 
     grafico_mortandad();
 }
+ 
 
-function grilla_usuarios() {
+function grilla_usuarios_ppr() {
 
     $.ajax({
-        url: "grillas/grilla_usuarios.jsp",
+        url: ruta_grilla_ppr + "grilla_usuarios.jsp",
         type: "post",
+        beforeSend: function (xhr) {
+            cargar_load();
+         
+        },
         success: function (data) {
 
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
+            $("#tabla_usuarios").dataTable({language: {sUrl: "js/Spanish.txt"}});
+            cerrar_load();
 
         }});
 }
 
 
-function traer_vista_usuario() {
+function traer_vista_usuario_ppr() {
 
     $.ajax({
-        url: ruta_vistas_ppr+"vista_registrar_usuario.jsp",
+        url: ruta_vistas_ppr + "vista_registrar_usuario.jsp",
         type: "post",
+        beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
 
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
+            cerrar_load();
         }});
 }
 
-function traer_vista_usuario2() {
+function traer_vista_usuario2_ppr() {
 
     $.ajax({
         type: "POST",
         url: "informes.jsp",
         beforeSend: function ()
         {
+            cargar_load();
             $('#contenido_row').html("");
         },
         success: function (data)
         {
             $("#contenido_row").html(data);
-
-            onclickMenu();
+            cerrar_load();
+            //onclickMenu();
         }
     });
 }
 
-function modalinsertusuario() {
+function modalinsertusuario_ppr() {
     $("#form_add_user").trigger("reset");
 
 
@@ -542,7 +652,7 @@ function modalinsertusuario() {
 
 }
 
-function modalinsertmodulos() {
+function modalinsertmodulos_ppr() {
     $("#form_add_rol").trigger("reset");
     $(".modal-header").css("background-color", "#28a745");
     $(".modal-header").css("color", "white");
@@ -552,7 +662,7 @@ function modalinsertmodulos() {
 
 }
 
-function modalupdateusuario() {
+function modalupdateusuario_ppr() {
     $("#form_upd_user").trigger("reset");
     $(".modal-header").css("background-color", "#28a745");
     $(".modal-header").css("color", "white");
@@ -562,13 +672,13 @@ function modalupdateusuario() {
 
 }
 
-function modalresetearpass(id, usuario) {
+function modalresetearpass_ppr(id, usuario) {
     $("#txt_id_reset").val(id);
     $("#txt_usuario_p").val(usuario);
     $("#modal_restablecer_pass").modal("show");
 }
 
-function modalnuevocambiopassword() {
+function modalnuevocambiopassword_ppr() {
 
 
     $(".modal-header").css("background-color", "#0157a0");
@@ -579,19 +689,19 @@ function modalnuevocambiopassword() {
     $("#modal_nuevocambio_pass2").modal("show");
 }
 
-function modalinsertpendientes() {
+function modalinsertpendientes_ppr() {
     $("#form_add_pendiente").trigger("reset");
     $("#modal_add_pendiente").modal("show");
 
 }
 
-function modalpeticionreset() {
+function modalpeticionreset_ppr() {
     $("#form_add_reset").trigger("reset");
     $("#modal_add_").modal("show");
 
 }
 
-function modalreportezoom() {
+function modalreportezoom_ppr() {
     $("#form_zoon").trigger("reset");
     $(".modal-header").css("background-color", "#0066cc");
     $(".modal-header").css("color", "white");
@@ -601,25 +711,33 @@ function modalreportezoom() {
 
 }
 
-function grafico_aviario_dinamico_vista()
+function grafico_aviario_dinamico_vista_ppr()
 {
 
     $.ajax({
-        url: ruta_vistas_ppr+"vista_informe_aviarios_dinamico.jsp",
+        url: ruta_vistas_ppr + "vista_informe_aviarios_dinamico.jsp",
         type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
 
+        },
         success: function (data) {
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
             grafico_aviarios_dinamico();
+            cerrar_load();
         }});
 }
-function grafico_aviarios_dinamico() {
+function grafico_aviarios_dinamico_ppr() {
     $.ajax({
-        url: ruta_vistas_ppr+"vista_informe_aviarios_dinamico.jsp",
+        url: ruta_vistas_ppr + "vista_informe_aviarios_dinamico.jsp",
         type: "post",
+        beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
@@ -629,18 +747,19 @@ function grafico_aviarios_dinamico() {
             $('#form_reporte_aviario_dinamicop').on('submit', function (event)
             {
                 event.preventDefault();
-                consulta_aviarios_dinamico("p");
+                consulta_aviarios_dinamico_ppr("p");
                 event.stopPropagation();
 
             });
+            cerrar_load();
         }});
 
 }
-function consulta_aviarios_dinamico(serial)
+function consulta_aviarios_dinamico_ppr(serial)
 {
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ppr+"consulta_reporte_aviarios_dinamico.jsp",
+        url: ruta_consultas_ppr + "consulta_reporte_aviarios_dinamico.jsp",
         data: $("#form_reporte_aviario_dinamico" + serial).serialize(),
         beforeSend: function (xhr) {
             cargar_load("Consultando...");
@@ -675,7 +794,7 @@ function consulta_aviarios_dinamico(serial)
 
 }
 
-function generar_cuadros_consultas_aviarios_dinamicos() {
+function generar_cuadros_consultas_aviarios_dinamicos_ppr() {
 
     serial++;
     var html = '<div class="card card-navy">   <div class="card-header">       <div class="card-tools">     <button type="button" class="btn btn-tool" data-card-widget="collapse">      <i class="fas fa-minus"></i>     </button>     <button type="button" class="btn btn-tool"  data-card-widget="remove">        <i class="fas fa-times"></i>   </button>   </div>     </div>      <div class="card-body">\n\
@@ -751,7 +870,7 @@ function generar_cuadros_consultas_aviarios_dinamicos() {
                                 </select>\n\
                             </td>\n\
                             <td> \n\
-                                 <button type="submit" class="btn btn-sm  bg-navy btn-block"  onclick="generar_serial(' + serial + ')"><i class="fa fa-search"></i> Buscar</button>  \n\
+                                 <button type="submit" class="btn btn-sm  bg-navy btn-block"  onclick="generar_serial_ppr(' + serial + ')"><i class="fa fa-search"></i> Buscar</button>  \n\
                             </td>\n\
                         </tr>\n\
                     </tbody> \n\
@@ -766,7 +885,7 @@ function generar_cuadros_consultas_aviarios_dinamicos() {
     {
         event.preventDefault();
 
-        consulta_aviarios_dinamico(serial);
+        consulta_aviarios_dinamico_ppr(serial);
         event.stopPropagation();
 
     });
@@ -775,11 +894,11 @@ function generar_cuadros_consultas_aviarios_dinamicos() {
 
 
 
-function grafico_zoom_menu_principal(aviario) {
+function grafico_zoom_menu_principal_ppr(aviario) {
 
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ppr+"consulta_reporte_aviarios_dinamico_zoom.jsp",
+        url: ruta_consultas_ppr + "consulta_reporte_aviarios_dinamico_zoom.jsp",
         data: {aviario: aviario},
         success: function (result)
         {
@@ -815,17 +934,17 @@ function grafico_zoom_menu_principal(aviario) {
 
         }
     });
-    cerrar_resumen();
+    cerrar_resumen_ppr();
     $("#modal_reportere").modal("show");
 
 
 }
 
-function generar_serial(serial_nuevo) {
+function generar_serial_ppr(serial_nuevo) {
     serial = serial_nuevo;
 }
 
-function cerrar_resumen()
+function cerrar_resumen_ppr()
 {
 
     document.getElementById("cargarzoom").innerHTML = "";
@@ -833,7 +952,7 @@ function cerrar_resumen()
     $('.modal-backdrop').remove();
 }
 
-function temperatura() {
+function temperatura_ppr() {
     $.ajax({
         type: "get",
         url: "http://192.168.210.25/",
@@ -872,10 +991,10 @@ function temperatura() {
         }
     });
 }
-function traer_vista_contador_huevo() {
-
+function traer_vista_contador_huevo_ppr() {
+    cargar_load();
     $.ajax({
-        url: ruta_vistas_ppr+"vista_registro_contador_huevo.jsp",
+        url: ruta_vistas_ppr + "vista_registro_contador_huevo.jsp",
         type: "post",
         success: function (data) {
 
@@ -883,11 +1002,11 @@ function traer_vista_contador_huevo() {
             $('#contenido_row').html("");
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
-
+            cerrar_load();
         }});
 }
 
-function traer_grilla_contador_huevo() {
+function traer_grilla_contador_huevo_ppr() {
 
     $.ajax({
         url: "grillas/grilla_comtador_huevo.jsp",
@@ -900,11 +1019,11 @@ function traer_grilla_contador_huevo() {
         }});
 }
 
-function consulta_contador_huevo(cant) {
+function consulta_contador_huevo_ppr(cant) {
     $.ajax({
         type: "POST",
 
-        url: ruta_consultas_ppr+"consulta_aviario_contador_huevo.jsp",
+        url: ruta_consultas_ppr + "consulta_aviario_contador_huevo.jsp",
         data: {
             fecha: $('#fecha').val(),
             aviario: $('#avi').val()
@@ -936,7 +1055,7 @@ function consulta_contador_huevo(cant) {
     });
 }
 
-function ppr_contador_onselect() {
+function ppr_contador_onselect_ppr() {
     var editables = document.querySelectorAll("[contentEditable]");
     for (var i = 0, len = editables.length; i < len; i++) {
         editables[i].setAttribute("data-orig", editables[i].innerHTML);
@@ -962,9 +1081,9 @@ function ppr_contador_onselect() {
     }
 }
 
-function ppr_contador_reg(fecha, avi, lote, fila, valor) {
+function ppr_contador_reg_ppr(fecha, avi, lote, fila, valor) {
     var phen = $("#phen").val();
-    $.get(ruta_consultas_ppr+"consulta_aviario_contador_huevo.jsp", {fecha: fecha, avi: avi, lote: lote, fila: fila, cant: valor, phen: phen}, function (j) {
+    $.get(ruta_consultas_ppr + "consulta_aviario_contador_huevo.jsp", {fecha: fecha, avi: avi, lote: lote, fila: fila, cant: valor, phen: phen}, function (j) {
         $("#henday").val(j.henday);
         $("#huevos").val(j.huevos);
         $("#diff").val(j.diffp);
@@ -975,22 +1094,27 @@ function ppr_contador_reg(fecha, avi, lote, fila, valor) {
         }
     });
 }
-function traer_vista_contador_huevo() {
+function traer_vista_contador_huevo_ppr() {
 
     $.ajax({
-        url: ruta_vistas_ppr+"vista_registro_contador_huevo.jsp",
+        url: ruta_vistas_ppr + "vista_registro_contador_huevo.jsp",
         type: "post",
+        beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
 
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
+            cerrar_load();
         }});
 }
 
 
-function traer_grilla_balanceados() {
+function traer_grilla_balanceados_ppr() {
 
     $.ajax({
         url: "grillas/grilla_consumo_balanceado_bloque.jsp",
@@ -1002,10 +1126,10 @@ function traer_grilla_balanceados() {
 
         }});
 }
-function  ocultar_div_balan() {
+function  ocultar_div_balan_ppr() {
     $(".ocultar").hide();
 }
-function  mostrar_div_balan() {
+function  mostrar_div_balan_ppr() {
     $(".ocultar").show();
 }
 
@@ -1013,18 +1137,18 @@ function  mostrar_div_balan() {
 
 
 
-function consulta_balanceado_bloque()
+function consulta_balanceado_bloque_ppr()
 {
     var mes = $("#mes").val();
     var ano = $("#ano").val();
     $.ajax({
-        url: ruta_consultas_ppr+"consulta_informe_balanceado_bloque.jsp",
+        url: ruta_consultas_ppr + "consulta_informe_balanceado_bloque.jsp",
         type: "post",
         data: {mes: mes, ano: ano},
         beforeSend: function (xhr) {
             cargar_load("Consultando...");
 
-            traer_grilla_balanceados();
+            traer_grilla_balanceados_ppr();
 
 
         },
@@ -1112,11 +1236,11 @@ function consulta_balanceado_bloque()
 
 
 
-function consulta_balanceado_bloque2()
+function consulta_balanceado_bloque2_ppr()
 {
 
     $.ajax({
-        url: ruta_consultas_ppr+"consulta_informe_balanceado_bloque.jsp",
+        url: ruta_consultas_ppr + "consulta_informe_balanceado_bloque.jsp",
         type: "post",
         data: {mes: $("#mes").val(), ano: $("#ano").val()},
         success: function (data) {
@@ -1129,39 +1253,49 @@ function consulta_balanceado_bloque2()
 
         }});
 }
-function informe_consumo_balanceado_bloque() {
+function informe_consumo_balanceado_bloque_ppr() {
     $.ajax({
-        url: ruta_vistas_ppr+"vista_informe_consumo_balanceado_bloque.jsp",
+        url: ruta_vistas_ppr + "vista_informe_consumo_balanceado_bloque.jsp",
         type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html("");
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
+            cerrar_load();
         }});
 }
 
-function llamar_mortandad_80_sems()
+function llamar_mortandad_80_sems_ppr()
 
 {
     $.ajax({
-        url: ruta_vistas_ppr+"vista_mortandad_80_sems.jsp",
+        url: ruta_vistas_ppr + "vista_mortandad_80_sems.jsp",
         type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
-            ocultar();
+            ocultar_ppr();
+            cerrar_load();
         }});
 }
 
 
-function mortandad_80_sems() {
+function mortandad_80_sems_ppr() {
 
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ppr+"consulta_mortandad_80_sems.jsp",
+        url: ruta_consultas_ppr + "consulta_mortandad_80_sems.jsp",
         beforeSend: function (xhr) {
-            limpiarg(), cargar_load("Consultando...");
+            limpiarg_ppr(), cargar_load("Consultando...");
         },
         data: {
             mes_mort: $('#mes_mort').val(),
@@ -1193,13 +1327,13 @@ function mortandad_80_sems() {
     });
 
 }
-function consulta_balanceado_bloque2() {
+function consulta_balanceado_bloque2_ppr() {
 
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ppr+"consulta_infrome_balanceado_bloque.jsp",
+        url: ruta_consultas_ppr + "consulta_infrome_balanceado_bloque.jsp",
         beforeSend: function (xhr) {
-            limpiarg(), cargar_load("Consultando...");
+            limpiarg_ppr(), cargar_load("Consultando...");
         },
         data: {
             mes_mort: $('#mes_mort').val(),
@@ -1233,4 +1367,292 @@ function consulta_balanceado_bloque2() {
     });
 
 }
+
+
+function llamar_contador_huevos_ppr()
+
+{
+    $.ajax({
+        url: ruta_vistas_ppr + "vista_contadores_huevos.jsp",
+        type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
+
+        },
+        success: function (data) {
+            $('#contenedor_principal').html(data);
+            $('#contenido_row').html("");
+            $('#idresumen_det').html("");
+            $('#idresumen_huevos').html("");
+            ocultar_ppr();
+            cerrar_load();
+        }});
+}
+
+
+
+function consulta_contador_huevo_ppr() {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + "consulta_informe_contador_huevo.jsp",
+        beforeSend: function (xhr) {
+            limpiar_div_contadores_ppr(),
+                    cargar_load("Consultando...");
+
+        },
+        data: {
+            aviario: $('#aviario').val(),
+            fecha: $('#fecha').val(),
+            lote: $('#lote').val()
+        },
+
+        success: function (data) {
+
+            $('#tabla_contador').html(data.grilla_contador);
+
+            // $('#tabla_contador').html(data.grilla_cabecera2);
+            $('#tabla_mortandad_periodo').html(data.grilla_mortandad_periodo);
+            $('#tabla_contador_periodo').html(data.grilla_contador_periodo);
+            $('#tabla_mortandad_global').html(data.grilla_mortandad_global);
+            $('#huevos').val(data.cant);
+            $('#phenday').val(data.pad_productividad);
+            $('#henday').val(data.productividad);
+            $('#edad').val(data.dl_edaddias);
+            $('#promfila').val(data.prome_huevo);
+            $('#maxfila').val(data.max_cant);
+            $('#minfila').val(data.min_cant);
+            $('#diff').val(data.dif_productividad);
+
+            $('#diff').css("background-color", data.color);
+            $('#7').css("background-color", data.fila1_color);
+            $('#15').css("background-color", data.fila2_color);
+            $('#23').css("background-color", data.fila3_color);
+            $('#31').css("background-color", data.fila4_color);
+            $('#39').css("background-color", data.fila5_color);
+            $('#47').css("background-color", data.fila6_color);
+
+            $('#7').addClass(data.fila1_blink);
+            $('#15').addClass(data.fila2_blink);
+            $('#23').addClass(data.fila3_blink);
+            $('#31').addClass(data.fila4_blink);
+            $('#39').addClass(data.fila5_blink);
+            $('#47').addClass(data.fila6_blink);
+
+            $('#7').append(data.fila1);
+            $('#15').append(data.fila2);
+            $('#23').append(data.fila3);
+            $('#31').append(data.fila4);
+            $('#39').append(data.fila5);
+            $('#47').append(data.fila6);
+            //$('#14').append(data.total_piso1);
+
+            $('#total_periodo').val(data.total_huevos_acum);
+            $('#prom_fila').val(data.total_prome_acum);
+            $('#periodo_fecha_huevos').val(data.periodo_fecha);
+            $('#periodo_fecha_mortandad').val(data.periodo_fecha);
+            $('#prom_mor_fila').val(data.prom_mor_fila);
+            $('#muerte_acum_periodo').val(data.total_mortandad_acum);
+            $('#total_global_fila').val(data.total_mortandad_prom_global);
+            $('#total_mor_global').val(data.total_mortandad_global);
+            $('#idresumen_det').html("");
+            $('#idresumen_huevos').html("");
+            $('#contenido_row').html("");
+
+
+
+
+
+            cerrar_load();
+
+            if (!Object.keys(data.fila).length) {
+                $(".ocultar").hide();
+                Swal.fire({
+                    title: 'ATENCION!',
+                    text: "No Existen Registros",
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#001F3F',
+                    confirmButtonText: 'Aceptar',
+                    timer: 4000});
+            } else {
+                $(".ocultar").show();
+                mostrar_ppr();
+            }
+        }
+    });
+
+}
+
+
+function consulta_lote_huevo_ppr() {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + "consulta_lote_aviario.jsp",
+        beforeSend: function (xhr) {
+            limpiar_div_contadores_ppr(),
+                    cargar_load("Consultando...");
+        },
+        data: {
+            aviario: $('#aviario').val(),
+            fecha: $('#fecha').val()
+        },
+
+        success: function (data) {
+
+            $('#lote').val(data.lote_name);
+            $('#loteid').val(data.lote);
+            $('#idresumen_det').html("");
+            $('#idresumen_huevos').html("");
+            $('#contenido_row').html("");
+            cerrar_load();
+
+            if (!Object.keys(data.lote_name).length) {
+                ocultar_ppr();
+                Swal.fire({
+                    title: 'MENSAJE!',
+                    text: "En la fecha no se encontra lote en  aviario seleccionada",
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#001F3F',
+                    confirmButtonText: 'Aceptar',
+                    timer: 4000});
+            }
+        }
+    });
+
+}
+function limpiar_div_contadores_ppr() {
+
+    $('#tabla_contador').html("");
+    $('#tabla_contador_periodo').html("");
+    $('#tabla_mortandad_periodo').html("");
+    $('#tabla_mortandad_global').html("");
+    $('#grafico_resumen').html("");
+    $('#grafico_resumen_lote').html("");
+}
+
+function grafico_resumen_periodo_ppr() {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + "consulta_chart_resumen_periodo_huevos.jsp",
+        data: {
+            aviario: $('#aviario').val(),
+            fecha: $('#fecha').val()
+        },
+
+        success: function (data)
+        {
+            var c = 0;
+            $.each(data.chartsdet, function (i, item)
+            {
+                var a = '  <div >   ';
+                a += '  <div class="card-header"> ';
+                a += '   <h3 class="card-title"><b>Grafico del Periodo</h3> ';
+                a += '    <div class="card-tools"> ';
+                a += '  </div> ';
+                a += '    </div> ';
+                a += ' <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div> ';
+                a += '   <canvas id="' + data.chartsdet[c].options.plugins.title.text + '"></canvas>';
+                a += '  </div> ';
+
+                $("#grafico_resumen").append(a);
+
+                var resChart = new Chart(document.getElementById(data.chartsdet[c].options.plugins.title.text), data.chartsdet[c]);
+                c++;
+            });
+
+        }
+    });
+}
+
+function grafico_fila_contador_huevo_fila_ppr(fila) {
+
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr+"consulta_chart_resumen_fila_huevo.jsp",
+        data: {fila: fila,
+               aviario: $('#aviario').val(),
+               fecha: $('#fecha').val() },
+        success: function (data)
+       {
+            var c = 0;
+            $.each(data.chartsdet, function (i, item)
+            {
+                var a = '  <div >   ';
+                a += '  <div class="card-header"> ';
+                a += '    <h3 class="card-title"><b>Contador Huevos Fila</h3>';
+                a += '    <div class="card-tools"> ';
+                 a += '   <button type="button" class="btn btn-tool"  \n\
+                            data-card-widget="collapse" data-dismiss="modal" aria-label="Close"> ';
+                a += '   </i> ';
+                a += '   </button> ';
+                a += '   <button class="close" type="button" style="font-weight: bold;color:black;" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span></button>';
+                a += '   </div> ';
+                a += '   </div> ';
+                a += ' <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div> ';
+                a += '   <canvas id="' + data.chartsdet[c].options.plugins.title.text + '" ></canvas>';
+                a += '  </div> ';        
+
+                $("#fila_huevo_contador2").append(a);
+
+                var resChart = new Chart(document.getElementById(data.chartsdet[c].options.plugins.title.text), data.chartsdet[c]);
+                c++;
+            });
+           
+        }
+    });
+        limpiar_modal_fila_ppr();
+    $("#modal_huevo_resumen").modal("show");
+   
+
+
+}
+function cerrar_modal_fila_ppr()
+{
+
+    document.getElementById("fila_huevo_contador2").innerHTML = "";
+    $('#modal_huevo_resumen').modal('hide');
+    $('.modal-backdrop').remove();
+}
+function limpiar_modal_fila_ppr() {
+
+    $('#fila_huevo_contador2').html("");
+
+}
+
+function grafico_resumen_lote_ppr() {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + "consulta_chart_resumen_grafico_lote.jsp",
+        data: {
+            aviario: $('#aviario').val(),
+            lote: $('#lote').val()
+        },
+
+        success: function (data)
+        {
+            var c = 0;
+            $.each(data.chartsdet, function (i, item)
+            {
+                var a = '  <div >   ';
+                a += '  <div class="card-header"> ';
+                a += '   <h3 class="card-title"><b>Grafico Resumen Lote</h3> ';
+                a += '    <div class="card-tools"> ';
+                a += '  </div> ';
+                a += '    </div> ';
+                a += ' <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div> ';
+                a += '   <canvas id="' + data.chartsdet[c].options.plugins.title.text + '"></canvas>';
+                a += '  </div> ';
+
+                $("#grafico_resumen_lote").append(a);
+
+                var resChart = new Chart(document.getElementById(data.chartsdet[c].options.plugins.title.text), data.chartsdet[c]);
+                c++;
+            });
+
+        }
+    });
+}
+
+
 

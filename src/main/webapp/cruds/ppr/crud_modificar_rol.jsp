@@ -21,7 +21,7 @@
 
     String id            = request.getParameter("txt_id_rol");
     String descri        = request.getParameter("txt_decri_rol");
-    String estado      = request.getParameter("select_estado_rol");
+    String estado      = request.getParameter("select_estado_roles");
   
     
     String mensaje      ="";
@@ -50,8 +50,8 @@
                 }   
                 else  
                 {
-                     //clasess.controles.connectSesion.rollback(); 
-                    clases.controles.connectSesion.commit();
+                   //   clases.controles.connectSesion.rollback(); 
+                   clases.controles.connectSesion.commit();
                   
                 }    
                

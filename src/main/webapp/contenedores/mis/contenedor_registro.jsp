@@ -21,7 +21,15 @@
         fecha=rs.getString(1);
         indate=rs.getString(2);
         }
- %>    
+ %>
+ 
+ <head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0018-REP-01032022-A','VERSION: 0018-REP-01032022-A')">
+    <label ></label>0018-PAN-01032022-A  
+</div>
+</head>
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">

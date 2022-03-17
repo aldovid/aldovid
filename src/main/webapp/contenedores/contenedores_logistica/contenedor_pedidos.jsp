@@ -13,6 +13,14 @@
     rs2 = fuente.obtenerDato("select code,name  from maehara.dbo.[@CHOFERES] where U_estado='activo'");
 
 %>
+
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0004-PAN-01032022-A','VERSION: 0004-PAN-01032022-A')">
+    <label >0004-PAN-01032022-A</label>  
+</div>
+</head>
    <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">
@@ -20,7 +28,7 @@
 LOG
 </div>
 </div>
-    <div id="titulo_menu"> <center><b>REGISTRO DE PEDIDOS</b></center></div>
+    <center><b>REGISTRO DE PEDIDOS</b></center>
 </div>
    </div>  <br>    
      
@@ -64,23 +72,22 @@ LOG
        </div>
        
        <div class="container my-4">
-           <button id="modalActivate" type="button" class="btn bg-navy form-control" data-toggle="modal" data-target="#exampleModalPreview"  >
-            Abrir ventana de pedidos
+        <button id="modalActivate" type="button" class="btn bg-navy form-control" data-toggle="modal" data-target="#exampleModalPreview">
+        Abrir ventana de pedidos
         </button>
         <!-- Modal -->
         <div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
             <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
                 <div class="modal-content-full-width modal-content ">
                     <div class=" modal-header-full-width   modal-header text-center">
-                         <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                       <b>0004-PAN-01032022-A</b>  <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                             <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <a style="font-weight: bold;color:black; display: none">CARROS RESTANTES:</a><input type="hidden" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
-                        <button type="button" class="btn bg-navy " onclick="generar_grilla_pedido(5);"><i class="fas fa-play"></i>&nbsp;Actualizar datos</button><!-- comment -->
                         
-                         <div id="contenido_grillas"   class="table-responsive">
+                        <a style="font-weight: bold;color:black">CARROS RESTANTES:</a><input type="text" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
+                        <div id="contenido_grillas"   class="table-responsive">
 
                         </div>  
 
@@ -93,9 +100,3 @@ LOG
         </div>
     </div>
 
-    <style>
-    #tb_preembarque {
-  width: 100%;
-}
-
-    </style>

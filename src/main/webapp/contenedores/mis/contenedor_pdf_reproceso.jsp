@@ -1,4 +1,15 @@
- <form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="cruds/mis/control_reporte_reproceso.jsp" target="_blank">
+
+      <head>  
+      <label  ><b></b></label>
+<div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
+     data-toggle="modal" data-target=".bd-example-modal-xx" 
+     onclick="cargar_datos_modal_version('0054-REP-01032022-A','VERSION: 0054-REP-01032022-A')" >
+    <label neme="label_contenido" id="label_contenido" >0054-REP-01032022-A</label>  
+</div>
+</head> 
+
+
+<form id="formulario_reporte_reproceso" name="formulario_reporte_reproceso" action="cruds/mis/control_reporte_reproceso.jsp" target="_blank">
    <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">

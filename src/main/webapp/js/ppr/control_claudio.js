@@ -1,6 +1,6 @@
 var ruta_consultas_ppr = "./consultas/ppr/";
 var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
-function grafico_detalles()
+function grafico_detalles_ppr()
 {
     $.ajax({
         type: "POST",
@@ -43,7 +43,7 @@ function grafico_detalles()
         }
     });
 }
-function llamar_grafico_detalles()
+function llamar_grafico_detalles_ppr()
 {
     $.ajax({
         url: ruta_vistas_ppr + "vista_informe_detalle.jsp",
@@ -52,11 +52,11 @@ function llamar_grafico_detalles()
             $('#idresumen_det').html("");
             $('#idresumen_huevos').html(data);
             $('#contenido_row').html("");
-            grafico_detalles();
+            grafico_detalles_ppr();
         }});
 }
 
-function grafico_detalles_fi(name2)
+function grafico_detalles_fila_ppr(name2)
 {
     $.ajax({
         type: "POST",
@@ -101,7 +101,7 @@ function grafico_detalles_fi(name2)
         }
     });
 }
-function llamar_grafico_detalles_fi(name2)
+function llamar_grafico_detalles_fila_ppr(name2)
 {
     $.ajax({
         url: ruta_vistas_ppr + 'vista_grafico_fila.jsp',
@@ -110,43 +110,221 @@ function llamar_grafico_detalles_fi(name2)
             $('#idresumen_huevos').html("");
             $('#idresumen_det').html(data);
             $('#contenido_row').html("");
-            grafico_detalles_fi(name2);
+            grafico_detalles_fila_ppr(name2);
         }});
 }
-function traer_vista_contador_huevo() {
+function traer_vista_contador_huevo2_ppr() {
 
     $.ajax({
-        url: "grillas/grilla_registro_de_datos_diarios.jsp",
+        url: ruta_vistas_ppr + "/vista_registro_de_datos_diarios_A.jsp",
         type: "post",
         success: function (data) {
 
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
+            
+            contador_u_registro_datos_diarios_ppr()
+        }
+        
+    });
+}
+function carga_aviario_fecha_ppr(avia){
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + '/consulta_cargar_aviario_fecha.jsp',
+        beforeSend: function (xhr) {
+            limpiarg_ppr(), 
+            cargar_load("Consultando...");
+        },
+        data: {
+            idfechad: $('#idfechad').val(),
+            avia:avia
+            //agregar aca avia y fecha
+    
+        },
+
+        success: function (data) {
+            $('#tabla_datos_diarios').html(data.grilla_datos_diarios);
+            $('#avi').html(data.grilla_datos_diarios);
+            $('#idfecham').val(data.fecha1);
+            $('#avis').val(data.avia);
+            
+            $('#contenido_row').html("");
+            cerrar_load();
+            
+            $(window).ready(function(){
+            $('#idfecham').trigger('change');
+            $('#avis').trigger('change');
+            });
+        }
+    });
+
+}
+function carga_aviario_fecha_B_ppr(avia){
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + '/consulta_cargar_aviario_fecha_B.jsp',
+        beforeSend: function (xhr) {
+            limpiarg_ppr(), cargar_load("Consultando...");
+        },
+        data: {
+            idfechad: $('#idfechad').val(),
+            avia:avia
+    //agregar aca avia y fecha
+    
+        },
+
+        success: function (data) {
+            $('#tabla_datos_diarios').html(data.grilla_datos_diarios);
+            $('#avi').html(data.grilla_datos_diarios);
+            $('#idfecham').val(data.fecha1);
+            $('#avis').val(data.avia);
+            
+            $('#contenido_row').html("");
+            cerrar_load();
+            
+            $(window).ready(function(){
+            $('#idfecham').trigger('change');
+            $('#avis').trigger('change');
+});
+        }
+    });
+
+}
+function carga_grilla_registro_datos_diarios_A_ppr(avia) {
+
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + '/consulta_registro_datos_diario_A.jsp',
+        beforeSend: function (xhr) {
+            limpiarg_ppr(), 
+                    cargar_load("Consultando...");
+        },
+        data: {
+            idfechad: $('#idfechad').val(),
+            avia:$('#avis2').val(),
+    //agregar aca avia y fecha
+    
+        },
+
+        success: function (data) {
+            $('#tabla_datos_diarios').html(data.grilla_datos_diarios);
+            $('#avi').html(data.grilla_datos_diarios);
+            $('#idfecham').val(data.fecha1);
+            $('#avis').val(data.avia);
+            $('#contenido_row').html("");
+            cerrar_load();
+            if (!Object.keys(data.aviario).length) {
+                $(".ocultar").hide();
+                Swal.fire({
+                    title: 'ATENCION!',
+                    text: 'No Existen Registros',
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#001F3F',
+                    confirmButtonText: 'Aceptar',
+                    timer: 6000});
+            } else {
+                $(".ocultar").show();
+            }
+            carga_grilla_registro_datos_diarios_B_ppr()
+        }
+    });
+
+}
+function contador_u_registro_datos_diarios_ppr(cant) {
+
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr+"consulta_carga_ultimo_registro_grilla_registro_datos_diarios.jsp",
+        beforeSend: function (xhr) {
+            limpiarg_ppr();
+        },
+        success: function (data) {
+
+                //$(item.id).css("background-color",item.color); 
+                $("#idfechad").val(data.fecha);
+                $(window).ready(function(){
+                $('#idfechad').trigger('change');
+        });
+        
+        }
+    });
+}
+
+function carga_grilla_registro_datos_diarios_B_ppr() {
+
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + '/consulta_registro_datos_diarios_B.jsp',
+
+        data: {
+            idfechad: $('#idfechad').val()
+        },
+
+        success: function (data) {
+            $('#tabla_datos_diariosb').html(data.grilla_datos_diariosb);
+            $('#contenido_row').html("");
+            cerrar_load();
+            if (!Object.keys(data.aviario).length) {
+                $(".ocultar").hide();
+                Swal.fire({
+                    title: 'ATENCION!',
+                    text: 'No Existen Registros',
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#001F3F',
+                    confirmButtonText: 'Aceptar',
+                    timer: 6000});
+            } else {
+                $(".ocultar").show();
+            }
+
+        }
+    });
+
+}
+
+function dd_mec2_ppr() {
+    var f = $("#idfecha").val();
+    $.ajax({
+        url: ruta_vistas_ppr + '/vista_registro_diario_aviarios_mecanizados.jsp',
+        type: "post",
+        success: function (data) {
+            
+            $('#contenedor_principal').html(data);
+            $('#contenido_row').html("");
+            //registro_diario_mecanizado_resumen();
 
         }});
 }
  
  
-function llamar_mortandad_lotes()
+function llamar_mortandad_lotes_ppr()
 
 {
     $.ajax({
         url: ruta_vistas_ppr + 'vista_mortandad_lotes.jsp',
         type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
-            ocultar();
+            ocultar_ppr();
+            cerrar_load();
         }});
 }
 
-function lote_mortandad() {
+function lote_mortandad_ppr() {
 
     $.ajax({
         type: "POST",
         url: ruta_consultas_ppr + 'consulta_mortandad_lotes.jsp',
         beforeSend: function (xhr) {
-            limpiarg(), cargar_load("Consultando...");
+            limpiarg_ppr(), cargar_load("Consultando...");
         },
         data: {
             meslote: $('#meslote').val(),
@@ -177,7 +355,7 @@ function lote_mortandad() {
 
 }
 
-function ExportToExcel(htmlExport) {
+function ExportToExcel_ppr(htmlExport) {
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
 
@@ -201,7 +379,7 @@ function ExportToExcel(htmlExport) {
         document.body.removeChild(link);
     }
 }
-function ExportToExceldatos_con(htmlExport) {
+function ExportToExceldatos_con_ppr(htmlExport) {
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
 
@@ -226,25 +404,30 @@ function ExportToExceldatos_con(htmlExport) {
     }
 }
 
-function llamar_datos_contadores()
+function llamar_datos_contadores_ppr()
 {
     $.ajax({
         url: ruta_vistas_ppr + 'vista_datos_contadores.jsp',
         type: "post",
+         beforeSend: function (xhr) {
+            cargar_load();
+
+        },
         success: function (data) {
             $('#contenedor_principal').html(data);
             $('#contenido_row').html("");
-            ocultar();
+            ocultar_ppr();
+            cerrar_load();
         }});
 }
 
-function datos_contadores() {
+function datos_contadores_ppr() {
 
     $.ajax({
         type: "POST",
         url: ruta_consultas_ppr + 'consulta_datos_contadores_huevos.jsp',
         beforeSend: function (xhr) {
-            limpiarg(), cargar_load("Consultando...");
+            limpiarg_ppr(), cargar_load("Consultando...");
         },
         data: {
             mescon: $('#meslotec').val(),
@@ -277,7 +460,7 @@ function datos_contadores() {
     });
 
 }
-function contador_h(cant)
+function contador_huevos_ppr(cant)
 {
     $.ajax({
         type: "POST",
@@ -288,7 +471,7 @@ function contador_h(cant)
             aviario: $('#avi').val()
         },
         beforeSend: function (xhr) {
-            limpiarg(), cargar_load("Consultando...");
+            limpiarg_ppr(), cargar_load("Consultando...");
         },
         success: function (data) {
             var total_huevos = 0;
@@ -313,7 +496,7 @@ function contador_h(cant)
 
             $("#huevos").val(numeral(total_huevos).format('0,0'));
             $("#promedio").val(numeral(Math.round(promedio)).format('0,0'));
-            colorestext();
+            colorestext_ppr();
             if (cantidad === 0) {
                 $(".ocultar").hide();
                 Swal.fire({
@@ -333,7 +516,7 @@ function contador_h(cant)
     });
 }
 
-function resumen_h(name) {
+function resumen_detalle_huevos_ppr(name) {
 
     $.ajax({
         type: "POST",
@@ -360,7 +543,7 @@ function resumen_h(name) {
     });
 }
 
-function limpiarg()
+function limpiarg_ppr()
 {
 
     $(".cero").html("0");
@@ -370,12 +553,12 @@ function limpiarg()
     $("#minimo2").css("background-color", "#828282");
     $("#huevos").css("background-color", "#828282");
 }
-function limpiarm()
+function limpiarm_ppr()
 {
 
     $(".cerom").html("");
 }
-function colorestext()
+function colorestext_ppr()
 {
 
     $("#promedio").css("background-color", "#007d3c");
@@ -388,7 +571,7 @@ function colorestext()
     $("#huevos").css("color", "#ffffff");
 }
 
-function max_min(cant) {
+function max_min_ppr(cant) {
 
     $.ajax({
         type: "POST",
@@ -417,7 +600,7 @@ function max_min(cant) {
 
     });
 }
-function max_min_inicio(cant) {
+function max_min_inicio_ppr(cant) {
 
     $.ajax({
         type: "POST",
@@ -443,7 +626,7 @@ function max_min_inicio(cant) {
     });
 }
 
-function confirmacion()
+function confirmacion_ppr()
 {
 
     $(".cero").html("0");
@@ -453,13 +636,13 @@ function confirmacion()
     $("#minimo2").css("background-color", "#828282");
     $("#huevos").css("background-color", "#828282");
 }
-function contador_u_registro(cant) {
+function contador_u_registro_ppr(cant) {
 
     $.ajax({
         type: "POST",
         url: ruta_consultas_ppr+"consulta_carga_grilla_aviarios_ultimo_registro.jsp",
         beforeSend: function (xhr) {
-            limpiarg();
+            limpiarg_ppr();
         },
         success: function (data) {
 
@@ -473,47 +656,186 @@ function contador_u_registro(cant) {
                 $("#avi").val(item.aviario);
             }
             );
-            llamar_ultimo_registro();
+            llamar_ultimo_registro_ppr();
         }
     });
 }
-function ocultar()
+function ocultar_ppr()
 {
     $(".ocultar").hide();
 }
-function mostrar()
+function mostrar_ppr()
 {
     $(".ocultar").show();
 }
 
-function llamar_ultimo_registro() {
+function llamar_ultimo_registro_ppr() {
     $(document).ready(function () {
         $(".cargar").click();
     });
 }
-function contador_m() {
+function contador_mortandad_ppr(avi) {
     $.ajax({
         type: "POST",
-        url: ruta_consultas_ppr + 'consulta_datos_mortandad.jsp',
+        url: ruta_consultas_ppr + '/consulta_datos_mortandad.jsp',
         data: {
-            fecha: $('#idfecha_m').val(),
-            aviario: $('#avi_m').val()
+            fecha: $('#idfecham').val(),
+            aviario: $('#avis').val()
+        },
+        beforeSend: function (xhr) {
+            limpiarm_ppr(), cargar_load("Consultando...");
+            ;
         },
         success: function (data) {
+            var total_muertes = 0;
             $.each(data.filas, function (i, item)
             {
                 $(item.id).html(item.cantidad);
+                total_muertes = parseInt(total_muertes) + parseInt(item.cantidad);
             }
             );
-
+            $("#total-morfilas2").val(total_muertes);
+            cerrar_load();
+            registro_diario_mecanizado_resumen_ppr()
         }
 
     });
 }
-function limpiar(data) {
+function registro_diario_mecanizado_resumen_ppr() {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + '/consulta_registro_aviarios_mecanizados_resumen.jsp',
+        data: {
+            fecha: $('#idfecham').val(),
+            aviario: $('#avis').val()
+        },
+        success: function (data) {
+            $.each(data, function (i, item)
+            {
+                $('#dl_edad').val(data.sems);
+                $('#dl_saldoant').val(data.saldoant);
+                $('#dl_mortpor').val(data.mor);
+                $('#dl_saldo').val(data.saldo);
+                $('#prodpor').val(data.prodpor);
+                $('#kg_bal').val(data.kg);
+                $('#ave_bal').val(data.gr_ave);
+                $('#cons_agua').val(data.sems);
+                $('#cons_agua_t').val(data.sems);
+
+                $('#dl_muertos_normal').val(data.normal);
+                $('#dl_muertos_prolapso').val(data.prolapso);
+                $('#dl_muertos_livianos').val(data.livianos);
+                $('#dl_balkg1').val(data.silo1);
+                $('#dl_balkg2').val(data.silo2);
+                $('#dl_calcico').val(data.calcico);
+                $('#dl_caudal').val(data.caudal1);
+                $('#dl_caudal2').val(data.caudal2);
+                $('#dl_tempm2').val(data.tmin);
+                $('#dl_tempm1').val(data.tmax);
+                $('#dl_huevos').val(data.cant);
+                $('#dl_transferin').val(data.ti);
+                $('#dl_transferout').val(data.ts);
+                $('#dl_ajuste').val(data.aj);
+                $('#dl_venta').val(data.ve);
+                $('#dl_anota').val(data.notas);
+                $('#cons_agua_t').val(data.litros);
+                $('#cons_agua').val(data.litros);
+                $('#baltotal').val(data.totalbalanceados);
+                $('#dia_ant').val(data.dia_ant);
+
+                $('#total-muertos').val(data.totalm);
+            });
+            cerrar_load();
+        }
+    });
+}
+function limpiar_ppr(data) {
     $.each(data.filas, function (i, item)
     {
         $(item.id).html("");
     }
     );
 }
+
+function enviar_fecha_avi_ppr(avi){
+    var aviario=avi;
+    var fecha=$('#idfechad');
+    abrir_ppr(aviario,fecha);
+}
+function abrir_ppr(aviario,fecha){
+    $.ajax({
+  
+        type: "post",
+        url: 'grillas/grilla_registro_diario_aviarios_mecanizados.jsp',
+        success: function (data) {
+            $('#avis').val(aviario);
+             $('#idfecham').val(fecha);
+
+        }});
+}
+function ppr_dd_mec3(avi) {
+    var f = $("#idfechad").val();
+    loader();
+    $.post("grillas/grilla_registro_diario_aviarios_mecanizados.jsp", {avi: avi, f: f}, function (res) {
+        $("#contenido").html(res);
+        $("#avis").on("change", function () {
+            ppr_dd_mec3($(this).val());
+        });
+        var lote = $("#lote").val();
+        $("#idfechad")
+                .datepicker({autoclose: true, format: "dd/mm/yyyy", language: "es"})
+                .change(function () {
+                    var a = $("#avis").val();
+                    registro_diario_mecanizado_resumen(a);
+                });
+        
+        closeLoader();
+    });
+}
+function ppr_dd_mec_onSelect() {
+    var editables = document.querySelectorAll("[contentEditable]");
+    for (var i = 0, len = editables.length; i < len; i++) {
+        editables[i].setAttribute("data-orig", editables[i].innerHTML);
+        editables[i].onfocus = function () {
+            celda_editable_selectElement(this);
+        };
+        editables[i].onblur = function () {
+            if (this.innerHTML == this.getAttribute("data-orig")) {
+                this.innerHTML = this.getAttribute("data-orig");
+            } else {
+                this.setAttribute("data-orig", this.innerHTML);
+                var valor = this.getAttribute("data-orig");
+                var regex = /<br\s*[\/]?>/gi;
+                valor = valor.replace(regex, "");
+                var fecha = $("#fecha").val();
+                var avi = $("#avi").val();
+                var lote = $("#lote").val();
+                var campo = this.getAttribute("campo");
+                if (campo == "mor") {
+                    var fila = this.getAttribute("fila");
+                    ppr_dd_mec_regmor(fecha, avi, lote, fila, valor);
+                }
+            }
+        };
+    }
+}
+function ppr_dd_mec_regmor(fecha, avi, lote, fila, valor) {
+    var mf = $("#total-morfilas").html();
+    var tm = $("#total-muertos").html();
+    $.post("apps/ppr/dd/dd.mec.morfila.php", {fecha: fecha, avi: avi, lote: lote, fila: fila, valor: valor}, function (j) {
+        $("#saldo").html(j.saldo);
+        $("#total-muertos").html(j.muertos);
+        $("#total-morfilas").html(j.muertos);
+        $("#pmort").html(j.pmort);
+        if (j.mornoclas > 0) {
+            $("#mornoclas").html(j.mornoclas).addClass("bg-red");
+            $("#total-muertos").addClass("bg-red");
+        } else {
+            $("#total-muertos").removeClass("bg-red");
+            $("#mornoclas").html(j.mornoclas).removeClass("bg-red");
+        }
+        $("#mlave").html(j.mlave);
+    });
+}
+
+

@@ -11,6 +11,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0001-REP-01032022-A','VERSION: 0001-REP-01032022-A')">
+    <label >0001-REP-01032022-A</label>  
+</div>
+</head>
 <body>
     <%        try {
             controles.VerificarConexion();

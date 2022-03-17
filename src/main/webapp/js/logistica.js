@@ -163,8 +163,15 @@ function generar_grilla_pedido(tipo, codigo)
                 if (10 - cyo == 0) {
                     $("#th_cyo").hide();
                 }
+                $("#btn_directorio_actualizar").remove();
             }
-            if (tipo == 4 || tipo == 5 ) {
+            if (tipo == 4 || tipo == 5 ) 
+            {
+                if(tipo==4)
+                {
+                    $("#btn_directorio_actualizar").remove();
+                }
+                $("#btn_logistica_actualizar").remove();
                 $("#div_pedido").hide();
                 $("#div_2").hide();
                 var columnsc = $("#tb_preembarque > tbody > tr:first > td").length;

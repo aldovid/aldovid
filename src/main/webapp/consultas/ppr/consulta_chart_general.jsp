@@ -18,6 +18,7 @@
   <% 
  
       JSONObject charts = new JSONObject();
+      clases.controles.VerificarConexion();
     PreparedStatement pt=clases.controles.connectSesion.prepareStatement(" select  distinct(aviario) as aviario,  convert(int,right(aviario,len(aviario)-1) ) as numeros, "
             + " left(aviario,1) as letra  from vis_mae_ppr_grafico where  dateadd(day,-30,getdate())<=getdate() order by 3,2 asc");
     ResultSet rs=pt.executeQuery();

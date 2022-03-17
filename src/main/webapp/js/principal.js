@@ -4,15 +4,153 @@
  * and open the template in the editor.
  */
 
-var ruta_consultas_prin = "./consultas/";
 
+var ruta_consultas_prin = "./consultas/";
+var ruta_contenedores_prin = "./contenedores/";
+var ruta_cruds_prin = "./cruds/";
 $(document).ready(function () {
     gen_menu();
     no_volver_atras();
     login_exito();
     cargar_load();
     cerrar_load();
+    
 });
+
+
+   function ir_permisos_roles()
+    {
+        $.ajax({
+        type: "POST",
+        url: ruta_contenedores_prin+"vista_permisos.jsp",
+        beforeSend: function (xhr) {
+            cargar_load("Cargando...");
+        },
+        success: function (data) 
+        {      
+            $("#contenedor_principal").html("");
+            $("#contenedor_principal").html(data);
+               
+            cargar_permisos_roles();
+            cerrar_load();
+            
+        }
+      }); 
+       
+    }
+    
+    
+  function cargar_permisos_roles()
+    {
+        $.ajax({
+        type: "POST",
+        url: ruta_consultas_prin+'consulta_permisos_roles.jsp',
+        beforeSend: function (xhr) {
+            
+        },
+        success: function (data) 
+        {      
+            $("#permisos").html("");
+            $("#permisos").html(data.select);
+            formato_multiselect();
+             $('.dropdown-header').addClass('bg-navy');
+           $('#form_add_permisos').on('submit', function (event)
+            {
+                event.preventDefault();
+                registrar_agregar_permisos();
+                event.stopPropagation();
+
+            });
+            
+          
+        
+        }
+        
+      }); 
+       
+    }
+    
+    function obtener_permisos_habilitados_roles()
+    {
+        $.ajax({
+        type: "POST",
+        url: ruta_consultas_prin+'consulta_permisos_seleccionados.jsp',
+        data:{id_rol: $('#roles').val()},
+        beforeSend: function (xhr) {
+            
+        },
+        success: function (data) 
+        {      
+            $('#permisos').selectpicker('val', '');
+            $('#permisos').selectpicker('refresh');
+            $('#permisos').val(data.selected.split(','));
+            $('#permisos').selectpicker('refresh');
+            $('.dropdown-header').addClass('bg-navy');
+           /* $('#permisos').on('changed.bs.select', function(e) {
+             categoryvalue = $(".getCategory option:selected").text();
+             alert(categoryvalue);
+           });*/
+        }
+      }); 
+       
+    }
+    
+    
+function registrar_agregar_permisos(){
+ Swal.fire({
+        title: 'CONFIRMACION',
+        text: "DESEA CREAR  NUEVO PERMISO?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#001F3F',
+        cancelButtonColor: '#001F3F',
+        confirmButtonText: 'SI, CREAR!',
+        cancelButtonText: 'NO, CANCELAR!'}).then((result) =>
+    {
+         if (result.value)
+        {
+     $.ajax({
+        type: "POST",
+         url: ruta_cruds_prin+"crud_agregar_permisos.jsp",
+        data: $("#form_add_permisos").serialize(),
+        beforeSend: function (xhr) {
+            cargar_load("Consultando...");
+        },
+        success: function (result)
+        {
+               cerrar_load();
+            if (result.tipo_mensaje == "2") {
+                        swal.fire({
+                            type: 'success',
+                            text: result.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+
+                          
+                        
+                       
+                    }     if (result.tipo_mensaje == "1") {
+                        swal.fire({
+                            type: 'success',
+                            text: result.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+
+                          
+                        
+                       
+                    }  
+          }
+          
+        });
+       }
+      });
+      }
+
+      
+
+    
+    
 function aviso_error(mensaje) {
     swal.fire
             ({
@@ -100,13 +238,18 @@ function login_exito()
 
 function gen_menu()
 {
+    var search=' <div class="input-group" data-widget="sidebar-search">    \n\
+                <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">  \n\
+                <div class="input-group-append"> <button class="btn btn-sidebar">   <i class="fas fa-search fa-fw"></i>   \n\
+                </button>   </div>  </div>';
     $.ajax({
         url: ruta_consultas_prin + 'consulta_generar_menu.jsp',
         type: "post",
         success: function (data) {
             $('#ul_menu').html(data.menu);
             notificacion();
-
+            $('#div_buscador').html(search);
+                
         }});
 }
 
@@ -212,3 +355,11 @@ function formato_hora_input() {
             }
     );
 }
+
+
+
+function cargar_datos_modal_version(ribbon,titulo)
+{
+   $("#ribbon_version").html(ribbon);      
+   $("#ribbon_titulo").html(titulo); 
+}   

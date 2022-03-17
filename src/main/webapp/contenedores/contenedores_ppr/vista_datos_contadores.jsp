@@ -47,7 +47,13 @@
     setInputDate("#idfechahasta");
 
 </script>
-
+<head>   
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('0015-REP-01032022-A','VERSION: 0015-REP-01032022-A')">
+    <label neme="label_contenido" id="label_contenido">0015-REP-01032022-A</label>  
+</div>
+</head>
 <div class="col-lg-20 ">
 <div class="position-relative p-3 bg-navy"  >
 <div class="ribbon-wrapper">
@@ -69,7 +75,7 @@ PPR
                     <label class="tablagrilla">Mes</label>
                 </center>
                 <center>
-                    <select onchange="ocultar()" style="width:120px" id="meslotec" name="meslotec" class=" tablagrilla form-control">
+                    <select onchange="ocultar_ppr()" style="width:120px" id="meslotec" name="meslotec" class=" tablagrilla form-control">
                         <option class="text-center" value="1">Enero</option>
                         <option class="text-center" value="2">Febrero</option>
                         <option class="text-center" value="3">Marzo</option>
@@ -89,7 +95,7 @@ PPR
                     <label class="tablagrilla">Año</label>
                 </center>
                 <center>
-                    <input onchange="ocultar()" style="width:120px" type="number" id="anolotec" step="1" name="anolote" class="tablagrilla form-control text-center" required="true" value="2022">
+                    <input onchange="ocultar_ppr()" style="width:120px" type="number" id="anolotec" step="1" name="anolote" class="tablagrilla form-control text-center" required="true" value="2022">
                 </center>
                 </th>
                 <th class="tablagrilla">
@@ -97,7 +103,7 @@ PPR
                     <label class="tablagrilla">Aviario</label>
                 </center>
                 <center>
-                    <select onchange="ocultar()" style="width:120px" id="avic" name="aviario" class=" tablagrilla form-control">
+                    <select onchange="ocultar_ppr()" style="width:120px" id="avic" name="aviario" class=" tablagrilla form-control">
                         <option value="A10">A10</option>
                         <option value="A11">A11</option>
                         <option value="A12">A12</option>
@@ -127,7 +133,7 @@ PPR
                 </center>
                 <center>
                     <div class="input-group-append">
-                        <button type="button" id="buscar" name="buscar" onclick="datos_contadores()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
+                        <button type="button" id="buscar" name="buscar" onclick="datos_contadores_ppr()" class="bg-navy form-control text-center cargar" ><i class="fa fa-search"></i></button>
                             <%-- 
                             <button type="button" id="buscar" name="buscar" onclick="llamar_temp_mortandad_lotes()" class="bg-gradient-white form-control text-center cargar" ><img src="img/botonmuestra.png" height="40" width="500" alt=""/></button>
                             --%>
@@ -140,7 +146,7 @@ PPR
                 <div id="btn_excel" class=" tablagrilla ocultar"><button type="button" id="excel" name="excel" onclick="exportTableToExcel()" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
                 --%>
                 <div id="btn_excel" class=" tablagrilla ocultar">
-                    <button type="button" id="excel" name="excel" onclick="ExportToExceldatos_con(jQuery('#datoscon').prop('outerHTML'))" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
+                    <button type="button" id="excel" name="excel" onclick="ExportToExceldatos_con_ppr(jQuery('#datoscon').prop('outerHTML'))" class="bg-huevos-light form-control text-center cargar btn-excel tablagrilla" ><i class="fa fa-file-excel tablagrilla"> Exportar a MS Excel</i></button>
                 </div>
 
             </center>
