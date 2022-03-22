@@ -98,6 +98,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
 
     function grafico_mortandad_ppr() 
     {
+        window.location.hash = "pprGraficoMortandad";
         $.ajax({
             url: ruta_vistas_ppr+"vista_informe_aviarios.jsp",
             type: "post",
@@ -111,6 +112,7 @@ var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
     
     function grilla_huevos_ppr() 
     {
+        window.location.hash = "pprGrillaHuevos";
         $.ajax({
                 url: ruta_vistas_ppr+"vista_grilla_contadores_de_huevos.jsp",
                 type: "post",

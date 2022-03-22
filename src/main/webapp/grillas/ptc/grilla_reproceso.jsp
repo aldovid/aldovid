@@ -92,10 +92,12 @@
                <td><%=rs.getString(8)%></td>
                 <td id="check"> <input name="checks[]" class="checkbox" type='checkbox' value="<%=rs.getString(1)%>-<%=rs.getString(7)%>-<%=rs.getString(8)%>"/></td>
                 <td style="display: none" id="oculto"><%=rs.getString(6)%></td>          
+                </tr> 
                 <%}
                    cn.close();
-                %>   
-            </tr> 
+clases.controles.DesconnectarBDsession();
+                %>      
+           
                 </tbody>   
                 </table>
         </form>

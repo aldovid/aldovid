@@ -42,7 +42,7 @@
                // Cant.add(cant_c);
                
               }
-            clases.controles.connectSesion.close();
+        clases.controles.DesconnectarBDsession();             
     obje.put("filas",Fila_M);
    // obje.put("cant",Cant );
     out.print(obje); 

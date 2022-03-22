@@ -48,5 +48,6 @@
         outputstream.write(bytes,0,bytes.length);
         outputstream.flush();
         outputstream.close();    
+            clases.controles.DesconnectarBDsession();
      }
      %> 

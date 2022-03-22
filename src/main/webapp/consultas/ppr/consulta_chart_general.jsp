@@ -269,8 +269,8 @@
                 
                 dd++;   
             }
-            
-             charts.put("charts", dataArray); 
+        clases.controles.DesconnectarBDsession();             
+        charts.put("charts", dataArray); 
          
          out.print(charts); 
  %>

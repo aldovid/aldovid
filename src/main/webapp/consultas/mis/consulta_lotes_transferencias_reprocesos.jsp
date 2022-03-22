@@ -17,9 +17,8 @@
             String carro =  request.getParameter("carro");
             ResultSet rs_GM ;
             String area_cch =(String) sesionOk.getAttribute("area_cch");
-
-                controles.VerificarConexion();
-            Connection cn_GM = clases.controles.connectSesion;
+            controles.connectarBD();
+            Connection cn_GM = clases.controles.connect;
             fuente_GM.setConexion(cn_GM);  
                
                     
@@ -53,13 +52,18 @@
         }
         rs_GM.close();
         cn_GM.close();
-        controles.DesconnectarBD();
+    
         } catch (Exception e) 
                
         {
             String a=e.toString();
         } 
-        out.print(jarray); 
+        finally 
+        {
+            controles.DesconnectarBD();
+              out.print(jarray); 
+        }
+      
         
         
     %>

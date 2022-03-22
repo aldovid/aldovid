@@ -6,6 +6,7 @@
 <%@include  file="../../chequearsesion.jsp" %>
  
 <% 
+    clases.controles.VerificarConexion();
     Connection cn = controles.connectSesion;
     // Asignar conexion al objeto manejador de datos
     fuente.setConexion(cn);
@@ -95,4 +96,6 @@
    </tr>  <% } %></tbody>    </table>
      
   
-    
+    <% cn.close();
+clases.controles.DesconnectarBDsession();
+%>

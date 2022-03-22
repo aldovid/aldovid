@@ -12,15 +12,12 @@
 <%@include  file="../chequearsesion.jsp" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
 <%     
-     clases.controles.VerificarConexion();
+    clases.controles.VerificarConexion();
     fuente.setConexion(clases.controles.connectSesion);
-        String id_rol= request.getParameter("id_rol") ;
-
-     ResultSet rs3;
-     
- 
+    String id_rol= request.getParameter("id_rol") ;
+    ResultSet rs3;
     JSONObject ob = new JSONObject();
- String seleccionados="";
+    String seleccionados="";
     ob=new JSONObject();
    rs3 = fuente.obtenerDato(" select * from mae_yemsys_permisos where id_rol="+id_rol+" and id_estado=1  ");
    int c=0;
@@ -36,7 +33,7 @@
          c++;
     }   
         rs3.close();
-      
+        clases.controles.DesconnectarBDsession();
     ob.put("selected",seleccionados ) ;
 
     out.print(ob);  

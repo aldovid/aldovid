@@ -7,7 +7,6 @@
            String id_usuario = (String) sesionOk.getAttribute("id_usuario");
            String area  = (String) sesionOk.getAttribute("clasificadora");
            String nav_area  = (String) sesionOk.getAttribute("nav_area");
-
         %> 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,11 +34,11 @@
         <link href="plugins/lib/themes/default.css" rel="stylesheet" id="theme_base" />
         <link href="plugins/lib/themes/default.date.css" rel="stylesheet" id="theme_date" />
         <!-- LIBRERIA DATATABLE CSS-->>
-       <!--  <link href="plugins/PLUGINS/v/dt/dt-1.10.16/sl-1.3.6/datatables.min.css" rel="stylesheet" type="text/css"/>
+       <!--  <link href="plugins/PLUGINS/v/dt/dt-1.10.16/sl-1.4.0/datatables.min.css" rel="stylesheet" type="text/css"/>
         <link href="plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
         <link href="plugins/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
 -->
-<link href="plugins/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
+        <link href="plugins/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
      
         <link rel="stylesheet" type="text/css" href="plugins/autoFill.bootstrap4.min.css"/>
         <link rel="stylesheet" type="text/css" href="plugins/buttons.bootstrap4.css"/>
@@ -195,8 +194,11 @@
 
                         <div class="modal fade bd-example-modal-xl" id="modal_reporte_varios" tabindex="-1" role="dialog"   aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 
-                        <iframe width="700" height="900" frameborder="0" scrolling="no" src="https://grupomaehara-my.sharepoint.com/personal/hvelazquez_yemita_com_py/_layouts/15/Doc.aspx?sourcedoc={4ea7d63d-aa51-430a-ae79-139c8406e042}&action=embedview&wdAllowInteractivity=False&Item=Tabla2&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
-
+                           <iframe width="700" height="900" frameborder="0" scrolling="no"
+                                src="https://grupomaehara-my.sharepoint.com/personal/hvelazquez_yemita_com_py/_layouts/15/Doc.aspx?sourcedoc
+                                ={4ea7d63d-aa51-430a-ae79-139c8406e042}&action=embedview&wdAllowInteractivity=False&Item=Tabla2&wdHideGridlines=True&wdDownloadButton
+                                =True&wdInConfigurator=True"></iframe>
+ 
                         </div>
                         
                         
@@ -246,7 +248,7 @@
                     <strong>Copyright © 2022 - Grupo Maehara.</strong>
                     Todos los derechos reservados.
                     <div class="float-right d-none d-sm-inline-block"  >
-                         <a href="img/Versionado Yemsys 13Mar2022.xlsx">Documento Versión</a>
+                          <a href="img/Documento Version Yemsys 15Mar2022.xlsx">Documento Versión</a>
                     </div>
                 </footer>
 
@@ -377,15 +379,15 @@
             <script src="js/logistica.js" type="text/javascript"></script>
             <script src="js/logistica_funciones.js" type="text/javascript"></script>
             <script src="js/ppr/control_claudio.js" type="text/javascript"></script>
-            <script src="js/ppr/llamadas_aldo.js?v=3.6" type="text/javascript"></script>
+            <script src="js/ppr/llamadas_aldo.js?v=4.0" type="text/javascript"></script>
             <script src="js/ppr/llamadas_claudio.js?v=1.0" type="text/javascript"></script>
-            <script src="js/ptc/enviar_datos.js?v=3.6" type="text/javascript"></script>
-            <script src="js/ptc/envio_retenido_liberado.js?v=3.6" type="text/javascript"></script>
-            <script src="js/ptc/traer_clases.js?v=3.6" type="text/javascript"></script>
-            <script src="js/ptc/transferencia.js?v=3.6" type="text/javascript"></script>
-            <script src="js/mis/formulas_mis.js?v=3.6" type="text/javascript"></script>
-            <script src="js/mis/traer_clases_mis.js?v=3.6" type="text/javascript"></script>
-            <script src="js/mis/transferencia_mis.js?v=3.6" type="text/javascript"></script>
+            <script src="js/ptc/enviar_datos.js?v=4.0" type="text/javascript"></script>
+            <script src="js/ptc/envio_retenido_liberado.js?v=4.0" type="text/javascript"></script>
+            <script src="js/ptc/traer_clases.js?v=4.0" type="text/javascript"></script>
+            <script src="js/ptc/transferencia.js?v=4.0" type="text/javascript"></script>
+            <script src="js/mis/formulas_mis.js?v=4.0" type="text/javascript"></script>
+            <script src="js/mis/traer_clases_mis.js?v=4.0" type="text/javascript"></script>
+            <script src="js/mis/transferencia_mis.js?v=4.0" type="text/javascript"></script>
               
               
                 

@@ -96,7 +96,12 @@ function traer_control_embarque(id, calendario)
                 }
             });
             $('#txt_lote').val('');
+        },
+         error: function (jqXHR, textStatus, errorThrown) {
+             
+            traer_control_embarque(id, calendario);
         }
+        
     });
 }
 

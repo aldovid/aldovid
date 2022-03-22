@@ -7,20 +7,21 @@
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
     <% 
         clases.controles.VerificarConexion();
-       // Connection cn = clases.controles.connectSesion;
-        fuente. setConexion(clases.controles.connectSesion);       
+          Connection cn = clases.controles.connectSesion;
+        fuente. setConexion(cn);       
         String  numero_factura      = request.getParameter("nro_factura") ;
         String  area                =(String)sesionOk.getAttribute("area_gm");
         String  area_cch            =(String)sesionOk.getAttribute("area");
         int     mensaje             =0;
         int ultimo = Integer.parseInt(numero_factura.substring(numero_factura.length() - 7)) ;
-         String  grilla="";
-       int i=0;  
-        try { 
-         ResultSet rs = fuente.obtenerDato ("exec [select_embarque_lotes_pendientes] @area='"+area+"',@nro_factura="+ultimo+"");
+        String  grilla="";
+        int i=0;  
+        try 
+        { 
+            ResultSet rs = fuente.obtenerDato ("exec [select_embarque_lotes_pendientes] @area='"+area+"',@nro_factura="+ultimo+"");
            
          
-         while  (rs.next())
+            while  (rs.next())
             {
                 grilla=grilla+  "<tr class='suma' id='row"+rs.getString("identificador_lote")+"'  > "
                 + "<td class='ocultar'>"+rs.getString("cod_lote")+"</td>"
@@ -35,26 +36,26 @@
                   + "</tr> ";  
                 i++;
             }
-            clases.controles.connectSesion.setAutoCommit(false);
+            cn.setAutoCommit(false);
             CallableStatement  callableStatement=null;   
-            callableStatement = clases.controles.connectSesion.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
+            callableStatement = cn.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
             callableStatement .setString(   1,  area_cch );
             callableStatement .setString(   2,  area);
               
             callableStatement.registerOutParameter("mensaje", java.sql.Types.INTEGER);
             callableStatement.execute();
             mensaje = callableStatement.getInt("mensaje");
-            clases.controles.connectSesion.commit();
-            } catch (Exception e) 
+            cn.commit();
+        } catch (Exception e) 
             {
-                clases.controles.connectSesion.rollback();
+                cn.rollback();
             }
         JSONObject ob = new JSONObject();
         ob=new JSONObject();
         ob.put("grilla", grilla);  
         ob.put("count", i);
-        //cn.close();
-       // clases.controles.DesconnectarBD();        
+        cn.close();
+            clases.controles.DesconnectarBDsession();
         out.print(ob); 
         %>  
    

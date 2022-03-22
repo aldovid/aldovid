@@ -10,8 +10,7 @@
   
  <body>
     <%    
-    try 
-    {
+  
         String area =(String) sesionOk.getAttribute("clasificadora");
         String fecha =request.getParameter("fecha");
         String tipo =request.getParameter("tipo");
@@ -21,7 +20,8 @@
     
         fuente.setConexion(cn); 
         ResultSet rs ;
-        
+          try 
+    {
         String bd_area="area ";
         String bd_areaRs="";
     
@@ -55,14 +55,17 @@
           <br>
  
         <%} 
-             rs.close();
-         cn.close();
-       
+            rs.close();
         } 
     catch (Exception e) 
-                {
+    {
 
-                }
+    }
+    finally 
+    {
+        cn.close();
+        clases.controles.DesconnectarBDsession();
+    }
          
         %>
          

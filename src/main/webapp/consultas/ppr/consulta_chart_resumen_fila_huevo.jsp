@@ -22,6 +22,7 @@
          String fila= request.getParameter("fila") ;
 
     JSONObject chartsdet = new JSONObject();
+    clases.controles.VerificarConexion();
     PreparedStatement pt=clases.controles.connectSesion.prepareStatement("exec [stp_mae_ppr_select_huevos_fila_periodo] @fecha='"+fecha+"',@aviario='"+aviario+"',@fila='"+fila+"'");
     ResultSet rs=pt.executeQuery();
  
@@ -94,7 +95,7 @@
                     
                 ////FIN DEL RECORRIDO LARGO
                  }
-                
+                clases.controles.DesconnectarBDsession();             
                 
                 fecha2=new JSONArray();
                 fecha2.put(fecha1);   

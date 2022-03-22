@@ -23,11 +23,16 @@
         }
  %>
  
+ 
+     <% 
+     String version=clases.versiones.contenedores_mis_contenedor_registro;
+ 
+     %> 
  <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0018-REP-01032022-A','VERSION: 0018-REP-01032022-A')">
-    <label ></label>0018-PAN-01032022-A  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION:  <%=version%>')">
+    <label > <%=version%></label>  
 </div>
 </head>
 <div class="col-lg-20 ">
@@ -339,8 +344,9 @@ MIS
     <input name="text_resultado"    id="text_resultado" type="hidden"   lass="form-control">
     <input type="submit" value="Registrar" id="btn_registrar" name="btn_registrar" class="form-control btn btn-primary "    />
     <br> <br> <br>
-</form> 
-        <%
+</form> <%
+        clases.controles.DesconnectarBDsession();
+ 
           } catch (Exception e) {
                String s=e.getMessage();
            }

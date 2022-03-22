@@ -40,7 +40,7 @@
         menu=menu+li+subMenu+" </ul></li>";
     }
     rs2.close();
-    
+        clases.controles.DesconnectarBDsession();
     ob.put("menu",menu ) ;
 
     out.print(ob);  

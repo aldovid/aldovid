@@ -106,3 +106,6 @@ tipohuevo=rs.getString("tipo_huevo");
                    </tr><%}%> </tbody>   
           </table>
        </form>
+          
+          <% clases.controles.DesconnectarBDsession();
+%>

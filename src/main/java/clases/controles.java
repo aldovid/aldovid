@@ -43,12 +43,25 @@ public class controles {
     }
      public  static  void DesconnectarBD(){
         try {
+            
              connect.close();
+             connect=null;
             }
         catch (Exception e){
             String asd=e.getMessage();
         }
-    }   
+    }
+     
+       public  static  void DesconnectarBDsession(){
+        try {
+            
+             connectSesion.close();
+             connectSesion=null;
+            }
+        catch (Exception e){
+            String asd=e.getMessage();
+        }
+    }
      
      public  static  void VerificarConexion(){
         try {

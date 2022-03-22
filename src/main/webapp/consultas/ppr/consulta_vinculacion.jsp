@@ -27,6 +27,7 @@
         {
             html=rs2.getString("roles");
         }
+        clases.controles.DesconnectarBDsession();             
         ob.put("selected",html);
         out.print(ob);  %>
  

@@ -13,4 +13,5 @@
       String id_lote=request.getParameter("id_carrito");
         PreparedStatement pss = cn.prepareStatement("update lotes set cod_cambio ='"+codigo_mesa+"' where cod_interno='"+id_lote+"' ");
         pss.executeUpdate();
+            clases.controles.DesconnectarBDsession();
 %>  

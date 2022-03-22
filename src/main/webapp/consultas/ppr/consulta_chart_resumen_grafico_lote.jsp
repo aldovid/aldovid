@@ -22,6 +22,7 @@
         String lote= request.getParameter("lote") ;
     
     JSONObject chartsdet = new JSONObject();
+    clases.controles.VerificarConexion();
     PreparedStatement pt=clases.controles.connectSesion.prepareStatement("exec [stp_mae_ppr_select_huevo_grafico_lote]  @aviario='"+aviario+"',@lote='"+lote+"'");
     ResultSet rs=pt.executeQuery();
  
@@ -115,7 +116,7 @@
                 ////FIN DEL RECORRIDO LARGO
                  }
                 
-                
+                clases.controles.DesconnectarBDsession();             
                 eje_x=new JSONArray();
                 eje_x.put(eje_x);   
                 DataPadron     .put     ("data",contenido_padron);

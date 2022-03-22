@@ -6,17 +6,22 @@
           String fecha_clasificacion="";
         clases.controles.connectarBD();  
         Connection cn = clases.controles.connect;
-    
+    try {
+            
+     
         fuente.setConexion(cn);           //CAMBIAR BASE DE DATOS                                                                                                                                                                                                                                                                                                                                                                                                                //CAMBIAR BASE DE DATOS       
          rs = fuente.obtenerDato("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
         while(rs.next()){          
             fecha_clasificacion=rs.getString(1);
-        }    %>  
+        }   
+     String version=clases.versiones.contenedores_ptc_contenedor_registro_retenido_costeados;
+
+       %>
     <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0061-REP-01032022-A','VERSION: 0061-REP-01032022-A')">
-    <label >0061-REP-01032022-A </label> 
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%> </label> 
 </div>
 </head>     
 <div class="col-lg-20 ">
@@ -218,4 +223,10 @@ PTC
         <br> 
     </form> 
             
-            <%clases.controles.DesconnectarBD(); %>
+            <% 
+          } catch (Exception e) {
+        }
+finally{
+ clases.controles.DesconnectarBD(); 
+}
+      %>

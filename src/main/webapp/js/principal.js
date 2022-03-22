@@ -10,16 +10,277 @@ var ruta_contenedores_prin = "./contenedores/";
 var ruta_cruds_prin = "./cruds/";
 $(document).ready(function () {
     gen_menu();
-    no_volver_atras();
+    boton_atras();
     login_exito();
     cargar_load();
     cerrar_load();
     
 });
 
-
+ 
+function boton_atras() 
+{
+    window.onhashchange = function () 
+    { 
+        switch (window.location.hash) 
+        {
+            case "#embarque":
+                ir_informe_embarque();
+                li_active_menu("sub_rep_embarque");
+            break;
+            
+            case "#traer_informe_factura":
+                traer_informe_factura();
+                li_active_menu("sub_embarque_reg");
+            break;
+            
+             case "#pprGraficoAviariosDinamico":
+                 grafico_aviarios_dinamico_ppr();
+                li_active_menu("sub_aviarios_dinamicos");
+            break;
+            
+             case "#pprGraficoMortandad":
+                  grafico_mortandad_ppr();
+                li_active_menu("sub_inf_bloques_aviarios");
+            break;
+            
+            case "#pprGrillaHuevos":
+                    grilla_huevos_ppr();
+                    li_active_menu("sub_inf_cont_huevos_ppr");
+            break;
+            
+            case "#pprMortandadLotes":
+                 llamar_mortandad_lotes_ppr();
+                li_active_menu("sub_inf_mortandad_ppr");
+            break;
+            
+            case "#pprConsumoBalanceadoBloque":
+                 informe_consumo_balanceado_bloque_ppr();
+                li_active_menu("sub_inf_consumo_bal_ppr");
+            break;
+            
+            case "#pprMortandad80Sms":
+                 llamar_mortandad_80_sems_ppr();
+                li_active_menu("sub_inf_mor80sems");
+            break;
+            
+             case "#pprDatosContadores":
+                 llamar_datos_contadores_ppr();
+                li_active_menu("sub_inf_datos_contadores_huevos");
+            break;
+            
+             case "#pprContadorHuevos":
+                 llamar_contador_huevos_ppr();
+                li_active_menu("sub_inf_datos_contadores_huevos9");
+            break;
+            
+            case "#pprAviarioFecha":
+                 traer_vista_contador_huevo2_ppr();
+                li_active_menu("sub_inf_datos_contadores_huevos2");
+            break;
+            
+            case "#ptcRegistroLib":
+                 traer_registro_lib();
+                li_active_menu("sub_inf_ptc_reg_lib");
+            break;
+            
+            case "#ptcRegistroRetenido":
+                 traer_registro_retenido();
+                li_active_menu("sub_ptc_reg_ret");
+            break;
+            
+            case "#ptcRegistroCarros":
+                 ir_registro_carros_alimentados();
+                li_active_menu("sub_inf_ptc_reg_alimen");
+            break;
+            
+            case "#ptcRegistroSC":
+                 traer_registro_SC();
+                li_active_menu("sub_inf_ptc_reg_sc");
+            break;
+            
+            case "#ptcPendientesRecogida":
+                 ir_pendientes_recogidas();
+                li_active_menu("sub_ptc_pendientes_reco");
+            break;
+            
+             case "#ptcTransformacionPallet":
+                 ir_transformacion_pallet_carro();
+                li_active_menu("sub_ptc_pallet_a_carro");
+            break;
+            
+              case "#ptcMovimiento":
+                 ir_movimiento();
+                li_active_menu("sub_inf_ptc_movimiento");
+            break;
+            
+             case "#ptcGrillaRetenido":
+                 traer_grilla_retenido();
+                li_active_menu("sub_inf_ptc_cambio_dispoLib");
+            break;
+            
+            case "#ptcFechaInvolucrada":
+                 traer_fecha_involucrada();
+                li_active_menu("sub_inf_ptc_fecha_invo");
+            break;
+            
+            case "#ptcEliminar":
+                 traer_eliminar();
+                li_active_menu("sub_inf_ptc_eliminar");
+            break;
+            
+            case "#ptcInfome":
+                 traer_informe();
+                li_active_menu("sub_inf_ptc_visu_lotes");
+            break;
+            
+            case "#ptcMotivoRetencion":
+                 ir_agregar_motivo_retencion();
+                li_active_menu("sub_inf_ptc_motivo_retencion");
+            break;
+            
+            case "#ptcConfiguracionEmp":
+                 ir_configuracion_empacadora();
+                li_active_menu("sub_ptc_empacadoras_cambios");
+            break;
+            
+             case "#ptcReporteLotes":
+                 traer_reporte_lotes();
+                li_active_menu("sub_inf_ptc_rep_lotPTC");
+            break;
+            
+             case "#ptcReporteMixtos":
+                 traer_reporte_mixtos_historial();
+                li_active_menu("sub_inf_ptc_rep_lotmixt");
+            break;
+            
+            case "#ptcReporteExcel":
+                 traer_reporte_ptc_excel();
+                li_active_menu("sub_inf_ptc_rep_ptcExcel");
+            break;
+            
+            case "#ptcReporteRotos":
+                 ir_reporte_rotos_mis();
+                li_active_menu("sub_inf_ptc_rep_motivo_retencion");
+            break;
+            
+             case "#misRegistro":
+                 traer_registro_mis();
+                li_active_menu("sub_inf_mis_rep_rot_sub");
+            break;
+            
+            case "#misCarroMesa":
+                 ir_carro_a_mesa();
+                li_active_menu("sub_carro_mesa_mis");
+            break;
+            
+            case "#misInforme":
+                 traer_informe_mis();
+                li_active_menu("sub_inf_ptc_reg_mis");
+            break;
+            
+             case "#misEliminar":
+                 traer_eliminar_mis();
+                li_active_menu("sub_eliminar_mis");
+            break;
+            
+            case "#misTransfeReprocesos":
+                 ir_transferencias_reprocesos_mis();
+                li_active_menu("sub_transfer_mis_reprocesos");
+            break;
+            
+             case "#misTransfeSuproductos":
+                 ir_transferencias_subproductos_mis();
+                li_active_menu("sub_transfe_sub_mis");
+            break;
+            
+            case "#misPendientesAlimen":
+                 ir_informe_pendientes_alimentacion_mis();
+                li_active_menu("sub_pendiente_alimentar_mis");
+            break;
+            
+            case "#misRegistroTradicional":
+                 ir_registro_reproceso_tradicional_mis();
+                li_active_menu("sub_rep_tradici");
+            break;
+            
+            case "#panelLiberadosViejos": 
+                 ir_liberados_viejo();
+                li_active_menu("contenedor_reg_ptc_panel_lib");
+            break;
+            
+             case "#panelRegistroRetenidos":
+                 traer_registro_retenido_costeado();
+                li_active_menu("contenedor_reg_ptc_panel_ret");
+            break;
+            
+               case "#panelModifLotes":
+                 ir_modificacion_lotes_ptc();
+                li_active_menu("contenedor_reg_ptc_panel_mod_prod_disp");
+            break;
+            
+              case "#panelReporteHist":
+                 ir_reporte_historico_lotes_ptc();
+                li_active_menu("sub_inf_ptc_historico");
+            break;
+            
+            case "#panelCambioFp":
+                 ir_cambio_fp_ptc();
+                li_active_menu("mod_ptc_fp");
+            break;
+            
+            case "#panelTransformacionCarro":
+                 ir_transformacion_ptc();
+                li_active_menu("mod_ptc_tipo_huevo");
+            break;
+            
+            case "#panelCambioNro":
+                 ir_cambio_nro_ptc();
+                li_active_menu("mod_ptc_nro_carro");
+            break;
+            
+             case "#panelRegistroReproceso":
+                 ir_registro_tipo_reproceso_mis();
+                li_active_menu("mod_mis_tipo_rep_subp_add");
+            break;
+            
+            case "#SegRegistroUsuario":
+                    traer_vista_usuario_ppr();
+                    li_active_menu("sub_registrar_usuarios_seg");
+            break;
+            
+             case "#pprUsuariosRegistrados":
+                 grilla_usuarios_ppr();
+                li_active_menu("sub_seguridad_registrados_usuarios");
+            break;
+            
+            case "#pprCrearRoles":
+                 traer_vista_roles_ppr();
+                li_active_menu("sub_seguridad_crear_roles");
+            break;
+            
+            case "#pprRolesRegistrados":
+                 cargar_grilla_roles_ppr();
+                li_active_menu("sub_seguridad_list_roles3");
+            break;
+            
+            case "#SegPermisosRoles":
+                 ir_permisos_roles();
+                li_active_menu("sub_seg_permisos_reg");
+            break;
+            
+             case "#cyoRegistroReproc":
+                 ir_registro_reprocesos_lista_ptc();
+                li_active_menu("sub_alimentacion_registro");
+            break;
+            
+            //window.location.hash = "";
+        }
+    };
+}
    function ir_permisos_roles()
     {
+        window.location.hash = "SegPermisosRoles";
         $.ajax({
         type: "POST",
         url: ruta_contenedores_prin+"vista_permisos.jsp",

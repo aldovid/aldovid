@@ -226,7 +226,7 @@ DecimalFormat formatea2 = new DecimalFormat("########");
         
         JSONObject objet  = new JSONObject();
         objet  = new JSONObject();
-      
+      clases.controles.VerificarConexion();
          PreparedStatement pt=clases.controles.connectSesion.prepareStatement("exec [stp_mae_ppr_select_huevos_diario]  @fecha='"+fecha+"',@aviario='"+aviario+"'");
         ResultSet rs2 = pt.executeQuery();
         PreparedStatement ptt=clases.controles.connectSesion.prepareStatement("exec stp_mae_ppr_select_huevos_acumulado_periodo @fecha='"+fecha+"',@aviario='"+aviario+"'");
@@ -643,8 +643,9 @@ DecimalFormat formatea2 = new DecimalFormat("########");
                
                objet.put("total_huevos_acum",total_huevos_acum);
                objet.put("total_prome_acum",total_prome_acum);
-              
+        clases.controles.DesconnectarBDsession();             
         out.print(objet);
+        
     } catch (Exception e) {
         String asda = e.getMessage();
     }

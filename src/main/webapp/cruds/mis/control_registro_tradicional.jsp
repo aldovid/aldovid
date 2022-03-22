@@ -141,6 +141,7 @@ if (fecha_puesta_int>fecha_registro) {
              ob.put("mensaje", e.getMessage());
             ob.put("tipo_respuesta", "0");
     }
-  
+    
+            clases.controles.DesconnectarBDsession();
             out.print(ob);
  %> 

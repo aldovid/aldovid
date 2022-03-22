@@ -3,20 +3,26 @@
       <%
          String fecha_clasificacion="";
          clases.controles.connectarBD();   
-         Statement stmt = clases.controles.connect.createStatement();
+     
+         try {
+                  
+Statement stmt = clases.controles.connect.createStatement();
          ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        
         while(rs.next())
         {          
             fecha_clasificacion=rs.getString(1);
         }    
-            clases.controles.DesconnectarBD();  %>    
+            
+     String version=clases.versiones.contenedores_ptc_contenedor_registro_alimentados;
+
+       %>  
   <head>  
       <label  ><b></b></label>
 <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
      data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0033-REP-01032022-A','VERSION: 0033-REP-01032022-A')" >
-    <label neme="label_contenido" id="label_contenido" >0033-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label neme="label_contenido" id="label_contenido" ><%=version%></label>  
 </div>
 </head>
 <div class="col-lg-20 ">
@@ -263,4 +269,14 @@ PTC
             </div>
         </div>
     </div>        
-             
+                <%
+            
+            
+        } catch (Exception e) {
+        }
+finally{
+clases.controles.DesconnectarBD(); 
+
+}
+            
+            %>

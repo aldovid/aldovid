@@ -133,7 +133,7 @@
                mensaje=e.toString();
               tipo_respuesta=0;
      }
-  
+            clases.controles.DesconnectarBDsession();
             ob.put("mensaje", mensaje);
             ob.put("tipo_respuesta", tipo_respuesta);
             

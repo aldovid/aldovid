@@ -13,6 +13,8 @@
  <% 
      String area =(String) sesionOk.getAttribute("clasificadora");
   %>
+  
+  
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
@@ -166,7 +168,10 @@ MIS
        </div> </div> </div> 
     
 
-       
+     <%
+        clases.controles.DesconnectarBDsession();
+%>
+           
 
 
 

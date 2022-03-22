@@ -3,16 +3,19 @@
     Created on : 26-ene-2022, 13:37:16
     Author     : aespinola
 --%>
-<%@page import="java.sql.ResultSet"%>
+ <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <jsp:useBean id="conexion" class="clases.ConnectionSqlServer" scope="page" />
-<jsp:useBean id="fuente"   class="clases.fuentedato" scope="page"/>
+ <% 
+     String version=clases.versiones.contenedores_ppr_vista_contadores_huevos;
+
+ %> 
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0016-REP-01032022-A','VERSION: 0016-REP-01032022-A')">
-    <label neme="label_contenido" id="label_contenido">0016-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label neme="label_contenido" id="label_contenido"> <%=version%> </label>  
 </div>
 </head>
 <script>

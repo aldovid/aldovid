@@ -12,5 +12,8 @@
     String cod_usuario = (String) sesionOk.getAttribute("cod_usuario");
     String pass= request.getParameter("txt_pass");
     PreparedStatement pss = cn.prepareStatement("update usuarios set password='"+pass+"' where cod_usuario='"+cod_usuario+"' ");
-    pss.executeUpdate();       %> CAMBIOS REALIZADOS.
+    pss.executeUpdate();      
+
+            clases.controles.DesconnectarBDsession();
+%> CAMBIOS REALIZADOS.
 <br><br><br> <h1><a href="../menu.jsp">VOLVER AL MENU PRINCIPAL</a></h1>  

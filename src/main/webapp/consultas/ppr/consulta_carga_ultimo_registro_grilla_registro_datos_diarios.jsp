@@ -40,6 +40,7 @@
                // Cant.add(cant_c);
                
               }
+            clases.controles.DesconnectarBDsession();
      obje.put("fecha",fecha );
    // obje.put("fecha1",fe1 );
    // obje.put("fecha2",fe2 );

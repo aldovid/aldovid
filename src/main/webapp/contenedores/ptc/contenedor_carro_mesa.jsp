@@ -99,3 +99,7 @@ PTC
     
     
 </form>
+   <%
+        clases.controles.DesconnectarBD();
+%>
+      

@@ -100,7 +100,7 @@
         dia_ant = rs2.getString("dia_ant");
               }
 
-            clases.controles.connectSesion.close();
+        clases.controles.DesconnectarBDsession();             
         obje.put("lote", lote);
         obje.put("dias", dias);
         obje.put("sems", sems);

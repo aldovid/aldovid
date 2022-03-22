@@ -114,7 +114,7 @@
         onclick = rs.getString("onclick");
                
               }
-            clases.controles.connectSesion.close();
+            clases.controles.DesconnectarBDsession();
     obje.put("grilla_datos_diarios",cabecera + grilla_html + "</tbody></body></div>" );
     obje.put("tmin",tmin );
     obje.put("fecha1",fecha1 );

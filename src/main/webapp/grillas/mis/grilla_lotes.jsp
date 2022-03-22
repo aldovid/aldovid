@@ -135,3 +135,5 @@ $("tr").not(':first').hover(
             </div> 
           </div> 
   
+<% clases.controles.DesconnectarBDsession();
+%>

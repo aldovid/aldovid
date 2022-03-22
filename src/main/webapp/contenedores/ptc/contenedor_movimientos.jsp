@@ -1,10 +1,19 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
+
+
+ <% 
+    String version=clases.versiones.contenedores_ptc_contenedor_movimientos;
+    clases.controles.connectarBD();  
+
+try {
+        
+       %> 
   <head>  
       <label  ><b></b></label>
 <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
      data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0037-REP-01032022-A','VERSION: 0037-REP-01032022-A')" >
-    <label neme="label_contenido" id="label_contenido" >0037-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label neme="label_contenido" id="label_contenido" ><%=version%></label>  
 </div>
 </head>
 <div class="col-lg-20 ">
@@ -79,7 +88,6 @@ PTC
             Motivo de retencion
             <select class="form-control" name="motivo_retencion" id="motivo_retencion" multiple="multiple" >
                 <%
-                clases.controles.connectarBD();  
                 Statement stmt = clases.controles.connect.createStatement();
                 ResultSet rs2 = stmt.executeQuery( "select * from motivo_retencion where tipo='motivo'");
                 while(rs2.next())
@@ -130,4 +138,9 @@ PTC
        
     </form>
        
-     <%clases.controles.DesconnectarBD();%>
+     <%
+    } catch (Exception e) {
+    }
+finally{
+clases.controles.DesconnectarBD();
+}%>

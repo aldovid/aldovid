@@ -28,6 +28,7 @@
         {
             html=html+"<OPTION  VALUE='"+ rs2.getString(1)+"'>"+ rs2.getString(2)+"</OPTION>";
         }
+        clases.controles.DesconnectarBDsession();             
         ob.put("cbox_roles","<OPTION value='' selected='selected'>SELECCIONE ROL</OPTION>"+html);
         out.print(ob);  
 %>

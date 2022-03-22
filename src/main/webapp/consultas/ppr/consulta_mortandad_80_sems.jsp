@@ -86,6 +86,7 @@
          
 
         }
+        clases.controles.DesconnectarBDsession();             
         objet.put("grilla_80_sems", miles+cabecera + grilla_html + "</tbody></body>" );
         objet.put("lote_id", lote_id);
         objet.put("lote_name", lote_name);

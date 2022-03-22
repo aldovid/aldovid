@@ -15,21 +15,25 @@
    PreparedStatement ps,ps2;
    ResultSet rs,rs2;
    clases.controles.VerificarConexion();
+  
+   try {
+           
    ps=clases.controles.connectSesion .prepareStatement("select * from mae_yemsys_roles");
    rs=ps.executeQuery();
    ps2=clases.controles.connectSesion .prepareStatement("select * from mae_yemsys_areas");
    rs2=ps2.executeQuery();
- 
+     String version=clases.versiones.contenedores_ppr_vista_registrar_usuario;
   
    %>
 <html>
      
     <body>
+      
       <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0027-REP-01032022-A','VERSION: 0027-REP-01032022-A')">
-    <label neme="label_contenido" id="label_contenido">0027-PAN-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label neme="label_contenido" id="label_contenido"><%=version%></label>  
 </div>
 </head>
      
@@ -97,3 +101,11 @@
         
     </body>
 </html>
+<%
+    
+       } catch (Exception e) {
+       }
+       finally{
+        clases.controles.DesconnectarBDsession();
+}
+%>

@@ -43,6 +43,7 @@
         mensaje=e.toString();
         mensaje_impresion="error";
     }
+            clases.controles.DesconnectarBDsession();
         JSONObject ob = new JSONObject();
         ob=new JSONObject();
         ob.put("mensaje", mensaje);

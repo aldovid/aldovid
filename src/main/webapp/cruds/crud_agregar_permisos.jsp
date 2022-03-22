@@ -68,7 +68,7 @@
         } catch (Exception ex) {
      }
  finally {
-
+      controles.DesconnectarBDsession();
         obje.put("mensaje",mensaje );
         obje.put("tipo_mensaje",tipo_mensaje );
         out.print(obje);

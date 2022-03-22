@@ -7,12 +7,14 @@
 <%@include  file="../../chequearsesion.jsp" %>
 
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
-
+      <% 
+     String version=clases.versiones.contenedores_logistica_contenedor_pedidos_generados_cyo; 
+     %>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0007-PAN-01032022-A','VERSION: 0007-PAN-01032022-A')">
-    <label >0007-PAN-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head>
  <div class="col-lg-20 ">
@@ -209,12 +211,18 @@ heightStyle: "content"
                     <center><strong>NO SE ENCONTRARON PEDIDOS PENDIENTES</strong>  </center>
                 </div>
             </div>
-										 
-        <% 
-        }
+	<%
+     
+ 
+        }   
         } catch (Exception e) {
             out.print(e.getMessage());
                 }
+
+            finally
+            {
+                clases.controles.DesconnectarBD();
+            }
         %>
         
         

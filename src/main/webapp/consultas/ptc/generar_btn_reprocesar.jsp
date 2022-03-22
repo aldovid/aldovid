@@ -28,7 +28,7 @@
         else{
             boton_registro="<br><br> <input type='button' value='Finalizar reproceso'  style='font-weight: bold;color:black;'  class='form-control bg-danger' onclick='registrar_reproceso_ptc(2);'>";
         }
-        
+        clases.controles.DesconnectarBDsession();
         ob.put("boton",boton_registro);
         out.print(ob);
        %> 

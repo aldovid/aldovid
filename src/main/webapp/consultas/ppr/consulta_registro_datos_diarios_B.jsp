@@ -86,7 +86,7 @@
     //PreparedStatement pt=con.prepareStatement("select case  when  fila % 2 =0 then 'green' else 'red' end as color, fila, sum(cant) as cant from ppr_contador where fecha BETWEEN '"+fecha1+"'and '"+fecha2+"'and aviario='"+aviario+"'group by fila");
      //PreparedStatement pt=con.prepareStatement("select idusuario,nombreusuario from tab_mae_ppr_log");
     //PreparedStatement pt=con.prepareStatement("select '#ff0000' as min1, '#e10000' as min2,'#e10000' as min3, '#007d3c' as prom, '#007d50' as prom1 , '#007d97' as prom2, '#007dff' as prom3, fila, sum(cant) as cant from ppr_contador where fecha BETWEEN '"+fecha1+"'and '"+fecha2+"'and aviario='"+aviario+"'group by fila");
-    PreparedStatement pt=clases.controles.connectSesion.prepareStatement("execute stp_mae_ppr_select_datos_diariosb  @fecha_desde='"+fecha1+"'");
+    PreparedStatement pt=clases.controles.connectSesion.prepareStatement("execute stp_mae_ppr_select_datos_diariosb  @fecha_desde='"+fecha1+"' ,@AVIARIO");
     ResultSet rs=pt.executeQuery();
     ArrayList Fila = new ArrayList();
     
@@ -113,7 +113,7 @@
         onclick = rs.getString("onclick");
                
               }
-            clases.controles.connectSesion.close();
+        clases.controles.DesconnectarBDsession();             
     obje.put("grilla_datos_diariosb",cabecera + grilla_html + "</tbody></body></div>" );
     obje.put("tmin",tmin );
     obje.put("aviario",aviario );

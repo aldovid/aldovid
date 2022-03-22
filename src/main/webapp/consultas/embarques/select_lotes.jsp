@@ -12,9 +12,9 @@
       
     try {
                
-            clases.controles.VerificarConexion();
+            clases.controles.connectarBD();
             
-            fuente.setConexion(clases.controles.connectSesion);
+            fuente.setConexion(clases.controles.connect);
             
             String area             =   (String) sesionOk.getAttribute("area");
             String carro            =   request.getParameter("id");
@@ -23,7 +23,8 @@
             JSONObject ob           =   new JSONObject();
             JSONArray jarray        =   new JSONArray();
                
-            ResultSet rs_lote = fuente.obtenerDato(" exec [mae_cch_select_lotes_disponibles_embarque_test]  @area_cch='"+area+"',@cod_carrito='"+carro+"',@nro_factura='"+factura+"'");
+            ResultSet rs_lote = fuente.obtenerDato(" exec [mae_cch_select_lotes_disponibles_embarque_test]  @area_cch='"+area+"',"
+                    + "@cod_carrito='"+carro+"',@nro_factura='"+factura+"'");
         
             while(rs_lote.next()) 
             {
@@ -58,7 +59,7 @@
                 ob.put("cod_interno","0");
                 ob.put("mensaje", "1");
             }
-           // controles.DesconnectarBD();
+          
             out.print(jarray); 
                } 
            catch (Exception e) 
@@ -79,4 +80,8 @@
             ob.put("mensaje","0");
             ob.put("tipo_mensaje","0");
             out.print(jarray); 
-        }   %>
+        } 
+        finally{
+       controles.DesconnectarBD();
+    }
+ %>

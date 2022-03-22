@@ -52,6 +52,6 @@
             ob.put("mensaje", mensaje);
 
         }
+           
     }
-
-%>
+ clases.controles.DesconnectarBDsession();%>

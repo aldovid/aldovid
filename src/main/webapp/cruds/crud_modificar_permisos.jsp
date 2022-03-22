@@ -9,7 +9,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
 <%@ page session="true" %>
-<%@include  file="../../chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
 <%@page contentType="application/json; charset=utf-8" %>
 
@@ -61,6 +61,8 @@
     
   }
      finally{           
+              clases.controles.DesconnectarBDsession();
+
                 ob.put("mensaje", mensaje);
                 ob.put("tipo_respuesta", tipo_respuesta);
                  out.print(ob); 

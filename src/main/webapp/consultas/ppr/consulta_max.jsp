@@ -40,6 +40,7 @@
                 Fila.add(fila_f);
                
               }
+        clases.controles.DesconnectarBDsession();             
      obje.put("filas13",Fila );
 
     out.print(obje); 

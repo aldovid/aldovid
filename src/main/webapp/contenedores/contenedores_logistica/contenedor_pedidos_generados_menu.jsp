@@ -9,17 +9,21 @@
     clases.controles.connectarBD();
     fuente.setConexion(clases.controles.connect);
     ResultSet rs,rs2;
-     rs = fuente.obtenerDato(" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy hh:mm') as fecha_registro,concat(code,'-',name) as camion "
+    rs = fuente.obtenerDato(" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy hh:mm') as fecha_registro,concat(code,'-',name) as camion "
              + "                from mae_log_pct_cab_pedidos a "
-             + "                inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in (1,2)"); %>
+             + "                inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in (1,2)");  
+     String version=clases.versiones.contenedores_logistica_contenedor_pedidos_generados_menu;
+     
+try {
+        
     
-       
+ %>      
        
  <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0005-PAN-01032022-A','VERSION: 0005-PAN-01032022-A')">
-    <label >0005-PAN-01032022-A</label> 
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label> 
 </div>
 </head>    
 <div class="col-lg-20 ">
@@ -56,3 +60,12 @@ LOG
                  </tbody>
                  
              </table>
+                     
+                     <%
+            } catch (Exception e) {
+    }
+finally{
+        clases.controles.DesconnectarBD();
+
+}
+%>

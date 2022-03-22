@@ -1,10 +1,17 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
 <%@include  file="../../chequearsesion.jsp" %>
+
+
+
+     <% 
+     String version=clases.versiones.contenedores_mis_contenedor_registro_tipo_reproceso;
+
+     %> 
    <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0067-REP-01032022-A','VERSION: 0067-REP-01032022-A')">
-    <label >0067-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head> 
 </head>

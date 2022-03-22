@@ -9,9 +9,8 @@
 <jsp:useBean id="conexion" class="clases.ConnectionSqlServer" scope="page" />
 
   
-      <%
- 
-    try {
+    <%
+  try {
         
         clases.controles.connectarBD();  
         Connection cn = clases.controles.connect;
@@ -33,10 +32,13 @@
         outputstream.write(bytes,0,bytes.length);
         outputstream.flush();
         outputstream.close();   
-       
 
         } catch (Exception e) 
         {
        
-              }
+        }
+  finally
+  {
+    clases.controles.DesconnectarBD();
+  }
       %>

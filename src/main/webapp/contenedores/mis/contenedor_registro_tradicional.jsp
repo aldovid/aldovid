@@ -12,12 +12,15 @@
         ResultSet rs = fuente.obtenerDato("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        while(rs.next()){          
  %>
- 
+       <% 
+     String version=clases.versiones.contenedores_mis_contenedor_registro_tradicional;
+
+     %> 
  <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0025-REP-01032022-A','VERSION: 0025-REP-01032022-A')">
-    <label ></label>0025-PAN-01032022-A  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head>
  <div class="col-lg-20 ">

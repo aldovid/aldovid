@@ -38,6 +38,7 @@ function ir_transferencia(e) {
     });
 }
 function ir_agregar_motivo_retencion() {
+    window.location.hash = "ptcMotivoRetencion";
     $.ajax({
         type: "POST",
         url: ruta_grillas_ptc + "grilla_motivo_retencion.jsp",
@@ -59,6 +60,8 @@ function ir_agregar_motivo_retencion() {
     });
 }
 function ir_modificacion_lotes_ptc() {
+    
+    window.location.hash = "panelModifLotes";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_reemplazo_motivos.jsp",
@@ -71,6 +74,7 @@ function ir_modificacion_lotes_ptc() {
     });
 }
 function ir_reporte_historico_lotes_ptc() {
+    window.location.hash = "panelReporteHist";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_reporte_retenidos_historico.jsp",
@@ -83,6 +87,7 @@ function ir_reporte_historico_lotes_ptc() {
     });
 }
 function ir_configuracion_empacadora() {
+    window.location.hash = "ptcConfiguracionEmp";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_empacadora.jsp",
@@ -95,6 +100,7 @@ function ir_configuracion_empacadora() {
     });
 }
 function ir_cambio_fp_ptc() {
+    window.location.hash = "panelCambioFp";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_cambio_fp.jsp",
@@ -107,6 +113,7 @@ function ir_cambio_fp_ptc() {
     });
 }
 function ir_cambio_nro_ptc() {
+    window.location.hash = "panelCambioNro";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_cambio_nro_ptc.jsp",
@@ -119,6 +126,7 @@ function ir_cambio_nro_ptc() {
     });
 }
 function ir_transformacion_ptc() {
+    window.location.hash = "panelTransformacionCarro";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_transformacion_PTC.jsp",
@@ -131,6 +139,7 @@ function ir_transformacion_ptc() {
     });
 }
 function ir_transformacion_pallet_carro() {
+    window.location.hash = "ptcTransformacionPallet";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_transformacion_pallet_carro.jsp",
@@ -167,6 +176,7 @@ function ir_reportes_varios() {
     });
 }
 function ir_liberados_viejo() {
+    window.location.hash = "panelLiberadosViejos";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro_liberados_viejos.jsp",
@@ -194,6 +204,7 @@ function ir_liberados_viejo() {
     });
 }
 function ir_registro_carros_alimentados() {
+    window.location.hash = "pprRegistroCarros";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro_alimentados.jsp",
@@ -225,6 +236,7 @@ function ir_registro_carros_alimentados() {
     });
 }
 function ir_registro_reprocesos_lista_ptc() {
+    window.location.hash = "cyoRegistroReproc";
     $.ajax({
         type: "POST",
        // url: ruta_contenedores_ptc + "contenedor_registro_reprocesos.jsp",
@@ -350,6 +362,7 @@ function registrar_lotes_con_alimentacion() {
             $("#txt_lotes_reposicionados").val(r);
 }
 function traer_registro_lib() {
+    window.location.hash = "ptcRegistroLib";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro.jsp",
@@ -378,6 +391,7 @@ function traer_registro_lib() {
     });
 }
 function traer_registro_retenido() {
+    window.location.hash = "ptcRegistroRetenido";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro_retenido.jsp",
@@ -404,6 +418,7 @@ function traer_registro_retenido() {
     });
 }
 function traer_registro_SC() {
+    window.location.hash = "ptcRegistroSC";
     cargar_load(),
             $.ajax({
                 type: "POST",
@@ -434,6 +449,7 @@ function traer_registro_SC() {
             });
 }
 function traer_registro_retenido_costeado() {
+    window.location.hash = "panelRegistroRetenidos";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro_retenido_costeados.jsp",
@@ -478,6 +494,7 @@ function validar_fechaInicial_fechaFinal() {
                     }));
 }
 function ir_movimiento() {
+    window.location.hash = "ptcMovimiento";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_movimientos.jsp",
@@ -511,6 +528,7 @@ function traer_retenido_fecha_puesta() {
     });
 }
 function traer_fecha_involucrada() {
+    window.location.hash = "ptcFechaInvolucrada";
     $.get(ruta_contenedores_ptc + "contenedor_fecha_involucrada.jsp", function (e) {
         $("#contenedor_principal").html(e),
                 $("#contenedor_principal").show(),
@@ -527,6 +545,7 @@ function traer_fecha_involucrada() {
     });
 }
 function traer_eliminar() {
+    window.location.hash = "ptcEliminar";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_eliminar.jsp",
@@ -539,6 +558,7 @@ function traer_eliminar() {
     });
 }
 function traer_informe() {
+    window.location.hash = "ptcInfome";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_informe.jsp",
@@ -589,6 +609,7 @@ function traer_contendor_pdf_jsp() {
     });
 }
 function traer_carro_mesa() {
+    //window.location.hash = "ptcCarroMesa";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_carro_mesa.jsp",
@@ -613,6 +634,7 @@ function traer_contendor_pdf_reproceso() {
     });
 }
 function traer_grilla_retenido() {
+    window.location.hash = "ptcGrillaRetenido";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_disposicion.jsp",
@@ -625,6 +647,7 @@ function traer_grilla_retenido() {
     });
 }
 function traer_reporte_lotes() {
+    window.location.hash = "ptcReporteLotes";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_reporte_carros.jsp",
@@ -650,6 +673,7 @@ function traer_reporte_lotes() {
     });
 }
 function traer_reporte_mixtos_historial() {
+    window.location.hash = "ptcReporteMixtos";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_reporte_mixtos_variable.jsp",
@@ -676,6 +700,7 @@ function traer_reporte_mixtos_historial() {
     });
 }
 function traer_reporte_ptc_excel() {
+    window.location.hash = "ptcReporteExcel";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_info_ptc_excel.jsp",
@@ -691,7 +716,7 @@ function ir_grilla_transferencia(e, t) {
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "acordeon_transferencia.jsp",
-        data: {fecha: e, tipo: t},
+        data: {fecha: e, tipo: t,tipo_reporte: $('#tipo_reporte').val()},
         beforeSend: function () {
             cargar_load(), $("#div_cargar").show();
         },
@@ -1607,7 +1632,8 @@ function ir_reporte_generico(e) {
         type: "POST",
         url: ruta_contenedores_ptc + e + ".jsp",
         beforeSend: function () {
-            cargar_load(), $("#contenedor_principal").html("");
+            cargar_load(),
+                    $("#contenedor_principal").html("");
         },
         success: function (e) {
             $("#div_cargar_menu").hide(),
@@ -1807,6 +1833,7 @@ function huevos_recibidos_grafico(e, t, o, r, a, n, i, c, l, s, d, _, p, u, f, m
             $("#btn_buscar").show();
 }
 function ir_pendientes_recogidas() {
+    window.location.hash = "ptcPendientesRecogida";
     $.ajax({
         type: "POST",
         url: ruta_contenedores_ptc + "contenedor_registro_pendientes_recogidas.jsp",

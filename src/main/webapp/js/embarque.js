@@ -5,22 +5,6 @@ var ruta_consultas_emb = "./consultas/embarques/";
 //var ruta_consultas                  =   "./consultas/";﻿    
 var counter = 0;//VARIABLE PARA COLOCAR PREPEND EL ULTIMO CARRO INGRESADO ARRIBA. CON LA FUNCION DATATABLE Y ORDER BY.
  
-function no_volver_atras() {
-
-  //  window.location.hash = "no-back-button";
-   // window.location.hash = "Again-No-back-button" //chrome
-    window.onhashchange = function () {
-        if(window.location.hash === '#embarque') {
-            ir_informe_embarque();
-            li_active_menu("sub_rep_embarque");
-        }       else if (window.location.hash === '#traer_informe_factura'){
-            li_active_menu("sub_embarque_reg");
-
-  traer_informe_factura();
-}
-    }
-
-}
 
 function ir_informe_embarque() {
    window.location.hash = "embarque";
@@ -82,9 +66,18 @@ function traer_informe_factura() {
 }
 
 function llenar_grilla_pendientes(nro_factura) {
-      cargar_load();
-    $.get(cruds_emb + 'control_grilla_recuperada.jsp', {nro_factura: nro_factura}, function (res) {
-        $("#tbody_embarque").html(res.grilla);
+    
+     $.ajax({
+        type: "POST",
+        url: cruds_emb + 'control_grilla_recuperada.jsp',
+        data:({nro_factura: nro_factura}),
+        beforeSend: function ()
+        {
+            cargar_load("Cargando")
+        },
+        success: function (res)
+        {
+             $("#tbody_embarque").html(res.grilla);
         $(".ocultar").hide();
         $("#div_aviso_sincro").show();
         $("#div_aviso_sincro_espera").hide();
@@ -94,7 +87,14 @@ function llenar_grilla_pendientes(nro_factura) {
 
         counter = res.count;
         cerrar_load();
-    });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+             cerrar_load();
+            llenar_grilla_pendientes(nro_factura);
+        }
+    })
+    ;
+   
 }
 
 function cargar_grilla(cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha_puesta, estado, identificador)

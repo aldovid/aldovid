@@ -62,7 +62,8 @@
     
   }
      finally{           
-                ob.put("mensaje", mensaje);
+ clases.controles.DesconnectarBDsession();
+ ob.put("mensaje", mensaje);
                 ob.put("tipo_respuesta", tipo_respuesta);
                  out.print(ob); 
             }

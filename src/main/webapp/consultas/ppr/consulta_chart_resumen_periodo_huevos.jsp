@@ -22,6 +22,7 @@
         String fecha= request.getParameter("fecha") ;
  
     JSONObject chartsdet = new JSONObject();
+    clases.controles.VerificarConexion();
      PreparedStatement pt=clases.controles.connectSesion.prepareStatement("exec [stp_mae_ppr_select_huevo_grafico_periodo]  @aviario='"+aviario+"',@fecha='"+fecha+"'");
     ResultSet rs=pt.executeQuery();
  
@@ -172,7 +173,8 @@
                 dataArray.put(data);
 
              chartsdet.put("chartsdet", dataArray); 
-         
+           clases.controles.DesconnectarBDsession();             
+
        
         out.print(chartsdet); 
 %>

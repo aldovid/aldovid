@@ -3,7 +3,7 @@
         ResultSet rs,rs2,rs3; 
         String fecha_clasificacion="";
          clases.controles.connectarBD();   
-       
+       try{
         
         Statement stmt = clases.controles.connect.createStatement();
          
@@ -11,14 +11,16 @@
         while(rs.next()){          
             fecha_clasificacion=rs.getString(1);
         }  
+     
+     String version=clases.versiones.contenedores_ptc_contenedor_registro_retenido;
+
        %>  
-       
  <head>  
       <label  ><b></b></label>
 <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
      data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0032-REP-01032022-A','VERSION: 0032-REP-01032022-A')" >
-    <label neme="label_contenido" id="label_contenido" value="0031-REP-01032022-A">0032-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label neme="label_contenido" id="label_contenido" value="0031-REP-01032022-A"><%=version%></label>  
 </div>
 </head>
        <div class="col-lg-20 ">
@@ -227,5 +229,10 @@ PTC
         <input style="font-weight: bold;" type="submit" value="Registrar" id="btn_registrar" name="btn_registrar"  class="form-control btn btn-primary " style="  height:70px"   />
         <br> 
     </form> 
-            <%clases.controles.DesconnectarBD();
-      %>  
+    <% 
+          } catch (Exception e) {
+        }
+finally{
+ clases.controles.DesconnectarBD(); 
+}
+      %>

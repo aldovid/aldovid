@@ -42,7 +42,7 @@
     outputstream.flush();
     outputstream.close(); 
 
-     
+            clases.controles.DesconnectarBDsession();
 
 %>
    

@@ -67,3 +67,70 @@ padding: 3px 5px 2px 5px !important;
 
 border-right: 10px;
 }
+
+.colorbarraaviario{
+    width:40px;
+    background-color:#999999;
+}
+
+.caja1 {
+  display: inline-block;
+}
+
+.color_preuba{
+    width:40px;
+    background-color:#993300;
+}
+
+
+
+
+
+
+
+.blink
+{
+    animation:2s blinker linear   infinite;
+    -webkit-animation:2s blinker linear infinite;
+    -moz-animation:2s blinker linear infinite;
+   
+}
+
+@-moz-keyframes blinker
+{  
+    0% { 
+opacity: 1.0; 
+}
+    50% { 
+opacity: 0.0; 
+}
+    100% { 
+opacity: 1.0; 
+}
+}
+
+@-webkit-keyframes blinker
+{  
+    0% { 
+opacity: 1.0; 
+}
+    50% { 
+opacity: 0.0; 
+}
+    100% { 
+opacity: 1.0; 
+}
+}
+
+@keyframes blinker
+{  
+    0% { 
+opacity: 1.0; 
+}
+    50% { 
+opacity: 0.0; 
+}
+    100% { 
+opacity: 1.0; 
+}
+ }

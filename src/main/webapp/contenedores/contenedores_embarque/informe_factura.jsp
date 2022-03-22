@@ -9,17 +9,22 @@
 <%@include  file="../../chequearsesion.jsp" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+  <% 
+     String version=clases.versiones.contenedores_embarque_informe_factura;
+     //<%=version%>
+ %>  
 <!DOCTYPE html>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0001-REP-01032022-A','VERSION: 0001-REP-01032022-A')">
-    <label >0001-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head>
 <body>
     <%        try {
+        
+        
             controles.VerificarConexion();
             fuente.setConexion(clases.controles.connectSesion);
             ResultSet rs, rs2;
@@ -182,8 +187,14 @@
         <%    }   %>
     </form> 
 
-    <%   } catch (Exception e) {
+    <%   
+        
+        } catch (Exception e) {
             out.print(e.toString());
-        }%>
+        }
+    finally{
+        clases.controles.DesconnectarBDsession();
+}
+    %>
 
 </body>

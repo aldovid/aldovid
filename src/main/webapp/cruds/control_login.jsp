@@ -18,7 +18,8 @@
     String cla = request.getParameter("pass");
     ResultSet rs = fuente.obtenerDato("select * from usuarios where usuario = '" + usu + "' and password = '" + cla + "' and clasificadora <>'u'");
     String area = "";
-
+    try {
+            
     if (rs.isBeforeFirst()) {
         while (rs.next()) {
             //  String id_usuario = "";
@@ -89,8 +90,11 @@
     } else {
         response.sendRedirect("../login_error.jsp");
     }
-
-    //  controles.DesconnectarBD();
+        } catch (Exception e) {
+        }
+        finally{
+      controles.DesconnectarBDsession();
+    }
 %>
 
 

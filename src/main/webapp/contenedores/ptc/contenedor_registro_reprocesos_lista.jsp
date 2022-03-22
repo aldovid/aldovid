@@ -17,12 +17,17 @@
                 + " where mae_ptc_alimentacion.clasificadora='"+clasificadora+"' and estado<>'C' ");
        
 %> 
-      <head>  
+      
+     <% 
+     String version=clases.versiones.contenedores_ptc_contenedor_registro_reprocesos_lista;
+
+       %>
+    <head>  
       <label  ><b></b></label>
 <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
      data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0059-REP-01032022-A','VERSION: 0059-REP-01032022-A')" >
-    <label neme="label_contenido" id="label_contenido" >0059-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label neme="label_contenido" id="label_contenido" ><%=version%></label>  
 </div>
 </head> 
  <div class="col-lg-20 ">
@@ -71,7 +76,10 @@ PTC
  
     </div>
    
-           
+    <%
+        clases.controles.DesconnectarBDsession();
+%>
+                
 
  
  

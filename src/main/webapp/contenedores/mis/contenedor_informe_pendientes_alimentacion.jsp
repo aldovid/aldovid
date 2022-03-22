@@ -1,9 +1,15 @@
-      
+
+
+     <% 
+     String version=clases.versiones.contenedores_mis_contenedor_informe_pendientes_alimentacion;
+   
+   %> 
+
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0024-REP-01032022-A','VERSION: 0024-REP-01032022-A')">
-    <label ></label>0024-REP-01032022-A  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label> 
 </div>
 </head>
 <input type="hidden" id="tipo" name="tipo" value="RP">

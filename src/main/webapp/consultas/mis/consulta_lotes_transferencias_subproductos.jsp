@@ -56,13 +56,16 @@
         }
         rs_GM.close();
         cn_GM.close();
-        controles.DesconnectarBD();
         } catch (Exception e) 
                
         {
             String a=e.toString();
         } 
+       finally 
+        {
+        controles.DesconnectarBDsession();
         out.print(jarray); 
+        }
         
         
     %>

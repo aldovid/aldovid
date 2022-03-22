@@ -5,7 +5,7 @@ var ruta_consultas_mis = "./consultas/mis/";
 
 
 function traer_eliminar_mis()
-{
+{window.location.hash = "misEliminar";
     $.get(ruta_contenedores_mis + 'contenedor_eliminar.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
@@ -28,6 +28,7 @@ function traer_detalle_eliminar_mis(fecha) {
 }
   
 function ir_registro_tipo_reproceso_mis() {
+    window.location.hash = "panelRegistroReproceso";
     $.get(ruta_contenedores_mis + 'contenedor_registro_tipo_reproceso.jsp', function (data) {
         $("#contenedor_principal").html('');
 
@@ -47,6 +48,7 @@ function traer_grilla_carromesa(fecha_carromesa) {
 
 function traer_registro_mis()
 {
+    window.location.hash = "misRegistro";
     $("#contenido_2").html("");
     $.get(ruta_contenedores_mis + 'contenedor_registro.jsp', function (res) {
         $("#contenedor_principal").html('');
@@ -118,6 +120,7 @@ function validar_fechaInicial_fechaFinal_mis()
 }
 
 function ir_registro_reproceso_tradicional_mis() {
+    window.location.hash = "misRegistroTradicional";
     $("#contenido_2").html("");
     $.get(ruta_contenedores_mis + 'contenedor_registro_tradicional.jsp', function (res) {
         $("#contenedor_principal").html('');
@@ -143,6 +146,7 @@ function ir_registro_sp_tradicional() {
 
 
 function traer_informe_mis() {
+    window.location.hash = "misInforme";
     $.get(ruta_contenedores_mis + 'contenedor_informe.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
@@ -174,6 +178,7 @@ function traer_reporte_lotes_mis() {
 }
 
 function ir_carro_a_mesa() {
+    window.location.hash = "misCarroMesa";
     $.get(ruta_contenedores_mis + 'contenedor_carro_mesa.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
@@ -184,6 +189,7 @@ function ir_carro_a_mesa() {
 
 function ir_reporte_rotos_mis()
 {
+    window.location.hash = "ptcReporteRotos";
     $.get(ruta_contenedores_mis + 'contenedor_reporte_rotos.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
@@ -194,6 +200,7 @@ function ir_reporte_rotos_mis()
 
 function ir_transferencias_reprocesos_mis()
 {
+    window.location.hash = "misTransfeReprocesos";
     $.get(ruta_contenedores_mis + 'contenedor_registro_transferencias_reprocesos.jsp', function (res)
     {
         $("#contenedor_principal").html('');
@@ -204,6 +211,7 @@ function ir_transferencias_reprocesos_mis()
 }
 function ir_transferencias_subproductos_mis()
 {
+     window.location.hash = "misTransfeSuproductos";
     $.get(ruta_contenedores_mis + 'contenedor_transferencia_subproducto.jsp', function (res)
     {
         $("#contenedor_principal").html('');
@@ -214,6 +222,7 @@ function ir_transferencias_subproductos_mis()
 }
 function ir_informe_pendientes_alimentacion_mis()
 {
+    window.location.hash = "misPendientesAlimen";
     $.get(ruta_contenedores_mis + 'contenedor_informe_pendientes_alimentacion.jsp', function (res)
     {
         $("#contenedor_principal").html('');

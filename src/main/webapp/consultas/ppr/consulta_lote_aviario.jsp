@@ -38,6 +38,6 @@
                 
     obje.put("lote_name",lote_name );
     obje.put("lote",lote);
-
+        clases.controles.DesconnectarBDsession();             
     out.print(obje); 
  %>

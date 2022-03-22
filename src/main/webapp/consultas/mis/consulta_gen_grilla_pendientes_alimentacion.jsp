@@ -22,9 +22,9 @@
 
     try {
 
-            controles.VerificarConexion();
+            controles.connectarBD();
                      
-            Statement stmt = clases.controles.connectSesion.createStatement();
+            Statement stmt = clases.controles.connect.createStatement();
              ob = new JSONObject();
             ResultSet rs = stmt.executeQuery(" select convert(date,fecha_puesta) as fecha_puesta, cod_carrito,cantidad,origen,tipo_huevo,desFallaZona  "
                     + "from  v_mae_ptc_pendientes_alimentacion  order by  fecha_puesta asc");
@@ -47,9 +47,10 @@
         } catch (Exception e) {
             String error=e.getMessage();
         }
-        clases.controles.DesconnectarBD();
-      
-        controles.DesconnectarBD();
-        out.print(ob2);
+    finally {
+            clases.controles.DesconnectarBD();
+            out.print(ob2);
+       }
+       
 %>
 

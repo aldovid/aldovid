@@ -1,6 +1,5 @@
   
 <%@page import="org.json.JSONObject"%>
-<%@page import="clases.controles"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
@@ -24,10 +23,9 @@
         int     mensaje             =0;
         
              try { 
-            controles.connectSesion.setAutoCommit(false);
+            clases.controles.connectSesion.setAutoCommit(false);
             CallableStatement  callableStatement=null;   
-            String getDBUSERByUserIdSql = "{call pa_embarque_pendientes( ?, ?, ?, ?, ? ,?,?,?,?,?,?)}";
-            callableStatement = controles.connectSesion.prepareCall(getDBUSERByUserIdSql);
+            callableStatement = clases.controles.connectSesion.prepareCall( "{call pa_embarque_pendientes( ?, ?, ?, ?, ? ,?,?,?,?,?,?)}");
             callableStatement .setString(   1,  area );
             callableStatement .setString(   2,  tipo_huevo);
             callableStatement .setInt(      3,  cantidad);
@@ -41,18 +39,17 @@
             callableStatement.registerOutParameter("mensaje", java.sql.Types.INTEGER);
             callableStatement.execute();
             mensaje = callableStatement.getInt("mensaje");
-            controles.connectSesion.commit();
-           } catch (Exception e) {
-        
-        controles.connectSesion.rollback();
-        String error=e.toString();
-        
-         }
+            clases.controles.connectSesion.commit();
+           } catch (Exception e) 
+            {
+                clases.controles.connectSesion.rollback();
+                String error=e.toString();
+            }
        
-     JSONObject ob = new JSONObject();
-     ob=new JSONObject();
-      clases.controles.DesconnectarBD();
-      out.print(ob); 
+            JSONObject ob = new JSONObject();
+            ob=new JSONObject();
+            clases.controles.DesconnectarBDsession();
+            out.print(ob); 
         %>  
    
  

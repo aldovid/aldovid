@@ -8,7 +8,6 @@
     <% 
     
     clases.controles.VerificarConexion();
-    //Connection cn = clases.controles.connectSesion;
     fuente. setConexion(clases.controles.connectSesion);  
     
     String  area        =(String)sesionOk.getAttribute("area_gm");
@@ -16,7 +15,8 @@
     int tipo            =0;
     String mensaje="";
          
-         try { 
+        try 
+        { 
             clases.controles.connectSesion.setAutoCommit(false);
             CallableStatement  callableStatement=null;   
             callableStatement = clases.controles.connectSesion.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
@@ -28,19 +28,23 @@
             tipo = callableStatement.getInt("mensaje");
             mensaje="LOTES SINCRONIZADOS CON EXITO.";
             clases.controles.connectSesion.commit();
-            } catch (Exception e) 
-            {
+        } 
+        catch (Exception e) 
+        {
                 clases.controles.connectSesion.rollback();
                 mensaje=e.toString();
                 tipo=0;
-            }
-        JSONObject ob = new JSONObject();
-        ob=new JSONObject();
-        ob.put("tipo", tipo);  
-        ob.put("mensaje", mensaje);
-        out.print(ob); 
-        //clases.controles.DesconnectarBD();
-        //cn.close();
-        %>  
+        }
+        finally
+        {
+            JSONObject ob = new JSONObject();
+            ob=new JSONObject();
+            ob.put("tipo", tipo);  
+            ob.put("mensaje", mensaje);
+            out.print(ob); 
+            clases.controles.DesconnectarBDsession();
+        }
+
+         %>  
    
  

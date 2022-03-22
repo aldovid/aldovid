@@ -36,6 +36,6 @@
         JSONObject ob = new JSONObject();
         ob=new JSONObject();
         //cn.close();
-        //clases.controles.DesconnectarBD();
+            clases.controles.DesconnectarBDsession();
         out.print(ob); 
         %>  

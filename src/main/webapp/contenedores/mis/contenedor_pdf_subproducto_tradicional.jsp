@@ -1,10 +1,15 @@
 
 
+
+  <% 
+     String version=clases.versiones.contenedores_mis_contenedor_pdf_reproceso_tradicional;
+      
+      %> 
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0030-REP-01032022-A','VERSION: 0030-REP-01032022-A')">
-    <label ></label>0030-REP-01032022-A  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head>
     <div class="col-lg-20 ">

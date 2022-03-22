@@ -3,12 +3,15 @@
     Created on : 31-dic-2021, 17:40:59
     Author     : aespinola
 --%>
-
+<% 
+     String version=clases.versiones.contenedores_ppr_vista_informe_aviarios_dinamico;
+ 
+ %> 
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0009-REP-01032022-A','VERSION: 0009-REP-01032022-A')">
-    <label neme="label_contenido" id="label_contenido">0009-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label neme="label_contenido" id="label_contenido"><%=version%></label>  
 </div>
 </head>
 <div  >

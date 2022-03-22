@@ -18,8 +18,8 @@
 
 <%     
     
-    clases.controles.VerificarConexion();
-    fuente.setConexion(clases.controles.connectSesion);
+    clases.controles.connectarBD();
+    fuente.setConexion(clases.controles.connect);
  
     ResultSet rs,rs2,rs3;
     String grilla_html="";
@@ -532,7 +532,7 @@
         }
        
         
-       
+        clases.controles.DesconnectarBD();
          JSONObject ob = new JSONObject();
         ob=new JSONObject();
  

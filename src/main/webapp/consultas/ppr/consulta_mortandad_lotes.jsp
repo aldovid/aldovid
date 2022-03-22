@@ -86,6 +86,7 @@
             fcolor = rs2.getString("fcolor");
 
         }
+        clases.controles.DesconnectarBDsession();             
         objet.put("grillalote", miles+cabecera + grilla_html + "</tbody></body></div>" + datatable);
         objet.put("id", id);
         objet.put("lote", lote);

@@ -215,6 +215,7 @@ function registrar_roles_ppr() {
 }
 
 function cargar_grilla_roles_ppr() {
+    window.location.hash = "pprRolesRegistrados";
 
     $.ajax({
         url: ruta_grilla_ppr + "grilla_rol.jsp",
@@ -364,6 +365,7 @@ function modificar_usuario_ppr() {
     });
 }
 function traer_vista_roles_ppr() {
+    window.location.hash = "pprCrearRoles";
     cargar_load();
 
     $.ajax({
@@ -585,6 +587,7 @@ function cancelar_usuarios_ppr()
  
 
 function grilla_usuarios_ppr() {
+    window.location.hash = "pprUsuariosRegistrados";
 
     $.ajax({
         url: ruta_grilla_ppr + "grilla_usuarios.jsp",
@@ -607,6 +610,7 @@ function grilla_usuarios_ppr() {
 
 
 function traer_vista_usuario_ppr() {
+    window.location.hash = "SegRegistroUsuario";
 
     $.ajax({
         url: ruta_vistas_ppr + "vista_registrar_usuario.jsp",
@@ -731,6 +735,7 @@ function grafico_aviario_dinamico_vista_ppr()
         }});
 }
 function grafico_aviarios_dinamico_ppr() {
+    window.location.hash = "pprGraficoAviariosDinamico";
     $.ajax({
         url: ruta_vistas_ppr + "vista_informe_aviarios_dinamico.jsp",
         type: "post",
@@ -1254,6 +1259,7 @@ function consulta_balanceado_bloque2_ppr()
         }});
 }
 function informe_consumo_balanceado_bloque_ppr() {
+    window.location.hash = "pprConsumoBalanceadoBloque";
     $.ajax({
         url: ruta_vistas_ppr + "vista_informe_consumo_balanceado_bloque.jsp",
         type: "post",
@@ -1271,8 +1277,8 @@ function informe_consumo_balanceado_bloque_ppr() {
 }
 
 function llamar_mortandad_80_sems_ppr()
-
 {
+    window.location.hash = "pprMortandad80Sms";
     $.ajax({
         url: ruta_vistas_ppr + "vista_mortandad_80_sems.jsp",
         type: "post",
@@ -1370,8 +1376,8 @@ function consulta_balanceado_bloque2_ppr() {
 
 
 function llamar_contador_huevos_ppr()
-
 {
+    window.location.hash = "pprContadorHuevos";
     $.ajax({
         url: ruta_vistas_ppr + "vista_contadores_huevos.jsp",
         type: "post",

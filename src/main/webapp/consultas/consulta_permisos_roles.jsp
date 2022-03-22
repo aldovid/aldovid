@@ -38,7 +38,7 @@
         select=select+group+option+" </optgroup>";
     }
     rs2.close();
-    
+        clases.controles.DesconnectarBDsession();
     ob.put("select",select ) ;
 
     out.print(ob);  

@@ -33,7 +33,7 @@
         outputstream.flush();
         outputstream.close();   
        
-
+            clases.controles.DesconnectarBDsession();
         } catch (Exception e) 
         {
        

@@ -4,7 +4,6 @@
     Author     : hvelazquez
 --%>
 
-<%@page import="clases.controles"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>   
@@ -13,25 +12,30 @@
 <!DOCTYPE html>
 
     <% 
-        controles.VerificarConexion();
-       // clases.controles.connectarBD();   
+        clases.controles.VerificarConexion();
         fuente.setConexion(clases.controles.connectSesion);
        
         ResultSet rs,rs_chofer,rs_camion;
         String fecha_actual = "";
                 String hora_inicio = "";
+                try {
+                        
+                    
                  rs = fuente.obtenerDato(" select convert(varchar,getdate(),103) as fecha , GETDATE()  as hora ");
                 while(rs.next()){    
                     fecha_actual = rs.getString("fecha");
                     hora_inicio=rs.getString("hora");
                          }
                     rs.close();  
+     
+ 
+        String version=clases.versiones.contenedores_embarque_contenedor_reporte_embarque;
     %>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" 
-     data-target=".bd-example-modal-xx" onclick="cargar_datos_modal_version('0003-REP-01032022-A','VERSION: 0003-REP-01032022-A')" >
-    <label >0003-PAN-01032022-A</label>  
+     data-target=".bd-example-modal-xx" onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label ><%=version%></label>  
 </div>
 </head>
 
@@ -242,5 +246,14 @@
     </form> 
  
   
-
+<%     
+    } 
+    catch (Exception e) 
+    {
+    }
+    finally
+    {
+        clases.controles.DesconnectarBDsession();
+    }
+%>
 

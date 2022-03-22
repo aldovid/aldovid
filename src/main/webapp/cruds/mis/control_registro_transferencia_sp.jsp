@@ -84,5 +84,6 @@
         ob.put("tipo_respuesta", "0");
         cn.rollback(); 
     }
-    out.print(ob);
+        clases.controles.DesconnectarBDsession();
+        out.print(ob);
  %>

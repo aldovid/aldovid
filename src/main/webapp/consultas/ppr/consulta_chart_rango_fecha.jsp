@@ -89,7 +89,7 @@
                 ////FIN DEL RECORRIDO LARGO
                  }
                 
-                
+        clases.controles.DesconnectarBDsession();             
                 fecha2=new JSONArray();
                 fecha2.put(fecha1);   
                   

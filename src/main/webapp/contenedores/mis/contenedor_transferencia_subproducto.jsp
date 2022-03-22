@@ -124,5 +124,7 @@ MIS
         </div> 
     
 
- <% cn2.close();  %>
-
+ <% cn2.close();    
+  clases.controles.DesconnectarBDsession();
+%>
+      

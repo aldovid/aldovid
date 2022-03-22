@@ -7,13 +7,16 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+     String version=clases.versiones.contenedores_vista_permisos;
 
+       %>
   <head>
      
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0026-REP-01032022-A','VERSION: 0026-REP-01032022-A')">
-    <label neme="label_contenido" id="label_contenido">0026-PAN-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label neme="label_contenido" id="label_contenido"><%=version%></label>  
 </div>
 
     </head>
@@ -23,6 +26,8 @@
    //listar datos de tabla
    PreparedStatement ps,ps2;
    ResultSet rs,rs2;
+  try {
+          
    clases.controles.VerificarConexion();
    ps=clases.controles.connectSesion .prepareStatement("select * from mae_yemsys_roles ");
    rs=ps.executeQuery();
@@ -60,3 +65,13 @@
                    </center>
           
      </form></div>
+         
+         
+    <%     
+      } catch (Exception e) {
+      }
+
+finally{
+clases.controles.DesconnectarBDsession();
+}
+      %>

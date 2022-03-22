@@ -46,13 +46,15 @@
 
     setInputDate("#idfechadesde");
     setInputDate("#idfechahasta");
-
+ <% 
+     String version=clases.versiones.contenedores_ppr_vista_grilla_contadores_de_huevos;
+ %> 
 </script>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('0011-REP-01032022-A','VERSION: 0011-REP-01032022-A')">
-    <label neme="label_contenido" id="label_contenido">0011-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label neme="label_contenido" id="label_contenido"><%=version%></label>  
 </div>
 </head>
 

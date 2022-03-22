@@ -52,7 +52,12 @@
             }
             ob.put("mensaje", mensaje);
             ob.put("tipo_respuesta", tipo_respuesta);
-        } 
+        
+    
+            clases.controles.DesconnectarBDsession();
+
+    } 
+    
             catch (Exception e) 
             {
                 ob.put("mensaje", e.getMessage());

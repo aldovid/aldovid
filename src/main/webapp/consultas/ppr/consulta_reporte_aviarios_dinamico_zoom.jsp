@@ -281,6 +281,7 @@
 
                 dataArray.put(data);
                   }
+        clases.controles.DesconnectarBDsession();             
                 charts.put("charts", dataArray); 
          
          out.print(charts); 

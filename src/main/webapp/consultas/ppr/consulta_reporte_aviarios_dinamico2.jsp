@@ -349,7 +349,7 @@
                 } ////FIN DEL RECORRIDO LARGO
                  
                 
-                
+        clases.controles.DesconnectarBDsession();             
                 categories=new JSONArray();
                 categories.put(Category);   
                 

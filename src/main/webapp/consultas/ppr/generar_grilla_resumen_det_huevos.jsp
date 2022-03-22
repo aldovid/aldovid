@@ -47,6 +47,7 @@
             fecha = rs2.getString("fecha");
             cantidad = rs2.getString("cant");
         }
+        clases.controles.DesconnectarBDsession();             
         objet.put("grillas", cabecera + grilla_html + "</tbody></table>");
         objet.put("fecha", fecha);
         objet.put("cantidad", cantidad);

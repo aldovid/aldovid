@@ -10,7 +10,14 @@
     sesionOk.setMaxInactiveInterval(-1);
     if (sesionOk.getAttribute("id_usuario") == null ) 
     {
-        clases.controles.connectSesion.close();
-        response.sendRedirect("index.jsp");
+        
+        if(clases.controles.connectSesion!=null ){
+            clases.controles.connectSesion.close();
+            }
+        if (clases.controles.connect!=null){
+        clases.controles.connect.close();
+        }
+        
+         response.sendRedirect("index.jsp");
     }
 %>

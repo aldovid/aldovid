@@ -1,9 +1,11 @@
-
+<% 
+     String version=clases.versiones.contenedores_logistica_contenedor_reporte;
+ %> 
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0008-REP-01032022-A','VERSION: 0008-REP-01032022-A')">
-    <label >0008-REP-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+    <label ><%=version%></label>  
 </div>
 </head>
 <div class="col-lg-20 ">

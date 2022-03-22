@@ -78,5 +78,5 @@ MIS
                  </tbody>
             </table>
                  
-                 
-        
+<% clases.controles.DesconnectarBDsession();
+%>        

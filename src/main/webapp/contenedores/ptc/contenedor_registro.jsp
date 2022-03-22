@@ -3,19 +3,23 @@
       <%
          String fecha_clasificacion="";
          clases.controles.connectarBD();   
+    try {
+            
          Statement stmt = clases.controles.connect.createStatement();
          ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        
         while(rs.next())
         {          
             fecha_clasificacion=rs.getString(1);
-        }    
-            clases.controles.DesconnectarBD();  %>    
+        }     
+     String version=clases.versiones.contenedores_ptc_contenedor_registro;
+
+       %>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" id="contenido_version"
-     data-toggle="modal" data-target=".bd-example-modal-xx" onclick="cargar_datos_modal_version('0031-REP-01032022-A','VERSION: 0031-REP-01032022-A')" >
-    <label neme="label_contenido" id="label_contenido" value="0031-REP-01032022-A">0031-REP-01032022-A</label>  
+     data-toggle="modal" data-target=".bd-example-modal-xx" onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')" >
+    <label neme="label_contenido" id="label_contenido" value="0031-REP-01032022-A"><%=version%></label>  
 </div>
 </head>
 <div class="col-lg-20 ">
@@ -203,3 +207,15 @@ PTC
         <input type="submit" value="Registrar" id="btn_registrar" name="btn_registrar"  class="form-control btn btn-primary  " style="height:70px"   />
         <br><br> 
     </form> 
+            
+            <%
+            
+            
+        } catch (Exception e) {
+        }
+finally{
+clases.controles.DesconnectarBD(); 
+
+}
+            
+            %>

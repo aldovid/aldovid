@@ -1,4 +1,3 @@
-<%@page import="clases.controles"%>
 <%@page import="clases.fuentedato"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.sql.ResultSet"%>
@@ -12,13 +11,16 @@
     rs = fuente.obtenerDato("select * from  maehara.dbo.[@CAMIONES] where u_estado='Activo' and   u_desc<>'' ");
     rs2 = fuente.obtenerDato("select code,name  from maehara.dbo.[@CHOFERES] where U_estado='activo'");
 
-%>
-
+  
+     String version=clases.versiones.contenedores_logistica_contenedor_pedidos;
+ try {
+         
+      %>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('0004-PAN-01032022-A','VERSION: 0004-PAN-01032022-A')">
-    <label >0004-PAN-01032022-A</label>  
+     onclick="cargar_datos_modal_version('<%=version%> ','VERSION: <%=version%> ')">
+    <label ><%=version%> </label>  
 </div>
 </head>
    <div class="col-lg-20 ">
@@ -100,3 +102,14 @@ LOG
         </div>
     </div>
 
+<%
+    } 
+    catch (Exception e) 
+    {
+    
+    }
+    finally
+    {
+        clases.controles.DesconnectarBD();
+    }
+%>

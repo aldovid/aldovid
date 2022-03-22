@@ -104,12 +104,13 @@
         <%} 
             rs.close();
           //  cn.close();
-           // clases.controles.DesconnectarBD();
          } 
     catch (Exception e) {
  String d=e.toString();
 }
-                 
+       finally{
+             clases.controles.DesconnectarBDsession();
+}          
         %>
          
  </body>

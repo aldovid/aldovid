@@ -81,7 +81,8 @@
         outputstream.flush();
         outputstream.close(); 
     }
-     
+                 clases.controles.DesconnectarBDsession();
+
         } catch (Exception e) {
             String asdasd=e.getMessage();
         }

@@ -196,7 +196,7 @@
         objet.put("grilla", grilla_html);
         objet.put("grillacabecera", cabecera);
    
-
+        clases.controles.DesconnectarBDsession();             
         out.print(objet);
     } catch (Exception e) {
         String asda = e.getMessage();

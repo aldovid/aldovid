@@ -3,24 +3,22 @@
     Created on : 16-sep-2021, 8:37:03
     Author     : hvelazquez
 --%>
-
- <%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONArray"%>
 <%@page import="clases.controles"%>
 <%@page import="clases.fuentedato"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
 <%@ page session="true" %>
-  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
+<jsp:useBean id="fuente" class="clases.fuentedato" scope="page" />
 <%@page contentType="application/json; charset=utf-8" %>
-
-
 
 <%     
     
-    clases.controles.VerificarConexion();
-    fuente.setConexion(clases.controles.connectSesion);
- 
+    clases.controles.connectarBD();
+    fuente.setConexion(clases.controles.connect);
+ try {
+         
     ResultSet rs,rs2,rs3;
     String grilla_html="";
     String fp_a="N/A";
@@ -475,17 +473,18 @@
          rs2 = fuente.obtenerDato("select cod_carrito,cantidad_caj,clasificadora_actual,convert(varchar,fecha_puesta,103) as fecha_puesta,tipo_huevo "
                  + "from v_mae_log_stock_pedidos_maehara_cajones"
                  + " where   cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos with(nolock) where estado in (1,2) and u_medida='MIXTO') order by 1,4");
-       String cod_carrito="";
-       String cajones_unidos="";
-       String fp_unido="";
-       String area_unido="";
-       String cod_carro_bd="";
-       String tipo_huevo_bd="";
-       int f=0;
+        String cod_carrito="";
+        String cajones_unidos="";
+        String fp_unido="";
+        String area_unido="";
+        String cod_carro_bd="";
+        String tipo_huevo_bd="";
+        int f=0;
         while(rs2.next())
         {
            cod_carro_bd=rs2.getString("cod_carrito");
            tipo_huevo_bd=rs2.getString("tipo_huevo");
+           
            if(f==0){
               cod_carrito=rs2.getString("cod_carrito");
                 fp_unido=rs2.getString("fecha_puesta");
@@ -537,10 +536,15 @@
                 + "<td><div style='font-weight:bold' class='btn btn-dark btn-sm' id='"+cod_carrito+"' onclick='seleccionar_mixtos( "+cod_carrito+" )'>SELECCIONE</div>   </td> "
                 + "</tr>";
         }
-       
-         JSONObject ob = new JSONObject();
+        JSONObject ob = new JSONObject();
         ob=new JSONObject();
  
         ob.put("grilla",cabecera+grilla_html+"</tbody></table></div>");
         ob.put("grilla_mixto",cabecera_mixto+grilla_html2+"</tbody></table></div></div></div></div>");
-        out.print(ob);  %> 
+        out.print(ob); 
+     } catch (Exception e) {
+     }
+finally{
+        clases.controles.DesconnectarBD();
+ }
+     %> 

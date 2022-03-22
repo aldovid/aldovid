@@ -83,6 +83,7 @@
                         color3 = rs.getString("fcolor");
                         notas = rs.getString("notas");
         }
+        clases.controles.DesconnectarBDsession();             
         objet.put("grilladato", cabecera + grilla_html + "</tbody></body></div>" + datatable);
         objet.put("fecha", fecha);
         objet.put("edad", edad);

@@ -27,7 +27,7 @@
         ob.put("cantidad","<b>"+contador+"</b>");
         ob.put("fecha_vieja_retenido",fecha_vieja_retenido);
         ob.put("fecha_vieja",fecha_vieja);
-        clases.controles.DesconnectarBD();
+        clases.controles.DesconnectarBDsession();
         cn.close();
         out.print(ob); 
        %>

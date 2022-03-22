@@ -20,7 +20,10 @@
     String area=                    (String) sesionOk.getAttribute("clasificadora");
         clases.controles.VerificarConexion();
         
-        
+       try {
+               
+           
+       
         String query="select * from v_mae_yemsys_usuarios  where area in"
                 + " (select area from mae_yemsys_permisos_areas_usuarios where parent in (select parent from mae_yemsys_permisos_areas_usuarios where area='"+area+"') )";
         
@@ -266,3 +269,12 @@
     </div>    
 </body>
 </html>
+
+<% 
+    
+           } catch (Exception e) {
+           }
+    finally{
+    clases.controles.DesconnectarBDsession();
+    }
+%>

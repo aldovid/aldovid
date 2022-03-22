@@ -114,6 +114,7 @@ function llamar_grafico_detalles_fila_ppr(name2)
         }});
 }
 function traer_vista_contador_huevo2_ppr() {
+    window.location.hash = "pprAviarioFecha";
 
     $.ajax({
         url: ruta_vistas_ppr + "/vista_registro_de_datos_diarios_A.jsp",
@@ -301,8 +302,8 @@ function dd_mec2_ppr() {
  
  
 function llamar_mortandad_lotes_ppr()
-
 {
+    window.location.hash = "pprMortandadLotes";
     $.ajax({
         url: ruta_vistas_ppr + 'vista_mortandad_lotes.jsp',
         type: "post",
@@ -406,6 +407,7 @@ function ExportToExceldatos_con_ppr(htmlExport) {
 
 function llamar_datos_contadores_ppr()
 {
+     window.location.hash = "pprDatosContadores";
     $.ajax({
         url: ruta_vistas_ppr + 'vista_datos_contadores.jsp',
         type: "post",

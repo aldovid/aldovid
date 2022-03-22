@@ -49,4 +49,5 @@
         </tr> <%}%>  
         </tbody>  
   </table>
-  
+ <% clases.controles.DesconnectarBDsession();
+%>

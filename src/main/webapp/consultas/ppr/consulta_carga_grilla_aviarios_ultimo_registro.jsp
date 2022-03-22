@@ -55,9 +55,8 @@
                // Cant.add(cant_c);
                
               }
+            clases.controles.DesconnectarBDsession();
      obje.put("filass",Fila );
-   // obje.put("fecha1",fe1 );
-   // obje.put("fecha2",fe2 );
-   // obje.put("cant",Cant );
+   
     out.print(obje); 
  %>

@@ -188,7 +188,7 @@
                  grillaTotal=cab_det+det+pie_det;
                 String total=cab1+" "+cab2+cab3+"<br>"+grillaTotal;
                // cn.close();
-               // clases.controles.DesconnectarBD();  
+              clases.controles.DesconnectarBDsession();
                 ob.put("table", total);
                 out.print(ob);
                 

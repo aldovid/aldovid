@@ -443,7 +443,7 @@ function validar_transferencia_almacenamiento(){
   } 
   else {
       
-     enviar_datos_transferencia('A');    
+        enviar_datos_transferencia_PTC('A');    
   }
  
     
