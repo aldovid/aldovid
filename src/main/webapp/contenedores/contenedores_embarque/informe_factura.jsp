@@ -25,8 +25,8 @@
     <%        try {
         
         
-            controles.VerificarConexion();
-            fuente.setConexion(clases.controles.connectSesion);
+            controles.connectarBD();
+            fuente.setConexion(clases.controles.connect);
             ResultSet rs, rs2;
             String area = (String) sesionOk.getAttribute("area");
             String chofer = "";
@@ -193,8 +193,9 @@
             out.print(e.toString());
         }
     finally{
-        clases.controles.DesconnectarBDsession();
-}
+        clases.controles.DesconnectarBD();
+        clases.controles.VerificarConexion();
+}   
     %>
 
 </body>

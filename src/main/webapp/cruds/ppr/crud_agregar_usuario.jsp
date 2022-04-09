@@ -18,22 +18,13 @@
 <%
     JSONObject obje = new JSONObject();
         obje = new JSONObject();
-        
-        String nombre;
-        String apellido;
-        String usuario;
-        String pass;
-        String clasificadora;
-        String rol;
-        String estado;
-        String foto; 
-      
+ 
   
-        nombre= request.getParameter("nombre");
-        pass = request.getParameter("pass");
-        usuario = request.getParameter("usuario");
-        clasificadora = request.getParameter("clasificadora");
-        rol= request.getParameter("select_rol");
+      String  nombre= request.getParameter("nombre");
+       String pass = request.getParameter("pass");
+      String  usuario = request.getParameter("usuario");
+      String  clasificadora = request.getParameter("clasificadora");
+      String  rol= request.getParameter("select_rol");
         
  
        
@@ -76,6 +67,7 @@
                 } 
  } catch (Exception ex) {
     
+     String mens=ex.getMessage();
   }
  finally {
             clases.controles.DesconnectarBDsession();

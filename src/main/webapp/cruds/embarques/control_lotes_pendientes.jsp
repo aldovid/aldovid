@@ -8,8 +8,7 @@
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
         <% 
         clases.controles.VerificarConexion();
-       // Connection cn = clases.controles.connect;        
-        fuente.setConexion(controles.connectSesion);  
+        fuente.setConexion(clases.controles.connectSesion);  
         String  numero_factura      = request.getParameter("numero_factura") ;
         String  area                =(String)sesionOk.getAttribute("area_gm");
  	String  tipo_huevo          = request.getParameter("tipo_huevo") ;
@@ -23,7 +22,7 @@
         int     mensaje             =0;
         
              try { 
-            clases.controles.connectSesion.setAutoCommit(false);
+         //   clases.controles.connectSesion.setAutoCommit(false);
             CallableStatement  callableStatement=null;   
             callableStatement = clases.controles.connectSesion.prepareCall( "{call pa_embarque_pendientes( ?, ?, ?, ?, ? ,?,?,?,?,?,?)}");
             callableStatement .setString(   1,  area );
@@ -39,17 +38,20 @@
             callableStatement.registerOutParameter("mensaje", java.sql.Types.INTEGER);
             callableStatement.execute();
             mensaje = callableStatement.getInt("mensaje");
-            clases.controles.connectSesion.commit();
+         //   clases.controles.connectSesion.commit();
            } catch (Exception e) 
             {
                 clases.controles.connectSesion.rollback();
                 String error=e.toString();
             }
-       
+             
+             finally{
             JSONObject ob = new JSONObject();
             ob=new JSONObject();
-            clases.controles.DesconnectarBDsession();
             out.print(ob); 
+            clases.controles.DesconnectarBDsession();
+             }
+            
         %>  
    
  

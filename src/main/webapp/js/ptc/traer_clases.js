@@ -218,7 +218,7 @@ function ir_registro_carros_alimentados() {
                     $(".checkbox").bootstrapToggle(),
                     $(".dtBox").DateTimePicker(),
                     cargar_toggles(),
-                    cargar_estilo_calendario_insert("dd/mm/yyyy"),
+                    cargar_estilo_calendario_insert("yyyy/mm/dd"),
                     inicializar_unidad_medida_PTC(),
                     (document.getElementById("boxColor").style.backgroundColor = "lightblue"),
                     (document.getElementById("boxColor_red").style.backgroundColor = "green"),
@@ -377,7 +377,7 @@ function traer_registro_lib() {
                      //$(".dtBox").DateTimePicker(),
                     formato_hora_input();
                     cargar_toggles(),
-                    cargar_estilo_calendario_insert("dd/mm/yyyy"),
+                    cargar_estilo_calendario_insert("yyyy/mm/dd"),
                     inicializar_unidad_medida_PTC(),
                     (document.getElementById("boxColor").style.backgroundColor = "lightblue"),
                     (document.getElementById("boxColor_red").style.backgroundColor = "green"),
@@ -407,7 +407,7 @@ function traer_registro_retenido() {
                     (document.getElementById("boxColor").style.backgroundColor = "lightblue"),
                     (document.getElementById("boxColor_red").style.backgroundColor = "green"),
                     cargar_toggles(),
-                    cargar_estilo_calendario_insert("dd/mm/yyyy"),
+                    cargar_estilo_calendario_insert("yyyy/mm/dd"),
                     $("#formulario").on("submit", function (e) {
                 e.preventDefault(), procesar_PTC("control_retenidos"), e.stopPropagation();
             }),
@@ -435,7 +435,7 @@ function traer_registro_SC() {
                             (document.getElementById("boxColor").style.backgroundColor = "lightblue"),
                             (document.getElementById("boxColor_red").style.backgroundColor = "green"),
                             cargar_toggles(),
-                            cargar_estilo_calendario_insert("dd/mm/yyyy"),
+                            cargar_estilo_calendario_insert("yyyy/mm/dd"),
                             $("#formulario").on("submit", function (e) {
                         e.preventDefault(), procesar_sc(), e.stopPropagation();
                     }),
@@ -473,26 +473,46 @@ function traer_registro_retenido_costeado() {
         },
     });
 }
-function validar_fechaInicial_fechaFinal() {
-    $("#cbox_aviarios").html("");
-    var e = $("#calendario_registro").val(),
-            t = $("#fecha_clas_final").val(),
-            o = $("#hora_desde").val(),
-            r = $("#hora_hasta").val(),
-            a = new Date(e + " " + o + ":00"),
-            n = new Date(t + " " + r + ":00"),
-            i = e + " " + o + ":59.000",
-            c = t + " " + r + ":00.000";
-    e.length > 0 &&
-            t.length > 0 &&
-            o.length > 0 &&
-            r.length > 0 &&
-            (a > n
-                    ? (swal.fire({type: "error", title: "FECHA DE CLASIFICACION INICIAL NO PUEDE SER MAYOR A LA FINAL.!!!", confirmButtonText: "CERRAR"}), $("#fecha_clas_final").val(""))
-                    : $.get(ruta_consultas_ptc + "consulta_aviarios_hora.jsp", {fecha_inicio: i, fecha_final: c}, function (e) {
-                        $("#cbox_aviarios").html(e.aviarios);
-                    }));
-}
+ function validar_fechaInicial_fechaFinal ()
+    {
+         $('#cbox_aviarios').html('');  
+        var fecha_clasificacion_inicial=$('#calendario_registro').val();
+        var fecha_clasificacion_final=$('#fecha_clas_final').val();
+        var hora_inicial=$('#hora_desde').val();
+        var hora_final=$('#hora_hasta').val();
+     /*   var date_inicial=new Date(fecha_clasificacion_inicial+' '+hora_inicial+':00') ;
+        var date_final=new Date(fecha_clasificacion_final+' '+hora_final+':00') ; 
+       */
+        var date_inicial_consulta= fecha_clasificacion_inicial+' '+hora_inicial+':59.000';
+        var date_final_consulta= fecha_clasificacion_final+' '+hora_final+':00.000';
+        
+     var date_inicial=new Date(date_inicial_consulta) ;
+        var date_final=new Date(date_final_consulta) ; 
+       
+   
+        
+        if(fecha_clasificacion_inicial.length>0&&fecha_clasificacion_final.length>0&&hora_inicial.length>0&&hora_final.length>0)
+        {
+            if(date_inicial>date_final)
+            {
+               swal.fire({
+                        type: 'error',
+                        title: "FECHA DE CLASIFICACION INICIAL NO PUEDE SER MAYOR A LA FINAL.!!!",
+                        confirmButtonText: "CERRAR"
+                        });  
+                $('#fecha_clas_final').val('');
+               
+            }
+            else 
+            {
+                 $.get(ruta_consultas_ptc+'consulta_aviarios_hora.jsp',{fecha_inicio:date_inicial_consulta,fecha_final:date_final_consulta},function(res)
+                {
+                  $('#cbox_aviarios').html(res.aviarios);  
+                }); 
+            }
+        }
+    }
+
 function ir_movimiento() {
     window.location.hash = "ptcMovimiento";
     $.ajax({

@@ -12,8 +12,8 @@
 <!DOCTYPE html>
 
     <% 
-        clases.controles.VerificarConexion();
-        fuente.setConexion(clases.controles.connectSesion);
+        clases.controles.connectarBD();
+        fuente.setConexion(clases.controles.connect);
        
         ResultSet rs,rs_chofer,rs_camion;
         String fecha_actual = "";
@@ -253,7 +253,7 @@
     }
     finally
     {
-        clases.controles.DesconnectarBDsession();
+        clases.controles.DesconnectarBD();
     }
 %>
 

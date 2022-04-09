@@ -17,7 +17,6 @@
         
         
            try {
-        
     String area =(String) sesionOk.getAttribute("area");
     String fecha =request.getParameter("calendario");
     clases.controles.VerificarConexion();

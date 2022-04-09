@@ -211,8 +211,8 @@
                 }   
                 else  
                 {
-                     //cn.rollback(); 
-                     cn.commit();
+                    //  cn.rollback(); 
+                    cn.commit();
                 }
                 if(mensaje.equals("DUPLICADO")){
                         tipo_respuesta=2;

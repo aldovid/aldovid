@@ -39,7 +39,8 @@
     clases.controles.VerificarConexion();
     fuente.setConexion(clases.controles.connectSesion);
     JSONObject charts = new JSONObject();
-    
+  try {
+          
     for(int i=0; i<array_aviarios.length; i++)   
     {
         if (array_aviarios.length > 0)
@@ -344,7 +345,7 @@
                     
                 } ////FIN DEL RECORRIDO LARGO
                  
-        clases.controles.DesconnectarBDsession();             
+        
                 
                 categories=new JSONArray();
                 categories.put(Category);   
@@ -402,7 +403,14 @@
              charts.put("charts", dataArray); 
              charts.put("totales", dataArray); 
          
-         out.print(charts); 
+      } catch (Exception e) {
+          String error=e.getMessage();
+      }
+  finally{
+    clases.controles.DesconnectarBDsession();             
+    out.print(charts); 
+
+  }
  %>
  
  

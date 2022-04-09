@@ -7,8 +7,8 @@
 <% 
         String clasificadora = (String) sesionOk.getAttribute("clasificadora");
  
-        clases.controles.VerificarConexion();
-        Connection cn = clases.controles.connectSesion; 
+        clases.controles.connectarBD();
+        Connection cn = clases.controles.connect; 
 
         fuente.setConexion(cn);
 
@@ -27,7 +27,7 @@
         ob.put("cantidad","<b>"+contador+"</b>");
         ob.put("fecha_vieja_retenido",fecha_vieja_retenido);
         ob.put("fecha_vieja",fecha_vieja);
-        clases.controles.DesconnectarBDsession();
+        clases.controles.DesconnectarBD();
         cn.close();
         out.print(ob); 
        %>

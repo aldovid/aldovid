@@ -13,5 +13,5 @@ public class variables {
     
     public static  String BD="GrupoMaehara";
     public static  String BD2="maehara";
-    
+    public  static int logistica=0;
  }

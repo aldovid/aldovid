@@ -45,9 +45,9 @@ PTC
                     <b>Fecha de clasificación inicial</b>
                     <input style="font-weight: bold;" id="calendario_registro" name="calendario_registro"  class="datepicker" required   value="<%=fecha_clasificacion%>"  onchange=" $('#fecha_clas_final').val($('#calendario_registro').val());validar_fechaInicial_fechaFinal();"/>
                 </div>
-                <div  style="display: none"  ><input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="BORROSO SI"  data-off="BORROSO NO"   id="chkToggle2"             data-onstyle="success" data-offstyle="warning">
-                <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="ESPECIAL SI"   style="display: none"   data-off="ESPECIAL NO"  id="chkToggle_especial"     data-onstyle="primary" data-offstyle="danger">
-                <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="CEPILLADO SI"  style="display: none"   data-off="CEPILLADO NO" id="chkToggle_cepillado"    data-onstyle="primary" data-offstyle="danger">
+                <div  ><input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="BORROSO SI"  data-off="BORROSO NO"   id="chkToggle2"             data-onstyle="success" data-offstyle="warning">
+                <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="ESPECIAL SI"     data-off="ESPECIAL NO"  id="chkToggle_especial"     data-onstyle="primary" data-offstyle="danger">
+                <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="CEPILLADO SI"     data-off="CEPILLADO NO" id="chkToggle_cepillado"    data-onstyle="primary" data-offstyle="danger">
                 </div>
                 <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="HUEVOS RECOGIDA SI"    data-off="HUEVOS RECOGIDA NO" id="chkToggle_recogida"   data-width="250" data-onstyle="primary" data-offstyle="danger">
   

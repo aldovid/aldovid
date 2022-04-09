@@ -91,7 +91,10 @@ public class versiones {
    
    public static String grillas_ptc_grilla_pendiente_liberacion                                     ="0068-REP-15032022-A"; 
   
-   
+      
+   public static String contenedores_ppr_vista_informe_mortandad_mensual                            ="0069-REP-18032022-A"; 
+   public static String contenedores_ppr_vista_registro_necropsias                                  ="0070-REP-18032022-A"; 
+  
   
   
   

@@ -6,9 +6,8 @@
 <%@ page contentType="application/json; charset=utf-8" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
     <% 
-        clases.controles.VerificarConexion();
-          Connection cn = clases.controles.connectSesion;
-        fuente. setConexion(cn);       
+        clases.controles.connectarBD();
+         fuente. setConexion(clases.controles.connect);       
         String  numero_factura      = request.getParameter("nro_factura") ;
         String  area                =(String)sesionOk.getAttribute("area_gm");
         String  area_cch            =(String)sesionOk.getAttribute("area");
@@ -36,27 +35,31 @@
                   + "</tr> ";  
                 i++;
             }
-            cn.setAutoCommit(false);
+            clases.controles.connect.setAutoCommit(false);
             CallableStatement  callableStatement=null;   
-            callableStatement = cn.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
+            callableStatement = clases.controles.connect.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
             callableStatement .setString(   1,  area_cch );
             callableStatement .setString(   2,  area);
               
             callableStatement.registerOutParameter("mensaje", java.sql.Types.INTEGER);
             callableStatement.execute();
             mensaje = callableStatement.getInt("mensaje");
-            cn.commit();
+            clases.controles.connect.commit();
         } catch (Exception e) 
             {
-                cn.rollback();
+                clases.controles.connect.rollback();
             }
-        JSONObject ob = new JSONObject();
-        ob=new JSONObject();
-        ob.put("grilla", grilla);  
-        ob.put("count", i);
-        cn.close();
-            clases.controles.DesconnectarBDsession();
-        out.print(ob); 
+        
+        finally
+        {
+            JSONObject ob = new JSONObject();
+            ob=new JSONObject();
+            ob.put("grilla", grilla);  
+            ob.put("count", i);
+            clases.controles.DesconnectarBD();
+            out.print(ob);        
+        }
+       
         %>  
    
  

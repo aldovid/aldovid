@@ -1,5 +1,3 @@
- 
-<%@page import="clases.controles"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,8 +6,8 @@
 <%@ page contentType="application/json; charset=utf-8" %>
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
     <% 
-    controles.VerificarConexion();
-    fuente.setConexion(clases.controles.connectSesion);
+    clases.controles.connectarBD();
+    fuente.setConexion(clases.controles.connect);
     String cbox_chofer= request.getParameter("cbox_chofer") ;
     String cbox_camion= request.getParameter("cbox_camion") ;
     String filas_grilla= request.getParameter("resultado") ;
@@ -23,10 +21,10 @@
     ob=new JSONObject();
     int tipo_respuesta=0;
     try { 
-            clases.controles.connectSesion.setAutoCommit(false);
+            clases.controles.connect.setAutoCommit(false);
        
             CallableStatement  callableStatement=null;   
-            callableStatement = clases.controles.connectSesion.prepareCall("{call mae_cch_pa_embarque( ?, ?, ?, ?, ? ,?,?,?,?,?)}");
+            callableStatement = clases.controles.connect.prepareCall("{call mae_cch_pa_embarque( ?, ?, ?, ?, ? ,?,?,?,?,?)}");
             callableStatement .setString(1,filas_grilla);
             callableStatement .setInt(2,Integer.parseInt(cbox_chofer) );
             callableStatement .setInt(3, Integer.parseInt(cbox_camion));
@@ -43,18 +41,14 @@
             
             if (tipo_respuesta==0)
             {
-                clases.controles.connectSesion.rollback(); 
+                clases.controles.connect.rollback(); 
             }   
             else 
             {
-              // clases.controles.connectSesion.rollback(); 
-                 clases.controles.connectSesion.commit();
+              // clases.controles.connect.rollback(); 
+                 clases.controles.connect.commit();
             }
-            ob.put("mensaje", mensaje);
-            ob.put("tipo_respuesta", tipo_respuesta);
-        
-    
-            clases.controles.DesconnectarBDsession();
+          
 
     } 
     
@@ -63,5 +57,11 @@
                 ob.put("mensaje", e.getMessage());
                 ob.put("tipo_respuesta", tipo_respuesta);
             }
-        out.print(ob); 
+    finally{
+            ob.put("mensaje", mensaje);
+            ob.put("tipo_respuesta", tipo_respuesta);
+            clases.controles.DesconnectarBDsession();
+            out.print(ob); 
+
+    }
         %>  

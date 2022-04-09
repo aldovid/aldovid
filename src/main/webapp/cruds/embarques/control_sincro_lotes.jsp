@@ -7,8 +7,8 @@
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
     <% 
     
-    clases.controles.VerificarConexion();
-    fuente. setConexion(clases.controles.connectSesion);  
+    clases.controles.connectarBD();
+    fuente. setConexion(clases.controles.connect);  
     
     String  area        =(String)sesionOk.getAttribute("area_gm");
     String  area_cch    =(String)sesionOk.getAttribute("area");
@@ -17,9 +17,8 @@
          
         try 
         { 
-            clases.controles.connectSesion.setAutoCommit(false);
-            CallableStatement  callableStatement=null;   
-            callableStatement = clases.controles.connectSesion.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
+             CallableStatement  callableStatement=null;   
+            callableStatement = clases.controles.connect.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
             callableStatement .setString(   1,  area_cch );
             callableStatement .setString(   2,  area);
               
@@ -27,12 +26,10 @@
             callableStatement.execute();
             tipo = callableStatement.getInt("mensaje");
             mensaje="LOTES SINCRONIZADOS CON EXITO.";
-            clases.controles.connectSesion.commit();
-        } 
+         } 
         catch (Exception e) 
         {
-                clases.controles.connectSesion.rollback();
-                mensaje=e.toString();
+                 mensaje=e.toString();
                 tipo=0;
         }
         finally
@@ -42,7 +39,7 @@
             ob.put("tipo", tipo);  
             ob.put("mensaje", mensaje);
             out.print(ob); 
-            clases.controles.DesconnectarBDsession();
+            clases.controles.DesconnectarBD();
         }
 
          %>  

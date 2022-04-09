@@ -273,7 +273,16 @@ function boton_atras()
                  ir_registro_reprocesos_lista_ptc();
                 li_active_menu("sub_alimentacion_registro");
             break;
+             
+            case "#pprMortandadMensual":
+                 traer_vista_mortandad_mensual();
+                li_active_menu("sub_inf_mortandad_mensual_global");
+            break;
             
+            case "#pprRegistroNecropsias":
+                 traer_vista_registro_necropsias();
+                li_active_menu("sub_inf_registro_necropsias");
+            break;
             //window.location.hash = "";
         }
     };

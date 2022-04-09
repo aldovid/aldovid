@@ -11,16 +11,11 @@
     }
 
 
-</style> 
-   <% 
-     String version=clases.versiones.contenedores_ppr_vista_registro_de_datos_diarios_A;
- 
-   %> 
+</style>     
 <head>   
 <label  ><b></b></label> 
-<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
-    <label neme="label_contenido" id="label_contenido"><%=version%></label>  
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xl" >
+    <label neme="label_contenido" id="label_contenido"></label>  0008-Rep-01032022-A
 </div>
 </head>
 <script>
@@ -92,7 +87,9 @@ PPR
             
             <div id="tabla_datos_diarios" class=" tablagrilla input-group-append ocultar"></div>
             <div id="tabla_datos_diariosb" class=" tablagrilla input-group-append ocultar"></div>
-            <div id="inputavi" class=" tablagrilla input-group-append ocultar"></div>
+            <div id="tabla_datos_diarios_descarte" class=" tablagrilla input-group-append ocultar"></div>
+            <div id="tabla_datos_diarios_h" class=" tablagrilla input-group-append ocultar"></div>
+            <div id="tabla_datos_diarios_pre_descarte" class=" tablagrilla input-group-append ocultar"></div>
         </div>
         </center>
     </section>

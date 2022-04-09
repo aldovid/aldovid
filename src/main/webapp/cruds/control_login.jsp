@@ -93,7 +93,7 @@
         } catch (Exception e) {
         }
         finally{
-      controles.DesconnectarBDsession();
+      //controles.DesconnectarBDsession();
     }
 %>
 

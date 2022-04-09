@@ -6,7 +6,7 @@
     try {
             
          Statement stmt = clases.controles.connect.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),103) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
+         ResultSet rs = stmt.executeQuery("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        
         while(rs.next())
         {          

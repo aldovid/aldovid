@@ -18,7 +18,7 @@
                 + "AND NumAtCard COLLATE DAtabase_default NOT IN ( "
                 + "SELECT NRO_FACTURA  FROM embarque_cab WHERE    estado_sincro NOT IN ('C') " //CONSULTA PARA QUE DE SAP NO TRAIGA LAS FACTURAS QUE YA ESTAN EMBARCADAS.
                 + " union all"
-                + " select nro_factura from mae_log_pct_cab_pedidos where estado in (2) )");// CONSULTA DEL PEDIDO PARA QUE DE SAP NO TRAIGA LAS FACTURAS QUE YA SE INGRESARON EN EL PEDIDO
+                + " select nro_factura from mae_log_ptc_cab_pedidos where estado in (2) )");// CONSULTA DEL PEDIDO PARA QUE DE SAP NO TRAIGA LAS FACTURAS QUE YA SE INGRESARON EN EL PEDIDO
         
         while(rs.next())
         {

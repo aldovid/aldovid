@@ -41,6 +41,7 @@ MIS
              <select class="form-control" name="cbox_destino" id="cbox_destino" required>
                  <option    value=""       disabled="disabled"    selected="selected">DESTINO </option>
                  <option    id="S" value="S"  >SUBPRODUCTO </option>
+                 <option    id="HP" value="HP"  >HUEVO EN POLVO </option>
         
                  
              </select>

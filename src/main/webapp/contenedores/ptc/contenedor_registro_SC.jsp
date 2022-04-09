@@ -120,7 +120,7 @@ PTC
                 <input type="checkbox"  class="checkbox"  data-toggle="toggle" data-on="NO APLICA"     data-off="APLICA"   id="chkToggle_aviario"             data-onstyle="success" data-offstyle="warning">
 
                      <b>Aviarios disponibles segun horario</b> 
-                    <select  name="cbox_aviarios"  id="cbox_aviarios" class="form-control"  multiple="multiple"   >
+                     <select  name="cbox_aviarios"  id="cbox_aviarios" class="form-control"  multiple="multiple" required  >
                     
                     </select>
                 

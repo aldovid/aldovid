@@ -33,12 +33,11 @@
         <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
         <link href="plugins/lib/themes/default.css" rel="stylesheet" id="theme_base" />
         <link href="plugins/lib/themes/default.date.css" rel="stylesheet" id="theme_date" />
-        <!-- LIBRERIA DATATABLE CSS-->>
-       <!--  <link href="plugins/PLUGINS/v/dt/dt-1.10.16/sl-1.4.0/datatables.min.css" rel="stylesheet" type="text/css"/>
-        <link href="plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
-        <link href="plugins/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
--->
-        <link href="plugins/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
+    
+        
+                <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+        
      
         <link rel="stylesheet" type="text/css" href="plugins/autoFill.bootstrap4.min.css"/>
         <link rel="stylesheet" type="text/css" href="plugins/buttons.bootstrap4.css"/>
@@ -76,6 +75,8 @@
         <link href="css/parpadeo.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
          
+        
+        
     </head>
       <input type="hidden" id="clasificadora_menu" value="<%=area%>">
 
@@ -96,13 +97,13 @@
                     <li class="nav-item">
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
+                    
                     <li class="nav-item d-none d-sm-inline-block">
                         <div class="pull-left main-header-temp-info" id="div_temp">
 
                         </div>
-
-
                     </li>
+                    
 
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -124,10 +125,21 @@
                         </div>
 
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                            <i class="fas fa-expand-arrows-alt"></i>
+                    
+                    <li class="nav-item dropdown show">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                            <a href="#" class="dropdown-item" id="mensaje_div">
+ 
+
+                        </a>
+                        <div class="dropdown-divider"></div>
+                         
+                        
+                         
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
@@ -379,6 +391,7 @@
             <script src="js/logistica.js" type="text/javascript"></script>
             <script src="js/logistica_funciones.js" type="text/javascript"></script>
             <script src="js/ppr/control_claudio.js" type="text/javascript"></script>
+            <script src="js/ptc/ptc_claudio.js" type="text/javascript"></script>
             <script src="js/ppr/llamadas_aldo.js?v=4.0" type="text/javascript"></script>
             <script src="js/ppr/llamadas_claudio.js?v=1.0" type="text/javascript"></script>
             <script src="js/ptc/enviar_datos.js?v=4.0" type="text/javascript"></script>

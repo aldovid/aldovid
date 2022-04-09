@@ -17,10 +17,10 @@ var cantidad_total_ovo = 0;
 var cantidad_total = 0;
 var elem = document.documentElement;
 var pantalla = "SI";
-
+var variable_cambio=""; //se usa como un websocket
 var cont_filtro = 0; // SE USA PARA QUE AL USAR EL FILTRO DE DATATABLE, PUEDA CALCULAR LAS CELDAS.
-
-
+var cantidad_negativa=0;
+ var cantidad_total_mixtos=0;
 function openFullscreen() {
 
     if (pantalla == "SI")
@@ -48,19 +48,40 @@ function openFullscreen() {
 
 
 
-function generar_grilla_pedido(tipo, codigo)
+function generar_grilla_pedido_log(tipo, codigo,cod_camion,id_chofer)
 {
+     var codigo_camion =  $("#cbox_camion").find(':selected').attr('codigo');  
+    $('#txt_disponibilidad').val($("#cbox_camion").find(':selected').attr('capacidad'));
     cont_filtro = 0; //INICIALIZA A 0 PARA EL FILTRO DE DATATABLE EN FUNCION SOLO NUMEROS TD
-
+    var tipo_pedido="";
     var pagina = "";
     var area = "";//este sirve solo para enviar para que clasificadora es
     if (tipo == 1 || tipo == 4)
     {
         pagina = "generar_grilla_preembarque.jsp";
+        tipo_pedido="CREAR";
+    } 
+      if (tipo == 6)
+    {
+        pagina = "generar_grilla_preembarque_camion.jsp?id_camion=" + codigo_camion;
+        tipo_pedido="CREAR";
+    } 
+     else if (tipo == 7)
+    {
+        pagina = "generar_grilla_preembarque_refrescar.jsp?id_camion=" + codigo_camion;
+        tipo_pedido="CREAR";
+    } 
+      else if (tipo == 8)
+    {
+        codigo_camion=cod_camion;
+        pagina = "generar_grilla_preembarque_modificar_refrescar.jsp?id_camion=" + codigo_camion;
+        tipo_pedido="MODIFICAR";
     } 
     else if (tipo == 2)
     {
-        pagina = "generar_grilla_preembarque_editar_log.jsp?id=" + codigo;
+        codigo_camion=cod_camion;
+        pagina = "generar_grilla_preembarque_modificar.jsp?id_pedido="+codigo;
+        tipo_pedido="MODIFICAR";
     } 
     else if (tipo == 3)
     {
@@ -83,31 +104,83 @@ function generar_grilla_pedido(tipo, codigo)
             //TIPO 2 ES IGUAL A FACTURACION
             //TIPO 3 ES IGUAL A CYO
             //FIRT ES EL DIV EN DONDE SE ALMACENA LA GRILLA DE CARROS ENTERO, EL SECOND ALMACENA LOS CARROS MIXTOS.
-            $("#contenido_grillas").html(res.grilla + " " + res.grilla_mixto);
-
-            $("#tb_preembarque_mixto").DataTable(
-                    {
+          $("#1").val("0");
+          $("#2").val("0");
+          $("#3").val("0");
+          $("#4").val("0");
+          $("#5").val("0");
+          $("#6").val("0");
+          $("#7").val("0");
+           
+           
+           
+        if (tipo == 1 ||   tipo == 2 )
+        {
+                $("#contenido_grillas").html(res.grilla + " " + res.grilla_mixto);
+                $("#tb_preembarque_mixto").DataTable(
+                {
                         responsive: true,
                         scrollY: "547px",
                         scrollX: "500px",
                         paging: false,
                         "language":
-                                {
-                                    "sUrl": "js/Spanish.txt"
-                                }
-                    }
+                        {
+                            "sUrl": "js/Spanish.txt"
+                        }
+                }
+                );  
+        }
+        else
+        {
+            $("#first").html("");
+            $("#first").html(res.grilla);
+            var c=0;
 
-            );
-  
+            $.each(res.totales_cabecera, function (i, item)
+            {  
+                 $("#"+res.totales_cabecera[c].id).val(res.totales_cabecera[c].cantidad);
+                c++;
+            });
 
-            if (tipo == 1 || tipo == 2)
+            var deseleccionar = document.querySelectorAll("[deseleccionar]");
+
+            for (  i = 0, len = deseleccionar.length; i < len; i++) 
             {
-                var columns = $("#tb_preembarque > tbody > tr:first > td").length;
+                $("#" + deseleccionar[i].getAttribute("cod_carrito")).removeClass(' btn-primary bg1 bg-red ').addClass('btn-dark ')
+                $("#" +  deseleccionar[i].getAttribute("cod_carrito")).html("SELECCIONE");
+                $("#" +  deseleccionar[i].getAttribute("cod_carrito")).removeAttr("mixto");
+            }  
+
+            var f=0;
+            $.each(res.mixtos_seleccionados, function (i, item)
+            {  
+                $("#" + res.mixtos_seleccionados[f]).removeClass('btn-dark bg-red ').addClass(' btn-primary  bg1 ')
+                $("#" + res.mixtos_seleccionados[f]).html("SELECCIONADO");
+                $("#" + res.mixtos_seleccionados[f]).attr("mixto",true);
+                f++;
+            });
+            sumar_mixtos_seleccionados_log();
+        }
+             var c=0;
+                $(".select_camion").removeClass("bg-red");
+                $(".select_camion").addClass("bg-dark");
+                
+                $.each(res.select, function (i, item)
+                { 
+                    $("."+res.select[c]).removeClass("bg-dark");
+                    $("."+res.select[c]).addClass("bg-red");
+                    c++;
+                });
+
+             if (tipo == 1 || tipo == 2|| tipo == 6|| tipo == 7|| tipo == 8)
+            {
+             var columns = $("#tb_preembarque > tbody > tr:first > td").length;
                 var ccha = 0;// 3 al 13
                 var cchb = 0;//14 al 23
                 var cchh = 0;//24 al 33
                 var ovo = 0; //34 al 42
                 var cyo = 0;//43 al 52
+                 var ing2 = 5;
                 for (var i = 3; i <= columns; )
                 {
                     if ($("#tb_preembarque > tbody > tr > td:nth-child(" + i + ")").filter(function () {
@@ -115,133 +188,62 @@ function generar_grilla_pedido(tipo, codigo)
                     }).length == 0)
                     {
                         var ing = 1 + i;
+                        var ing2 = ing + 1;
                         $("#tb_preembarque > tbody > tr > td:nth-child(" + i + "), #tb_preembarque > thead > tr > th:nth-child(" + i + ")").hide();
                         $("#tb_preembarque > tbody > tr > td:nth-child(" + ing + "), #tb_preembarque > thead > tr > th:nth-child(" + ing + ")").hide();
+                        $("#tb_preembarque > tbody > tr > td:nth-child(" + ing2 + "), #tb_preembarque > thead > tr > th:nth-child(" + ing2 + ")").hide();
 
-                        if (i >= 3 && i < 13) {
-                            ccha = ccha + 2;
+                        if (i >= 3 && i < 18) {
+                            ccha = ccha + 3;
                         }
-                        if (i >= 13 && i < 23) {
-                            cchb = cchb + 2;
+                        if (i >= 18 && i < 33) {
+                            cchb = cchb + 3;
                         }
-                        if (i >= 23 && i < 33) {
-                            cchh = cchh + 2;
+                        if (i >= 33 && i < 48) {
+                            cchh = cchh + 3;
                         }
-                        if (i >= 33 && i < 41) {
-                            ovo = ovo + 2;
+                        if (i >= 48 && i < 60) {
+                            ovo = ovo + 3;
                         }
-                        if (i >= 41 && i < 51) {
-                            cyo = cyo + 2;
-                        }
-                        $("#th_ccha").show();
-                        $("#th_cchb").show();
-                        $("#th_cchh").show();
-                        $("#th_ovo").show();
-                        $("#th_cyo").show();
-
-                    }
-                    i = i + 2;
-                }
-                $("#th_ccha").attr('colspan', 10 - ccha);
-                $("#th_cchb").attr('colspan', 10 - cchb);
-                $("#th_cchh").attr('colspan', 10 - cchh);
-                $("#th_ovo").attr('colspan', 8 - ovo);
-                $("#th_cyo").attr('colspan', 10 - cyo);
-
-                if (10 - ccha == 0) {
-                    $("#th_ccha").hide();
-                }
-                if (10 - cchb == 0) {
-                    $("#th_cchb").hide();
-                }
-                if (10 - cchh == 0) {
-                    $("#th_cchh").hide();
-                }
-                if (8 - ovo == 0) {
-                    $("#th_ovo").hide();
-                }
-                if (10 - cyo == 0) {
-                    $("#th_cyo").hide();
-                }
-                $("#btn_directorio_actualizar").remove();
-            }
-            if (tipo == 4 || tipo == 5 ) 
-            {
-                if(tipo==4)
-                {
-                    $("#btn_directorio_actualizar").remove();
-                }
-                $("#btn_logistica_actualizar").remove();
-                $("#div_pedido").hide();
-                $("#div_2").hide();
-                var columnsc = $("#tb_preembarque > tbody > tr:first > td").length;
-
-                var cchac = 0;// 3 al 13
-                var cchbc = 0;//14 al 23
-                var cchhc = 0;//24 al 33
-                var ovoc = 0; //34 al 42
-                var cyoc = 0;//43 al 52
-                for (var i = 3; i <= columnsc; )
-                {
-                    if ($("#tb_preembarque > tbody > tr > td:nth-child(" + i + ")").filter(function () {
-                        return $(this).text() != 0;
-                    }).length == 0)
-                    {
-                        $("#tb_preembarque > tbody > tr > td:nth-child(" + i + "), #tb_preembarque > thead > tr > th:nth-child(" + i + ")").hide();
-
-                        if (i >= 3 && i < 13) {
-                            cchac = cchac + 1;
-                        }
-                        if (i >= 13 && i < 23) {
-                            cchbc = cchbc + 1;
-                        }
-                        if (i >= 23 && i < 33) {
-                            cchhc = cchhc + 1;
-                        }
-                        if (i >= 33 && i < 41) {
-                            ovoc = ovoc + 1;
-                        }
-                        if (i >= 41 && i < 51) {
-                            cyoc = cyoc + 1;
+                        if (i >= 60 && i < 75) {
+                            cyo = cyo + 3;
                         }
                         $("#th_ccha").show();
                         $("#th_cchb").show();
                         $("#th_cchh").show();
                         $("#th_ovo").show();
                         $("#th_cyo").show();
-
+                        
+                        ing2=ing2+3;
                     }
-                    i++;
+                    i = i + 3;
                 }
-                $("#th_ccha").attr('colspan', 10 - cchac);
-                $("#th_cchb").attr('colspan', (10 - cchbc));
-                $("#th_cchh").attr('colspan', (10 - cchhc));
-                $("#th_ovo").attr('colspan', (8 - ovoc));
-                $("#th_cyo").attr('colspan', (10 - cyoc));
+                $("#th_ccha").attr('colspan', 15 - ccha);
+                $("#th_cchb").attr('colspan', 15 - cchb);
+                $("#th_cchh").attr('colspan', 15 - cchh);
+                $("#th_ovo").attr('colspan', 12 - ovo);
+                $("#th_cyo").attr('colspan', 15 - cyo);
 
-                if (10 - cchac == 0) {
+                if (15 - ccha == 0) {
                     $("#th_ccha").hide();
                 }
-                if (10 - cchbc == 0) {
+                if (15 - cchb == 0) {
                     $("#th_cchb").hide();
                 }
-                if (10 - cchhc == 0) {
+                if (15 - cchh == 0) {
                     $("#th_cchh").hide();
                 }
-                if (8 - ovoc == 0) {
+                if (12 - ovo == 0) {
                     $("#th_ovo").hide();
                 }
-                if (10 - cyoc == 0) {
+                if (15 - cyo == 0) {
                     $("#th_cyo").hide();
-                }
-
+                } 
+                 $("#btn_directorio_actualizar").remove();
             }
-
-
-            seleccionar_todo_input();
-            //   if(tipo!=3)
-            // {
-             $("#tb_preembarque").DataTable(
+            
+                
+                    $("#tb_preembarque").DataTable(
                     {   
                         scrollY: "547px",
                         scrollX: "500px",
@@ -260,1133 +262,822 @@ function generar_grilla_pedido(tipo, codigo)
                                 },
                    
                     });
-                    
-                     
-
-
-            //  }
-
-            $("#btn_atras").show();
-            solo_numeros_td();//LAS CELDAS SOLO PERMITIRAN NUMEROS. 
-
-            if (tipo == 2 || tipo == 3)//CASO DE PEDIDOS QUE SE EDITARAN, YA SEA EN FACTURACION O EN CYO
-            {
-                var arr = res.cod_camion.split("_");
-                var codigo_camion = arr[1];
-                var capacidad = arr[0];
-                $("#" + res.cod_camion).attr({"selected": true});//SELECCIONA PARA PRIMERA OPCION
-                $("#" + res.cod_chofer).attr({"selected": true});//SELECCIONA PARA PRIMERA OPCION
-                $('#txt_obs').val(res.obs); //AQUI TRAE SOLO LOS TIPOS DE HUEVOS.
-
-
-                if (tipo == 2)// 
-                {
-                    $('#txt_disponibilidad').val(capacidad);
-                } else if (tipo == 3)
-                {
-                    $('#txt_disponibilidad').val(res.cantidad_area);  //AQUI SE OBTIENE SOLO LA CANTIDAD DE DICHA AREA, NO EL TOTAL DE TODAS LAS AREAS.
-                    $('#validacion_cantidades').val(res.validacion_cantidades); //AQUI TRAE LOS TIPOS DE HUEVOS CON SUS CANTIDADES
-                    $('#validacion_tipos').val(res.validacion_tipos); //AQUI TRAE SOLO LOS TIPOS DE HUEVOS.
-
-
-                    document.getElementById('txt_obs').disabled = true;// SE DENIEGA LA SELECCION DEL CAMION.
-                    document.getElementById('cbox_camion').disabled = true;// SE DENIEGA LA SELECCION DEL CAMION.
-                    document.getElementById('cbox_chofer').disabled = true;// SE DENIEGA LA SELECCION DEL CHOFER.
-
-
-                    area = res.area;// SE RECUPERA EL AREA
-                }
-                if (res.carros_mixtos.length > 0)//ESTE PROCESO, NO DEBE ENTRAR AL GENERAR EL PEDIDO, YA QUE EL JSON NO CONTIENE ESTE VALOR.
-                {
-                    var array_carros = res.carros_mixtos.split(",");
-                    for (i = 0; i < array_carros.length; i++)
-                    {
-                        $("#" + array_carros[i]).removeClass('btn-dark ').addClass(' btn-primary  bg1 ');
-                        $("#" + array_carros[i]).html("SELECCIONADO");
-                    }
-                    contar_mixtos_seleccionados();
-                }
-                $('#id_pedido').val(res.id_pedido);// SE RECIBE EL ID DEL PEDIDO PARA USARLO.
-
+              
+            if(tipo==2){
+                generar_grilla_pedido_log(8,codigo,cod_camion),
+                 $('#contenido_grillas').show();
+                 $("#cbox_camion").val(cod_camion);                 
+                 $("#cbox_chofer").val(id_chofer);                 
+                 $("#cbox_camion").prop('disabled', 'disabled'); 
+                 
+                 
             }
-
-
-            if (tipo == 2 || tipo == 1)
-            {
-                $("td").focus(function ()// ACCION PARA QUE AL HACER CLIC EN CELDA, SELECCIONE TODO EL VALOR
-                {
-                    var range = document.createRange();
-                    range.selectNodeContents(this);
-                    var sel = window.getSelection();
-                    sel.removeAllRanges();
-                    sel.addRange(range);
-
-                });
-                $("td").keyup(function ()// ACION PARA QUE AL TIPEAR EJECUTE LA ACCION.
-                {
-                    obtener_valores_celda('1');
-
-                });
-
-                if (tipo == 2) { //SI ES PEDIDO GENERADO, ENTONCES EL CLIC DE GENERAR PEDIDO, HARA OTRA COSA.
-                    $('#btn_generar').click(function () {
-                        obtener_valores_celda('2', 'EDITAR');
-                    });
-                } else if (tipo == 1) {
-                    $('#btn_generar').click(function () {
-                        obtener_valores_celda('2', 'REGISTRO');
-                    });
-                }
-                obtener_valores_celda('1');//EN ESTA CASO, REALIZARA VERIFICACIONES CUANDO ES 1, Y NO EJECUTARA EL REGISTRO.
-            } else if (tipo == 3)
-            {
-                $("td").focus(function ()
-                {
-                    var range = document.createRange();
-                    range.selectNodeContents(this);
-                    var sel = window.getSelection();
-                    sel.removeAllRanges();
-                    sel.addRange(range);
-                });
-
-                $("td").keyup(function ()// ACION PARA QUE AL TIPEAR EJECUTE LA ACCION.
-                {
-                    calculo_cantidades_grilla_cyo(1, "CHEQUEO", area);
-                });
-
-                calculo_cantidades_grilla_cyo(1, "CHEQUEO", area);// CUANDO ES 1 CASO OMISO AL REGISTRO
-
-                $('#btn_generar').click(function () {
-                    calculo_cantidades_grilla_cyo(2, "EDITARCYO", area);// CUANDO EL TIPO ES DOS, SIGNIFICA QUE SE EJECUTARA EL REGISTRO
-                });
-            }
-
-
-
-
-            cargar_cantidades_ingresadas_editar(tipo);
-
-            cerrar_load();
-
-        },
+                solo_numeros_td();
+                seleccionar_todo_input();
+                grilla_funciones_log(tipo_pedido);
+                cerrar_load();
+         },
         error: function (error)
         {
-            generar_grilla_pedido(tipo, codigo);
+            generar_grilla_pedido_log(tipo, codigo);
         }
 
     });
 
 }
 
-function obtener_valores_celda(tipo, generacion_pedido)
-{
-    var filas = document.querySelectorAll("#tb_preembarque tbody tr");
-    var verificar_excedido_td = 1;
-
-    var ccha_lib;
-    var ccha_cant_lib;
-    var ccha_acep;
-    var ccha_cant_acep;
-    var ccha_invo;
-    var ccha_cant_invo;
-    var ccha_ldo;
-    var ccha_cant_ldo;
-    var ccha_pal;
-    var ccha_cant_pal;
-
-    var cchb_cant_lib;
-    var cchb_cant_acep;
-    var cchb_cant_invo;
-    var cchb_cant_ldo;
-    var cchb_lib;
-    var cchb_acep;
-    var cchb_invo;
-    var cchb_ldo;
-    var cchb_pal;
-    var cchb_cant_pal;
-
-
-    var cchh_cant_lib;
-    var cchh_cant_acep;
-    var cchh_cant_invo;
-    var cchh_cant_ldo;
-    var cchh_lib;
-    var cchh_acep;
-    var cchh_invo;
-    var cchh_ldo;
-    var cchh_pal;
-    var cchh_cant_pal;
-
-    var ovo_cant_lib;
-    var ovo_cant_acep;
-    var ovo_cant_invo;
-    var ovo_lib;
-    var ovo_acep;
-    var ovo_invo;
-    var ovo_pal;
-    var ovo_cant_pal;
-
-    var cyo_lib;
-    var cyo_cant_lib;
-    var cyo_acep;
-    var cyo_cant_acep;
-    var cyo_invo;
-    var cyo_cant_invo;
-    var cyo_ldo;
-    var cyo_cant_ldo;
-    var cyo_pal;
-    var cyo_cant_pal;
-
-
-    cantidad_total_ccha = 0;
-    cantidad_total_cchb = 0;
-    cantidad_total_cchh = 0;
-    cantidad_total_ovo = 0;
-    cantidad_total_cyo = 0;
-    var c = 0;
-    var valores = '';
-    var cantidad_excedida = 0;
-    var tipoA = 0;
-    var tipoB = 0;
-    var tipoC = 0;
-    var tipoD = 0;
-    var tipoS = 0;
-    var tipoJ = 0;
-    cantidad_total = 0;
-    filas.forEach(function (e)
+    function grilla_funciones_log(tipo_pedido) //TIPO PEDIDO ES CREAR O MODIFICAR
     {
-        var columnas = e.querySelectorAll("td");
-
-        fecha_puesta = columnas[0].textContent.trim();
-        tipo_huevo = columnas[1].textContent.trim();
-
-        ccha_lib = parseInt(columnas[2].textContent);
-        ccha_cant_lib = columnas[3].textContent.trim();
-        ccha_acep = parseInt(columnas[4].textContent);
-        ccha_cant_acep = columnas[5].textContent.trim();
-        ccha_invo = parseInt(columnas[6].textContent);
-        ccha_cant_invo = columnas[7].textContent.trim();
-        ccha_ldo = parseInt(columnas[8].textContent);
-        ccha_cant_ldo = columnas[9].textContent.trim();
-        ccha_pal = parseInt(columnas[10].textContent);
-        ccha_cant_pal = columnas[11].textContent.trim();
-
-
-
-
-        cchb_lib = parseInt(columnas[12].textContent);
-        cchb_cant_lib = columnas[13].textContent.trim();
-        cchb_acep = parseInt(columnas[14].textContent);
-        cchb_cant_acep = columnas[15].textContent.trim();
-        cchb_invo = parseInt(columnas[16].textContent);
-        cchb_cant_invo = columnas[17].textContent.trim();
-        cchb_ldo = parseInt(columnas[18].textContent);
-        cchb_cant_ldo = columnas[19].textContent.trim();
-        cchb_pal = parseInt(columnas[20].textContent);
-        cchb_cant_pal = columnas[21].textContent.trim();
-
-        cchh_lib = parseInt(columnas[22].textContent);
-        cchh_cant_lib = columnas[23].textContent.trim();
-        cchh_acep = parseInt(columnas[24].textContent);
-        cchh_cant_acep = columnas[25].textContent.trim();
-        cchh_invo = parseInt(columnas[26].textContent);
-        cchh_cant_invo = columnas[27].textContent.trim();
-        cchh_ldo = parseInt(columnas[28].textContent);
-        cchh_cant_ldo = columnas[29].textContent.trim();
-        cchh_pal = parseInt(columnas[30].textContent);
-        cchh_cant_pal = columnas[31].textContent.trim();
-
-        ovo_lib = parseInt(columnas[32].textContent);
-        ovo_cant_lib = columnas[33].textContent.trim();
-        ovo_acep = parseInt(columnas[34].textContent);
-        ovo_cant_acep = columnas[35].textContent.trim();
-        ovo_invo = parseInt(columnas[36].textContent);
-        ovo_cant_invo = columnas[37].textContent.trim();
-        ovo_pal = parseInt(columnas[38].textContent);
-        ovo_cant_pal = columnas[39].textContent.trim();
-
-        cyo_lib = parseInt(columnas[40].textContent);
-        cyo_cant_lib = columnas[41].textContent.trim();
-        cyo_acep = parseInt(columnas[42].textContent);
-        cyo_cant_acep = columnas[43].textContent.trim();
-        cyo_invo = parseInt(columnas[44].textContent);
-        cyo_cant_invo = columnas[45].textContent.trim();
-        cyo_ldo = parseInt(columnas[46].textContent);
-        cyo_cant_ldo = columnas[47].textContent.trim();
-        cyo_pal = parseInt(columnas[48].textContent);
-        cyo_cant_pal = columnas[49].textContent.trim();
-
-
-        if (String(ccha_cant_lib) === "") {
-            ccha_cant_lib = "0";
-        }
-        if (String(ccha_cant_acep) === "") {
-            ccha_cant_acep = "0";
-        }
-        if (String(ccha_cant_invo) === "") {
-            ccha_cant_invo = "0";
-        }
-        if (String(ccha_cant_ldo) === "") {
-            ccha_cant_ldo = "0";
-        }
-        if (String(ccha_cant_pal) === "") {
-            ccha_cant_pal = "0";
-        }
-
-        if (String(cchb_cant_lib) === "") {
-            cchb_cant_lib = "0";
-        }
-        if (String(cchb_cant_acep) === "") {
-            cchb_cant_acep = "0";
-        }
-        if (String(cchb_cant_invo) === "") {
-            cchb_cant_invo = "0";
-        }
-        if (String(cchb_cant_ldo) === "") {
-            cchb_cant_ldo = "0";
-        }
-        if (String(cchb_cant_pal) === "") {
-            cchb_cant_pal = "0";
-        }
-
-
-        if (String(cchh_cant_lib) === "") {
-            cchh_cant_lib = "0";
-        }
-        if (String(cchh_cant_acep) === "") {
-            cchh_cant_acep = "0";
-        }
-        if (String(cchh_cant_invo) === "") {
-            cchh_cant_invo = "0";
-        }
-        if (String(cchh_cant_ldo) === "") {
-            cchh_cant_ldo = "0";
-        }
-        if (String(cchh_cant_pal) === "") {
-            cchh_cant_pal = "0";
-        }
-
-        if (String(ovo_cant_lib) === "") {
-            ovo_cant_lib = "0";
-        }
-        if (String(ovo_cant_acep) === "") {
-            ovo_cant_acep = "0";
-        }
-        if (String(ovo_cant_invo) === "") {
-            ovo_cant_invo = "0";
-        }
-
-        if (String(ovo_cant_pal) === "") {
-            ovo_cant_pal = "0";
-        }
-
-        if (String(cyo_cant_lib) === "") {
-            cyo_cant_lib = "0";
-        }
-        if (String(cyo_cant_acep) === "") {
-            cyo_cant_acep = "0";
-        }
-        if (String(cyo_cant_invo) === "") {
-            cyo_cant_invo = "0";
-        }
-        if (String(cyo_cant_ldo) === "") {
-            cyo_cant_ldo = "0";
-        }
-        if (String(cyo_cant_pal) === "") {
-            cyo_cant_pal = "0";
-        }
-        var totales_areas = parseInt(ccha_cant_lib) + parseInt(ccha_cant_acep) +
-                parseInt(ccha_cant_invo) + parseInt(ccha_cant_ldo) +
-                parseInt(ccha_cant_pal) +
-                parseInt(cchb_cant_lib) + parseInt(cchb_cant_acep) +
-                parseInt(cchb_cant_invo) + parseInt(cchb_cant_ldo) +
-                parseInt(cchb_cant_pal) +
-                parseInt(cchh_cant_lib) + parseInt(cchh_cant_acep) +
-                parseInt(cchh_cant_invo) + parseInt(cchh_cant_ldo) +
-                parseInt(cchh_cant_pal) +
-                parseInt(ovo_cant_lib) + parseInt(ovo_cant_acep) +
-                parseInt(ovo_cant_invo) + parseInt(ovo_cant_pal) +
-                parseInt(cyo_cant_lib) + parseInt(cyo_cant_acep) +
-                parseInt(cyo_cant_invo) + parseInt(cyo_cant_ldo) +
-                parseInt(cyo_cant_pal);
-
-        switch (tipo_huevo.trim())
+        var editables = document.querySelectorAll("[contentEditable]");
+        var stock = document.querySelectorAll("[stock]");
+        
+        var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+        var total_ccha=0;
+        var total_cchb=0;
+        var total_cchh=0;
+        var total_ccho=0;
+        var total_cyo=0;
+        var total_a=0;
+        var total_b=0;
+        var total_c=0;
+        var total_d=0;
+        var total_s=0;
+        var total_j=0;
+        cantidad_total=0;
+        cantidad_negativa=0;
+         
+        for (var f = 0, len = stock.length; f < len; f++) 
         {
-            case "A":
-                tipoA = parseInt(tipoA) + parseInt(totales_areas);
-                break;
-            case "B":
-                tipoB = parseInt(tipoB) + parseInt(totales_areas);
-                ;
-                break;
-            case "C":
-                tipoC = parseInt(tipoC) + parseInt(totales_areas);
-                break;
-            case "D":
-                tipoD = parseInt(tipoD) + parseInt(totales_areas);
-                ;
-                break;
-            case "S":
-                tipoS = parseInt(tipoS) + parseInt(totales_areas);
-                ;
-                break;
-            case "J":
-                tipoJ = parseInt(tipoJ) + parseInt(totales_areas);
-                ;
-                break;
-        }
-
-        if (ccha_cant_lib > 0 && ccha_cant_lib <= ccha_lib) {
-            columnas[3].style.backgroundColor = 'blue';
-        } else if (ccha_lib > 0 && ccha_cant_lib == 0) {
-            columnas[3].style.backgroundColor = 'black';
-        } else if (ccha_lib < ccha_cant_lib) {
-            columnas[3].style.backgroundColor = 'red';
-        }
-
-        if (ccha_cant_acep > 0 && ccha_cant_acep <= ccha_acep) {
-            columnas[5].style.backgroundColor = 'blue';
-        } else if (ccha_acep > 0 && ccha_cant_acep == 0) {
-            columnas[5].style.backgroundColor = 'black';
-        } else if (ccha_acep < ccha_cant_acep) {
-            columnas[5].style.backgroundColor = 'red';
-        }
-
-        if (ccha_cant_invo > 0 && ccha_cant_invo <= ccha_invo) {
-            columnas[7].style.backgroundColor = 'blue';
-        } else if (ccha_invo > 0 && ccha_cant_invo == 0) {
-            columnas[7].style.backgroundColor = 'black';
-        } else if (ccha_invo < ccha_cant_invo) {
-            columnas[7].style.backgroundColor = 'red';
-        }
-
-        if (ccha_cant_ldo > 0 && ccha_cant_ldo <= ccha_ldo) {
-            columnas[9].style.backgroundColor = 'blue';
-        } else if (ccha_ldo > 0 && ccha_cant_ldo == 0) {
-            columnas[9].style.backgroundColor = 'black';
-        } else if (ccha_ldo < ccha_cant_ldo) {
-            columnas[9].style.backgroundColor = 'red';
-        }
-
-        if (ccha_cant_pal > 0 && ccha_cant_pal <= ccha_pal) {
-            columnas[11].style.backgroundColor = 'blue';
-        } else if (ccha_pal > 0 && ccha_cant_pal == 0) {
-            columnas[11].style.backgroundColor = 'black';
-        } else if (ccha_pal < ccha_cant_pal) {
-            columnas[11].style.backgroundColor = 'red';
-        }
-
-        /////////////////////////////////////       
-
-        if (cchb_cant_lib > 0 && cchb_cant_lib <= cchb_lib) {
-            columnas[13].style.backgroundColor = 'blue';
-        } else if (cchb_lib > 0 && cchb_cant_lib == 0) {
-            columnas[13].style.backgroundColor = 'green';
-        } else if (cchb_lib < cchb_cant_lib) {
-            columnas[13].style.backgroundColor = 'red';
-        }
-
-        if (cchb_cant_acep > 0 && cchb_cant_acep <= cchb_acep) {
-            columnas[15].style.backgroundColor = 'blue';
-        } else if (cchb_acep > 0 && cchb_cant_acep == 0) {
-            columnas[15].style.backgroundColor = 'green';
-        } else if (cchb_acep < cchb_cant_acep) {
-            columnas[15].style.backgroundColor = 'red';
-        }
-
-        if (cchb_cant_invo > 0 && cchb_cant_invo <= cchb_invo) {
-            columnas[17].style.backgroundColor = 'blue';
-        } else if (cchb_invo > 0 && cchb_cant_invo == 0) {
-            columnas[17].style.backgroundColor = 'green';
-        } else if (cchb_invo < cchb_cant_invo) {
-            columnas[17].style.backgroundColor = 'red';
-        }
-
-        if (cchb_cant_ldo > 0 && cchb_cant_ldo <= cchb_ldo) {
-            columnas[19].style.backgroundColor = 'blue';
-        } else if (cchb_ldo > 0 && cchb_cant_ldo == 0) {
-            columnas[19].style.backgroundColor = 'green';
-        } else if (cchb_ldo < cchb_cant_ldo) {
-            columnas[19].style.backgroundColor = 'red';
-        }
-
-        if (cchb_cant_pal > 0 && cchb_cant_pal <= cchb_pal) {
-            columnas[21].style.backgroundColor = 'blue';
-        } else if (cchb_pal > 0 && cchb_cant_pal == 0) {
-            columnas[21].style.backgroundColor = 'green';
-        } else if (cchb_pal < cchb_cant_pal) {
-            columnas[21].style.backgroundColor = 'red';
-        }
-
-
-        //////////////////////
-
-        if (cchh_cant_lib > 0 && cchh_cant_lib <= cchh_lib) {
-            columnas[23].style.backgroundColor = 'blue';
-        } else if (cchh_lib > 0 && cchh_cant_lib == 0) {
-            columnas[23].style.backgroundColor = 'black';
-        } else if (cchh_lib < cchh_cant_lib) {
-            columnas[23].style.backgroundColor = 'red';
-        }
-        if (cchh_cant_acep > 0 && cchh_cant_acep <= cchh_acep) {
-            columnas[25].style.backgroundColor = 'blue';
-        } else if (cchh_acep > 0 && cchh_cant_acep == 0) {
-            columnas[25].style.backgroundColor = 'black';
-        } else if (cchh_acep < cchh_cant_acep) {
-            columnas[25].style.backgroundColor = 'red';
-        }
-        if (cchh_cant_invo > 0 && cchh_cant_invo <= cchh_invo) {
-            columnas[27].style.backgroundColor = 'blue';
-        } else if (cchh_invo > 0 && cchh_cant_invo == 0) {
-            columnas[27].style.backgroundColor = 'black';
-        } else if (cchh_invo < cchh_cant_invo) {
-            columnas[27].style.backgroundColor = 'red';
-        }
-
-
-
-
-        if (cchh_cant_ldo > 0 && cchh_cant_ldo <= cchh_ldo) {
-            columnas[29].style.backgroundColor = 'blue';
-        } else if (cchh_ldo > 0 && cchh_cant_ldo == 0) {
-            columnas[29].style.backgroundColor = 'black';
-        } else if (cchh_ldo < cchh_cant_ldo) {
-            columnas[29].style.backgroundColor = 'red';
-        }
-
-        if (cchh_cant_pal > 0 && cchh_cant_pal <= cchh_pal) {
-            columnas[31].style.backgroundColor = 'blue';
-        } else if (cchh_pal > 0 && cchh_cant_pal == 0) {
-            columnas[31].style.backgroundColor = 'black';
-        } else if (cchh_pal < cchh_cant_pal) {
-            columnas[31].style.backgroundColor = 'red';
-        }
-
-        ///////////////////////////////////////       
-        if (ovo_cant_lib > 0 && ovo_cant_lib <= ovo_lib) {
-            columnas[33].style.backgroundColor = 'blue';
-        } else if (ovo_lib > 0 && ovo_cant_lib == 0) {
-            columnas[33].style.backgroundColor = 'green';
-        } else if (ovo_lib < ovo_cant_lib) {
-            columnas[33].style.backgroundColor = 'red';
-        }
-
-        if (ovo_cant_acep > 0 && ovo_cant_acep <= ovo_acep) {
-            columnas[35].style.backgroundColor = 'blue';
-        } else if (ovo_acep > 0 && ovo_cant_acep == 0) {
-            columnas[35].style.backgroundColor = 'green';
-        } else if (ovo_acep < ovo_cant_acep) {
-            columnas[35].style.backgroundColor = 'red';
-        }
-
-        if (ovo_cant_invo > 0 && ovo_cant_invo <= ovo_invo) {
-            columnas[37].style.backgroundColor = 'blue';
-        } else if (ovo_invo > 0 && ovo_cant_invo == 0) {
-            columnas[37].style.backgroundColor = 'green';
-        } else if (ovo_invo < ovo_cant_invo) {
-            columnas[37].style.backgroundColor = 'red';
-        }
-        if (ovo_cant_pal > 0 && ovo_cant_pal <= ovo_pal) {
-            columnas[39].style.backgroundColor = 'blue';
-        } else if (ovo_pal > 0 && ovo_cant_pal == 0) {
-            columnas[39].style.backgroundColor = 'green';
-        } else if (ovo_pal < ovo_cant_pal) {
-            columnas[39].style.backgroundColor = 'red';
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////           
-
-        if (cyo_cant_lib > 0 && cyo_cant_lib <= cyo_lib) {
-            columnas[41].style.backgroundColor = 'blue';
-        } else if (cyo_lib > 0 && cyo_cant_lib == 0) {
-            columnas[41].style.backgroundColor = 'black';
-        } else if (cyo_lib < cyo_cant_lib) {
-            columnas[41].style.backgroundColor = 'red';
-        }
-
-        if (cyo_cant_acep > 0 && cyo_cant_acep <= cyo_acep) {
-            columnas[43].style.backgroundColor = 'blue';
-        } else if (cyo_acep > 0 && cyo_cant_acep == 0) {
-            columnas[43].style.backgroundColor = 'black';
-        } else if (cyo_acep < cyo_cant_acep) {
-            columnas[43].style.backgroundColor = 'red';
-        }
-        if (cyo_cant_invo > 0 && cyo_cant_invo <= cyo_invo) {
-            columnas[45].style.backgroundColor = 'blue';
-        } else if (cyo_invo > 0 && cyo_cant_invo == 0) {
-            columnas[45].style.backgroundColor = 'black';
-        } else if (cyo_invo < cyo_cant_invo) {
-            columnas[45].style.backgroundColor = 'red';
-        }
-
-        if (cyo_cant_ldo > 0 && cyo_cant_ldo <= cyo_ldo) {
-            columnas[47].style.backgroundColor = 'blue';
-        } else if (cyo_ldo > 0 && cyo_cant_ldo == 0) {
-            columnas[47].style.backgroundColor = 'black';
-        } else if (cyo_ldo < cyo_cant_ldo) {
-            columnas[47].style.backgroundColor = 'red';
-        }
-
-        if (cyo_cant_pal > 0 && cyo_cant_pal <= cyo_pal) {
-            columnas[49].style.backgroundColor = 'blue';
-        } else if (cyo_pal > 0 && ovo_cant_pal == 0) {
-            columnas[49].style.backgroundColor = 'green';
-        } else if (cyo_pal < ovo_cant_pal) {
-            columnas[49].style.backgroundColor = 'red';
-        }
-
-
-
-
-
-        if (tipo == "2")
-        {
-            if (ccha_lib < ccha_cant_lib)
+             if(parseInt(stock[f].getAttribute("disponible"))<0)
+             {
+                 cantidad_negativa=parseInt(stock[f].getAttribute("disponible"));
+             }
+        } 
+        for (var i = 0, len = editables.length; i < len; i++) 
+        { 
+            editables[i].setAttribute("valor", editables[i].innerHTML);
+            if(parseInt(editables[i].getAttribute("valor"))>0)
             {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ccha_acep < ccha_cant_acep)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ccha_invo < ccha_cant_invo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ccha_ldo < ccha_cant_ldo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ccha_pal < ccha_cant_pal)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchb_lib < cchb_cant_lib)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchb_acep < cchb_cant_acep)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchb_invo < cchb_cant_invo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchb_ldo < cchb_cant_ldo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchb_pal < cchb_cant_pal)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchh_lib < cchh_cant_lib)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchh_acep < cchh_cant_acep)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchh_invo < cchh_cant_invo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchh_ldo < cchh_cant_ldo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cchh_pal < cchh_cant_pal)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ovo_lib < ovo_cant_lib)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ovo_acep < ovo_cant_acep)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ovo_invo < ovo_cant_invo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (ovo_pal < ovo_cant_pal)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
+                editables[i].style.backgroundColor = 'blue';   
             }
-            /////////////////////////////////////////////////////
-
-            else if (cyo_lib < cyo_cant_lib)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cyo_acep < cyo_cant_acep)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cyo_invo < cyo_cant_invo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cyo_ldo < cyo_cant_ldo)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            } else if (cyo_pal < cyo_cant_pal)
-            {
-                verificar_excedido_td = verificar_excedido_td * 0;
-            }
-            ///HACER MULTIPLICAR POR CERO, Y DESPUES FUERA DEL EACH, HACER UNA COMPARACION GLOBAL NOMAS YA.
-        }
-
-        cantidad_total = cantidad_total +
-                parseInt(ccha_cant_lib) + parseInt(ccha_cant_acep) + parseInt(ccha_cant_invo) + parseInt(ccha_cant_ldo) + parseInt(ccha_cant_pal) +
-                parseInt(cchb_cant_lib) + parseInt(cchb_cant_acep) + parseInt(cchb_cant_invo) + parseInt(cchb_cant_ldo) + parseInt(cchb_cant_pal) +
-                parseInt(cchh_cant_lib) + parseInt(cchh_cant_acep) + parseInt(cchh_cant_invo) + parseInt(cchh_cant_ldo) + parseInt(cchh_cant_pal) +
-                parseInt(ovo_cant_lib) + parseInt(ovo_cant_acep) + parseInt(ovo_cant_invo) + parseInt(ovo_cant_pal) +
-                parseInt(cyo_cant_lib) + parseInt(cyo_cant_acep) + parseInt(cyo_cant_invo) + parseInt(cyo_cant_ldo) + parseInt(cyo_cant_pal);
-
-        cantidad_total_ccha = cantidad_total_ccha + parseInt(ccha_cant_lib) + parseInt(ccha_cant_acep) + parseInt(ccha_cant_invo) + parseInt(ccha_cant_ldo) + parseInt(ccha_cant_pal);
-        cantidad_total_cchb = cantidad_total_cchb + parseInt(cchb_cant_lib) + parseInt(cchb_cant_acep) + parseInt(cchb_cant_invo) + parseInt(cchb_cant_ldo) + parseInt(cchb_cant_pal);
-        cantidad_total_cchh = cantidad_total_cchh + parseInt(cchh_cant_lib) + parseInt(cchh_cant_acep) + parseInt(cchh_cant_invo) + parseInt(cchh_cant_ldo) + parseInt(cchh_cant_pal);
-        cantidad_total_ovo = cantidad_total_ovo + parseInt(ovo_cant_lib) + parseInt(ovo_cant_acep) + parseInt(ovo_cant_invo) + parseInt(ovo_cant_pal);
-        cantidad_total_cyo = cantidad_total_cyo + parseInt(cyo_cant_lib) + parseInt(cyo_cant_acep) + parseInt(cyo_cant_invo) + parseInt(cyo_cant_ldo) + parseInt(cyo_cant_pal);
-        if (ccha_cant_lib > 0)
-        {
-            if (ccha_cant_lib > ccha_lib) {
-                cantidad_excedida++;
-            }//FECHAPUESTA_TIPOHUEVO_CLASIFICADORA_TIPOLOTE_CANTIDAD_CARRITO_UMEDIDA
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHA&LIB&' + ccha_cant_lib + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ccha_cant_acep > 0)
-        {
-            if (ccha_cant_acep > ccha_acep) {
-                cantidad_excedida++;
-            }
-
-
-
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHA&ACEP&' + ccha_cant_acep + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ccha_cant_invo > 0)
-        {
-            if (ccha_cant_invo > ccha_invo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHA&INVO&' + ccha_cant_invo + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ccha_cant_ldo > 0)
-        {
-            if (ccha_cant_ldo > ccha_ldo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHA&LDO&' + ccha_cant_ldo + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ccha_cant_pal > 0)
-        {
-            if (ccha_cant_pal > ccha_pal)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHA&PAL&' + ccha_cant_pal + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-
-
-        if (cchb_cant_lib > 0)
-        {
-            if (cchb_cant_lib > cchb_lib)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHB&LIB&' + cchb_cant_lib + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchb_cant_acep > 0)
-        {
-            if (cchb_cant_acep > cchb_acep)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHB&ACEP&' + cchb_cant_acep + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchb_cant_invo > 0)
-        {
-            if (cchb_cant_invo > cchb_invo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHB&INVO&' + cchb_cant_invo + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchb_cant_ldo > 0)
-        {
-            if (cchb_cant_ldo > cchb_ldo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHB&LDO&' + cchb_cant_ldo + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-
-        if (cchb_cant_pal > 0)
-        {
-            if (cchb_cant_pal > cchb_pal)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHB&PAL&' + cchb_cant_pal + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-
-        if (cchh_cant_lib > 0)
-        {
-            if (cchh_cant_lib > cchh_lib)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHH&LIB&' + cchh_cant_lib + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchh_cant_acep > 0)
-        {
-            if (cchh_cant_acep > cchh_acep)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHH&ACEP&' + cchh_cant_acep + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchh_cant_invo > 0)
-        {
-            if (cchh_cant_invo > cchh_invo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHH&INVO&' + cchh_cant_invo + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchh_cant_ldo > 0)
-        {
-            if (cchh_cant_ldo > cchh_ldo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHH&LDO&' + cchh_cant_ldo + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cchh_cant_pal > 0)
-        {
-            if (cchh_cant_pal > cchh_pal)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CCHH&PAL&' + cchh_cant_pal + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ovo_cant_lib > 0)
-        {
-            if (ovo_cant_lib > ovo_lib)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&OVO&LIB&' + ovo_cant_lib + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ovo_cant_acep > 0)
-        {
-            if (ovo_cant_acep > ovo_acep)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&OVO&ACEP&' + ovo_cant_acep + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (ovo_cant_invo > 0)
-        {
-            if (ovo_cant_invo > ovo_invo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&OVO&INVO&' + ovo_cant_invo + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-
-        if (ovo_cant_pal > 0)
-        {
-            if (ovo_cant_pal > ovo_pal)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&OVO&PAL&' + ovo_cant_pal + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        /////////////////////////////////////////////////////////////////////////////////////
-
-
-        if (cyo_cant_lib > 0)
-        {
-            if (cyo_cant_lib > cyo_lib) {
-                cantidad_excedida++;
-            }//FECHAPUESTA_TIPOHUEVO_CLASIFICADORA_TIPOLOTE_CANTIDAD_CARRITO_UMEDIDA
-            arr = fecha_puesta + '&' + tipo_huevo + '&CYO&LIB&' + cyo_cant_lib + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cyo_cant_acep > 0)
-        {
-            if (cyo_cant_acep > cyo_acep) {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CYO&ACEP&' + cyo_cant_acep + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cyo_cant_invo > 0)
-        {
-            if (cyo_cant_invo > cyo_invo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CYO&INVO&' + cyo_cant_invo + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cyo_cant_ldo > 0)
-        {
-            if (cyo_cant_ldo > cyo_ldo)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CYO&LDO&' + cyo_cant_ldo + "&0&ENTERO&LDO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-        if (cyo_cant_pal > 0)
-        {
-            if (cyo_cant_pal > cyo_pal)
-            {
-                cantidad_excedida++;
-            }
-            arr = fecha_puesta + '&' + tipo_huevo + '&CYO&PAL&' + cyo_cant_pal + "&0&ENTERO&FCO";
-            if (c == 0)
-            {
-                valores = arr;
-            } else
-            {
-                valores = valores + ',' + arr;
-            }
-            c++;
-        }
-
-
-    });
-
-    $('#txt_cargados').val(parseInt(cantidad_total) + parseInt(contador_mixto_pedido_log_ccha) + parseInt(contador_mixto_pedido_log_cchb) + parseInt(contador_mixto_pedido_log_cchh) + parseInt(contador_mixto_pedido_log_lavado) + parseInt(contador_mixto_pedido_log_cyo));
-    $('#txt_restantes').val(parseInt($('#txt_cargados').val()) - parseInt($('#txt_disponibilidad').val()));
-
-
-    calculo_mixto_enteros_pedidos();//AQUI SE REALIZA LA SUMA DE TODOS LOS SELECCIONADOS
-    sumar_tipos_huevos(tipoA, tipoB, tipoC, tipoD, tipoS, tipoJ);
-
-
-    if (tipo == '2') //TIPO 2 ES PARA REALIZAR EL REGISTRO.
-    {
-        if (verificar_excedido_td == 0) {
-            aviso_generico(2, "cantidad no puede se mayor a la disponible")
-        } else
-        {
-            if (parseInt($('#txt_disponibilidad').val()) < cantidad_total)
-            {
-                aviso_generico(2, "CANTIDAD SUPERADA");
-            } else if (cantidad_total == 0)
-            {
-                aviso_generico(2, "DEBE INGRESAR CARROS")
-            } else if (parseInt($('#txt_tipo_a').val()) != parseInt($('#txt_tipo_ac').val()) || parseInt($('#txt_tipo_b').val()) != parseInt($('#txt_tipo_bc').val())
-                    || parseInt($('#txt_tipo_c').val()) != parseInt($('#txt_tipo_cc').val()) || parseInt($('#txt_tipo_d').val()) != parseInt($('#txt_tipo_dc').val())
-                    || parseInt($('#txt_tipo_s').val()) != parseInt($('#txt_tipo_sc').val()) || parseInt($('#txt_tipo_j').val()) != parseInt($('#txt_tipo_jc').val())
-                    || parseInt($('#txt_tipo_mixto').val()) != parseInt($('#txt_tipo_mixtoc').val()))
-            {
-                aviso_generico(2, "CANTIDADES DE TIPOS DE HUEVOS NO COINCIDEN CON LO SOLICITADO");
-            } else if (parseInt($('#txt_disponibilidad').val()) == 0)
-            {
-                aviso_generico(2, "DEBE SELECCIONAR EL CAMION")
-
-            } else if ($('#cbox_chofer').val() == "-")
-            {
-                aviso_generico(2, "DEBE SELECCIONAR EL CHOFER")
-            } else if (parseInt($('#txt_disponibilidad').val()) > parseInt($('#txt_cargados').val()))
-            {
-                aviso_generico(2, "DEBE COMPLETAR LA CAPACIDAD DEL CAMION")
-            } else
-            {
-                var arr = $('#cbox_camion').val().split("_");
-                var codigo_camion = arr[1];
-
-                if (generacion_pedido == 'EDITAR')
+            editables[i].onfocus = function () 
+            {
+                celda_editable_selectElement(this);
+            };
+            editables[i].onblur = function () 
+            {   
+                if (this.innerHTML == this.getAttribute("valor")) 
                 {
-                    registrar_pedido(codigo_camion, $('#txt_disponibilidad').val(), valores, 'DESEA MODIFICAR EL PEDIDO?', 'control_editar_pedido.jsp');
-                } else
+                    this.innerHTML = this.getAttribute("valor");
+                }
+                else    
                 {
-                    registrar_pedido(codigo_camion, $('#txt_disponibilidad').val(), valores, 'DESEA GENERAR EL PEDIDO?', 'control_crear_pedido.jsp');
+                    this.setAttribute("valor",  this.innerHTML);
+                    var valor           =       this.getAttribute("valor");
+                    var stock           =       this.getAttribute("disponible");
+                    var area            =       this.getAttribute("area");
+                    var tipo            =       this.getAttribute("tipo");
+                    var categoria       =       this.getAttribute("categoria");
+                    var tipo_huevo      =       this.getAttribute("tipo_huevo");
+                    var fecha_puesta    =       this.getAttribute("fp");
+                   
+                    if(valor==0)
+                    {
+                        (this).style.backgroundColor = 'black';
+                        insert_reservas(codigo_camion,valor,fecha_puesta,tipo,tipo_huevo,area,categoria,"0","ENTERO",tipo_pedido);
+                    }
+                    else if(parseInt(stock)>=parseInt(valor))
+                    {   
+                        (this).style.backgroundColor = 'blue';   
+                        insert_reservas(codigo_camion,valor,fecha_puesta,tipo,tipo_huevo,area,categoria,"0","ENTERO",tipo_pedido);
+                    }
+                    else if(parseInt(stock)<parseInt(valor))
+                    {
+                        (this).style.backgroundColor = 'red';
+                    }
                 }
             }
-        }
+            switch (editables[i].getAttribute("area"))
+            {
+                case "CCHA":
+                total_ccha= parseInt(total_ccha)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "CCHB":
+                total_cchb= parseInt(total_cchb)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "CCHH":
+                total_cchh= parseInt(total_cchh)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "LAVADOS":
+                total_ccho= parseInt(total_ccho)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "CYO":
+                total_cyo= parseInt(total_cyo)+parseInt(editables[i].getAttribute("valor"));
+                break;
+            }
+            switch (editables[i].getAttribute("tipo_huevo"))
+            {
+                case "A":
+                total_a= parseInt(total_a)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "B":
+                total_b= parseInt(total_b)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "C":
+                total_c= parseInt(total_c)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "D":
+                total_d= parseInt(total_d)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "S":
+                total_s= parseInt(total_s)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "J":
+                total_j= parseInt(total_j)+parseInt(editables[i].getAttribute("valor"));
+                break;
+            }
+            cantidad_total=parseInt(cantidad_total)+parseInt(editables[i].getAttribute("valor")); 
+        };
+             
+        $('#txt_restantes').val((parseInt(cantidad_total)+parseInt(cantidad_total_mixtos)) - parseInt($('#txt_disponibilidad').val()));
+        $('#txt_cargados').val(parseInt(cantidad_total)+parseInt(cantidad_total_mixtos) );
+ 
+        $('#td_ccha').html('CCHA  TOTAL CARGADOS:' + total_ccha) ;          
+        $('#td_cchb').html('CCHB  TOTAL CARGADOS:' + total_cchb) ;          
+        $('#td_cchh').html('CCHH  TOTAL CARGADOS:' + total_cchh) ;          
+        $('#td_ovo').html('LAVADOS  TOTAL CARGADOS:' + total_ccho) ;          
+        $('#td_cyo').html('DEPOSITO CYO  TOTAL CARGADOS:' + total_cyo) ;          
+
+        $('#txt_tipo_ac').val(total_a);
+        $('#txt_tipo_bc').val(total_b);
+        $('#txt_tipo_cc').val(total_c);
+        $('#txt_tipo_dc').val(total_d);
+        $('#txt_tipo_sc').val(total_s);
+        $('#txt_tipo_jc').val(total_j);
+        sumar_tipos_huevos_log(total_a,total_b,total_c,total_d,total_s,total_j);
     }
-
-}
-
-function separar_codigo_camion()
+  
+   
+function registrar_pedido_log()
 {
-    var arr = $('#cbox_camion').val().split("_");
-    var cantidad_camion = arr[0];
+    generar_grilla_pedido_log(7);//actualiza grilla por si hubo un cambio despues de haber cargado todo.
+    var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+    var codigo_chofer = $("#cbox_chofer").find(':selected').attr('codigo');  
+    var capacidad = $("#cbox_camion").find(':selected').attr('capacidad');  
+     
+     
+    if(codigo_camion=="-"){
+             alert("SELECCIONE CAMION");
+    } 
+    else if(codigo_chofer=="-"){
+             alert("SELECCIONE CHOFER");
+    }
+    
+    else if(parseInt(capacidad)>(cantidad_total+cantidad_total_mixtos)){
+             alert("FALTAN CARGAR CARROS");
 
-    $('#txt_disponibilidad').val(cantidad_camion);
+    }
+    
+    else if(parseInt(cantidad_negativa)<0){
+             alert("NO CUENTA CON STOCK");
+    }
+    else {
+        
+     
+    Swal.fire({
+
+        title: 'CONFIRMACION',
+        text: "DESEA REALIZAR EL PEDIDO?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI!',
+        cancelButtonText: 'NO!'}).then((result) =>
+        {
+            if (result.value)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: cruds + "control_crear_pedido.jsp",
+                    data: ({id_camion:codigo_camion,id_chofer:codigo_chofer,cantidad_total:capacidad }),
+                    beforeSend: function ()
+                    {
+                       Swal.fire({
+                            title: 'PROCESANDO!',
+                            html: 'ESPERE<strong></strong>...',
+                            allowOutsideClick: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading()
+                                timerInterval = setInterval(() => {
+                                    Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft(); }, 1000);
+                            }
+                        });
+                    },
+                    success: function (res)
+                    {
+                        aviso_generico(res.tipo_respuesta, res.mensaje, 'PEDIDOS');
+                    }
+                    ,
+                    error: function (error)
+                    {
+                        swal.fire({
+                            type: 'error',
+                            html: 'Ha ocurrido un error, intente de nuevo.',
+                            confirmButtonText: "CERRAR"
+                        });
+                    }
+                });
+
+
+            }
+        });    
+
 }
+
+}
+
+
+function registrar_pedido_mod_log()
+{
+   var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+    var codigo_chofer = $("#cbox_chofer").find(':selected').attr('codigo');  
+    var capacidad = $("#cbox_camion").find(':selected').attr('capacidad');  
+     
+     
+    if(codigo_camion=="-"){
+             alert("SELECCIONE CAMION");
+    } 
+    else if(codigo_chofer=="-"){
+             alert("SELECCIONE CHOFER");
+    }
+    
+    else if(parseInt(capacidad)>(cantidad_total+cantidad_total_mixtos)){
+             alert("FALTAN CARGAR CARROS");
+
+    }
+    
+    else if(parseInt(cantidad_negativa)<0){
+             alert("NO CUENTA CON STOCK");
+    }
+    else {
+        
+     
+    Swal.fire({
+
+        title: 'CONFIRMACION',
+        text: "DESEA REALIZAR EL PEDIDO?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI!',
+        cancelButtonText: 'NO!'}).then((result) =>
+        {
+            if (result.value)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: cruds + "control_modificar_pedido.jsp",
+                    data: ({id_camion:codigo_camion,id_chofer:codigo_chofer,cantidad_total:capacidad,id_pedido:$("#id_pedido").val() }),
+                    beforeSend: function ()
+                    {
+                       Swal.fire({
+                            title: 'PROCESANDO!',
+                            html: 'ESPERE<strong></strong>...',
+                            allowOutsideClick: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading()
+                                timerInterval = setInterval(() => {
+                                    Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft(); }, 1000);
+                            }
+                        });
+                    },
+                    success: function (res)
+                    {
+                        aviso_generico(res.tipo_respuesta, res.mensaje, 'PEDIDOS');
+                    }
+                    ,
+                    error: function (error)
+                    {
+                        swal.fire({
+                            type: 'error',
+                            html: 'Ha ocurrido un error, intente de nuevo.',
+                            confirmButtonText: "CERRAR"
+                        });
+                    }
+                });
+
+
+            }
+        });    
+
+}
+
+}
+
+
+
+
+    function grilla_funciones_cyo() //TIPO PEDIDO ES CREAR O MODIFICAR
+    {
+        var editables = document.querySelectorAll("[contentEditable]");
+        var total_a=0;
+        var total_b=0;
+        var total_c=0;
+        var total_d=0;
+        var total_s=0;
+        var total_j=0;
+        cantidad_total=0;
+        var tipo_huevo_celda="";
+          var cont= $("#huevos_cargados").val();
+       
+        for (var i = 0, len = editables.length; i < len; i++) 
+        { 
+            editables[i].setAttribute("valor", editables[i].innerHTML);
+            
+            tipo_huevo_celda= editables[i].getAttribute("tipo_huevo");
+            if(parseInt(editables[i].getAttribute("valor"))>0)
+            {
+                editables[i].style.backgroundColor = 'blue';   
+            }
+            editables[i].onfocus = function () 
+            {
+                celda_editable_selectElement(this);
+            };
+            editables[i].onblur = function () 
+            {   
+                if (this.innerHTML == this.getAttribute("valor")) 
+                {
+                    this.innerHTML = this.getAttribute("valor");
+                }
+                else    
+                {
+                    var valor_viejo           =       this.getAttribute("valor");
+                    this.setAttribute("valor",  this.innerHTML);
+                    var valor           =       this.getAttribute("valor");
+                    var stock           =       this.getAttribute("disponible");
+                    var area            =       this.getAttribute("area");
+                    var tipo            =       this.getAttribute("tipo");
+                    var categoria       =       this.getAttribute("categoria");
+                    var tipo_huevo      =       this.getAttribute("tipo_huevo");
+                    var fecha_puesta    =       this.getAttribute("fp");
+                   
+                    if(valor==0)
+                    {
+                        (this).style.backgroundColor = 'black';
+                    }
+                    else if(parseInt(stock)>=parseInt(valor))
+                    {   
+                        (this).style.backgroundColor = 'blue';   
+                        
+                        
+                    }
+                    else if(parseInt(stock)<parseInt(valor))
+                    {
+                        (this).style.backgroundColor = 'red';
+                        cantidad_excedida_celda=true;                   
+                    }
+                    
+                    $("#"+tipo_huevo).val( (parseInt($("#"+tipo_huevo).val())- parseInt(valor_viejo))+parseInt(valor));
+                    $("#"+tipo_huevo).attr("cargado",$("#"+tipo_huevo).val());
+ 
+           
+                }
+            }
+             
+            switch (editables[i].getAttribute("tipo_huevo"))
+            {
+                case "A":
+                total_a= parseInt(total_a)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "B":
+                total_b= parseInt(total_b)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "C":
+                total_c= parseInt(total_c)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "D":
+                total_d= parseInt(total_d)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "S":
+                total_s= parseInt(total_s)+parseInt(editables[i].getAttribute("valor"));
+                break;
+                case "J":
+                total_j= parseInt(total_j)+parseInt(editables[i].getAttribute("valor"));
+                break;
+            }
+                cantidad_total=parseInt(cantidad_total)+parseInt(editables[i].getAttribute("valor")); 
+                
+                if(cont.includes(tipo_huevo_celda)){
+                    
+                }
+                else {
+                     editables[i].setAttribute("contentEditable", false);
+                }
+                
+        };
+             
+        $('#txt_restantes').val((parseInt(cantidad_total)+parseInt(cantidad_total_mixtos)) - parseInt($('#txt_disponibilidad').val()));
+        $('#txt_cargados').val(parseInt(cantidad_total)+parseInt(cantidad_total_mixtos) );
+     }
+  
+
+
+
+function registrar_pedido_mod_cyo()
+{
+    var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+    var textos = document.querySelectorAll("[texto]");
+    validacion_carros=0;
+     var cantidad_excedida_celda=false;
+            var editables = document.querySelectorAll("[contentEditable]");
+        
+        jsonObj = [];
+
+        for (var i = 0, len = editables.length; i < len; i++) 
+        {
+            if(parseInt(editables[i].getAttribute("valor"))>parseInt(editables[i].getAttribute("disponible")))
+            {
+                cantidad_excedida_celda=true;
+            }
+            
+            var valor           =        editables[i].getAttribute("valor");
+            if(parseInt(valor)>0)
+            {
+                item = {}
+                item ["fecha_puesta"]   =   editables[i].getAttribute("fp");
+                item ["area"]           =   editables[i].getAttribute("area");
+                item ["tipo"]           =   editables[i].getAttribute("tipo");
+                item ["tipo_huevo"]     =   editables[i].getAttribute("tipo_huevo");
+                item ["cantidad"]       =   editables[i].getAttribute("valor");
+                item ["categoria"]      =   editables[i].getAttribute("categoria");
+                item ["cod_carrito"]    =   0;
+                item ["u_medida"]       =   "ENTERO";
+                item ["id_pedido"]      =   $("#id_pedido").val() ;
+                item ["id_camion"]      =   codigo_camion ;
+                jsonObj.push(item);
+            }
+        };
+    
+    for (var i = 0, len = textos.length; i < len; i++) 
+    {
+        if(textos[i].getAttribute("cantidad")!=textos[i].getAttribute("cargado"))
+        {
+            validacion_carros++;
+        }
+    } 
+
+    if(cantidad_excedida_celda==true)
+    {
+         swal.fire({
+        type: 'error',
+        html: 'CANTIDADES DE LA CELDA EXCEDEN.',
+        confirmButtonText: "CERRAR"
+            });    
+    }
+    else if(parseInt(validacion_carros)>0){
+         alert("CANTIDADES NO COINCIDEN");
+        swal.fire({
+        type: 'error',
+        html: 'Ha ocurrido un error, intente de nuevo.',
+        confirmButtonText: "CERRAR"
+            });        }
+    else
+    {
+          
+
+        var json_string = JSON.stringify(jsonObj);   
+        Swal.fire({
+
+        title: 'CONFIRMACION',
+        text: "DESEA REALIZAR EL PEDIDO?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI!',
+        cancelButtonText: 'NO!'}).then((result) =>
+        {
+            if (result.value)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: cruds + "control_modificar_pedido_cyo.jsp",
+                    data: ({json:json_string,id_pedido:$("#id_pedido").val()}),
+                    beforeSend: function ()
+                    {
+                       Swal.fire({
+                            title: 'PROCESANDO!',
+                            html: 'ESPERE<strong></strong>...',
+                            allowOutsideClick: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading()
+                                timerInterval = setInterval(() => {
+                                    Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft(); }, 1000);  }
+                        });
+                    },
+                    success: function (res)
+                    {
+                        aviso_generico(res.tipo_respuesta, res.mensaje, 'PEDIDOS');
+                    }
+                    ,
+                    error: function (error)
+                    {
+                        swal.fire({
+                            type: 'error',
+                            html: 'Ha ocurrido un error, intente de nuevo.',
+                            confirmButtonText: "CERRAR"
+                        });
+                    }
+                });
+            }
+        });    
+    }
+    
+    
+   
+
+//}
+
+}
+
+
+
+
+
+function seleccionar_mixtos(cod_carrito)
+{   
+    var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+    var valor="0";
+    var fecha_puesta= $("#" + cod_carrito).attr("fecha_puesta");
+    var tipo="LIB";
+    var tipo_huevo="-";
+    var area=$("#" + cod_carrito).attr("area");
+    var categoria=$("#" + cod_carrito).attr("categoria");
+    var cod_carrito=$("#" + cod_carrito).attr("cod_carrito");
+    insert_reservas_mixtos_log(codigo_camion,valor,fecha_puesta,tipo,tipo_huevo,area,categoria,cod_carrito,"MIXTO"); 
+ 
+}
+function insert_reservas_mixtos_log(id_camion,cantidad,fp,tipo,tipo_huevo,area,categoria,cod_carrito,tipo_carro){
+         $.ajax({
+                type: "POST",
+                url: cruds + "control_crear_reserva.jsp",
+                data: ({id_camion: id_camion, cantidad: cantidad,id_chofer: $('#cbox_chofer').val(),
+                    fecha_puesta:fp,tipo:tipo,tipo_huevo:tipo_huevo,area:area,categoria:categoria,cod_carrito:cod_carrito,tipo_carro:tipo_carro,id_pedido:$("#id_pedido").val()}),
+                beforeSend: function ()
+                { 
+                },
+                success: function (res)
+                {
+                 //  generar_grilla_pedido_log(6); 
+                 switch(res.tipo_respuesta)
+                 {
+                    case 3:
+                        $("#" + res.carro_reserva).removeClass('btn-primary btn-dark bg1 ').addClass('btn bg-red ')
+                        $("#" + res.carro_reserva).html(res.mensaje);
+                        $("#" + res.carro_reserva).removeAttr("mixto");
+                        
+                     break;
+                    case 1:
+                        $("#" + res.carro_reserva).removeClass('btn-dark bg1 btn bg-red ').addClass(' btn-primary  bg1')
+                        $("#" + res.carro_reserva).html(res.mensaje);
+                        $("#" + res.carro_reserva).attr("mixto",true);
+                     break;
+                     case 2:
+                        $("#" + res.carro_reserva).removeClass('btn-primary bg1 btn bg-red ').addClass('btn btn-dark btn-sm')
+                        $("#" + res.carro_reserva).html(res.mensaje);
+                        $("#" + res.carro_reserva).removeAttr("mixto");
+                     break;
+                }
+                
+                      
+                 sumar_mixtos_seleccionados_log();
+                }
+                ,
+                error: function (error)
+                {
+                    
+                }
+            });
+      
+  }
+function sumar_mixtos_seleccionados_log(){
+     var mixto = document.querySelectorAll("[mixto]");
+       
+        for (  cantidad_total_mixtos = 0, len = mixto.length; cantidad_total_mixtos < len; cantidad_total_mixtos++) 
+        {
+            
+        } 
+       
+        $("#txt_tipo_mixtoc").val(cantidad_total_mixtos);
+        $('#txt_restantes').val((parseInt(cantidad_total)+parseInt(cantidad_total_mixtos)) - parseInt($('#txt_disponibilidad').val()));
+    
+    var mixto_cargado = $('#txt_tipo_mixtoc').val();
+    var mixto_ingresado = $('#7').val(); //CAJA DE TEXTO DE MISTO INGRESADO
+
+    if (parseInt(mixto_cargado) > parseInt(mixto_ingresado))
+    {
+        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'red';
+    } else if (parseInt(mixto_cargado) == parseInt(mixto_ingresado)) {
+        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_mixtoc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'green';
+    }
+}
+  
+function insert_reservas(id_camion,cantidad,fp,tipo,tipo_huevo,area,categoria,cod_carrito,tipo_carro,tipo_pedido){ //tipo pedido o es MODIFICAR O CREAR
+         $.ajax({
+                type: "POST",
+                url: cruds + "control_crear_reserva.jsp",
+                data: ({id_camion: id_camion, cantidad: cantidad,id_chofer: $('#cbox_chofer').val(),
+                    fecha_puesta:fp,tipo:tipo,tipo_huevo:tipo_huevo,area:area,categoria:categoria,
+                    cod_carrito:cod_carrito,tipo_carro:tipo_carro,tipo_pedido:tipo_pedido,id_pedido:$('#id_pedido').val()}),
+                beforeSend: function ()
+                { 
+                },
+                success: function (res)
+                {
+                    if(tipo_carro=="ENTERO")
+                    {
+                      if(tipo_pedido=="CREAR"){
+                        generar_grilla_pedido_log(6); 
+                      }
+                      else{
+                         generar_grilla_pedido_log(8,$('#id_pedido').val(),id_camion);
+                      }
+                        
+                    }
+                    if(res.tipo_respuesta==0)
+                    {
+                        $("#" + cod_carrito).removeClass('btn-primary btn-dark bg1 ').addClass('btn bg-navy ')
+                        $("#" + res.carro_reserva).html(res.mensaje);
+                        $("#" + res.carro_reserva).removeAttr("mixto");
+                        $("#" + res.carro_reserva).Attr("reservado",true);
+                    }
+                }
+                ,
+                error: function (error)
+                {
+                    
+                }
+            });
+      
+  }
+function aviso_generico(tipo, mensaje)
+{
+    if (tipo == "1") {
+        swal.fire({
+            type: 'success',
+            text: mensaje,
+            confirmButtonText: "CERRAR"
+            
+        });
+
+            $("#contenedor_principal").html("")
+    } else {
+        swal.fire({
+            type: 'error',
+            html: mensaje,
+            confirmButtonText: "CERRAR"
+        });
+
+       
+    }
+}
+
+
+function insert_cabecera_totales_log(id,tipo_registro){ // tipo_registro: 1= CREAR PEDIDO, 2= MODIFICAR PEDIDO// 
+            var codigo_camion = $("#cbox_camion").find(':selected').attr('codigo');  
+            
+            if($("#"+id).val()==$("#"+id).attr("cantidad")){
+                
+            }
+            else {
+                $.ajax({
+                type: "POST",
+                data:({id_camion:codigo_camion,tipo_huevo:$("#"+id).attr("tipo_huevo"),cantidad:$("#"+id).val(),id_pedido:$("#id_pedido").val()}),
+                url: cruds + "control_crear_cabecera_totales.jsp",
+                 
+                success: function (res)
+                {
+                   if(res.tipo_respuesta==1){
+                       $("#"+id).attr("cantidad",  $("#"+id).val());
+                   }
+                }
+                ,
+                error: function (error)
+                {
+                    
+                }
+            }); 
+            }
+ }
+
+    function sumar_tipos_huevos_log(tipoA, tipoB, tipoC, tipoD, tipoS, tipoJ) {
+
+    $('#txt_tipo_ac').val(tipoA);
+    $('#txt_tipo_bc').val(tipoB);
+    $('#txt_tipo_cc').val(tipoC);
+    $('#txt_tipo_dc').val(tipoD);
+    $('#txt_tipo_sc').val(tipoS);
+    $('#txt_tipo_jc').val(tipoJ);
+
+    var A = $('#1').val();
+    var B = $('#2').val();
+    var C = $('#3').val();
+    var D = $('#4').val();
+    var S = $('#5').val();
+    var J = $('#6').val();
+
+    $('#txt_tipo_af').val((parseInt(A) - parseInt(tipoA)));
+    $('#txt_tipo_bf').val((parseInt(B) - parseInt(tipoB)));
+    $('#txt_tipo_cf').val((parseInt(C) - parseInt(tipoC)));
+    $('#txt_tipo_df').val((parseInt(D) - parseInt(tipoD)));
+    $('#txt_tipo_sf').val((parseInt(S) - parseInt(tipoS)));
+    $('#txt_tipo_jf').val((parseInt(J) - parseInt(tipoJ)));
+
+    var ac = tipoA;
+    var bc = tipoB;
+    var cc = tipoC;
+    var dc = tipoD;
+    var sc = tipoS;
+    var jc = tipoJ;
+
+    if (parseInt(ac) > parseInt(A))
+    {
+        document.getElementById('txt_tipo_ac').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_ac').style.color = 'white';
+    } else if (parseInt(ac) == parseInt(A)) {
+        document.getElementById('txt_tipo_ac').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_ac').style.color = 'white';
+        } else
+    {
+        $("#txt_tipo_ac").attr('style', 'background-color:green');
+        document.getElementById('txt_tipo_ac').style.color = 'white';
+     }
+    if (parseInt(bc) > parseInt(B))
+    {
+        document.getElementById('txt_tipo_bc').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_bc').style.color = 'white';
+
+    } else if (parseInt(bc) == parseInt(B)) {
+        document.getElementById('txt_tipo_bc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_bc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_bc').style.backgroundColor = 'green';
+    }
+    if (parseInt(cc) > parseInt(C))
+    {
+        document.getElementById('txt_tipo_cc').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_cc').style.color = 'white';
+
+    } else if (parseInt(cc) == parseInt(C)) {
+        document.getElementById('txt_tipo_cc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_cc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_cc').style.backgroundColor = 'green';
+    }
+    if (parseInt(dc) > parseInt(D))
+    {
+        document.getElementById('txt_tipo_dc').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_dc').style.color = 'white';
+    } else if (parseInt(dc) == parseInt(D)) {
+        document.getElementById('txt_tipo_dc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_dc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_dc').style.backgroundColor = 'green';
+    }
+    if (parseInt(sc) > parseInt(S))
+    {
+        document.getElementById('txt_tipo_sc').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_sc').style.color = 'white';
+    } else if (parseInt(sc) == parseInt(S)) {
+        document.getElementById('txt_tipo_sc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_sc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_sc').style.backgroundColor = 'green';
+    }
+    if (parseInt(jc) > parseInt(J))
+    {
+        document.getElementById('txt_tipo_jc').style.backgroundColor = 'red';
+        document.getElementById('txt_tipo_jc').style.color = 'white';
+    } else if (parseInt(jc) == parseInt(J)) {
+        document.getElementById('txt_tipo_jc').style.backgroundColor = 'black';
+        document.getElementById('txt_tipo_jc').style.color = 'white';
+    } else
+    {
+        document.getElementById('txt_tipo_jc').style.backgroundColor = 'green';
+    } 
+
+}
+   
 
 function celda_editable_selectElement(el)
 {
@@ -1396,7 +1087,7 @@ function celda_editable_selectElement(el)
     sel.removeAllRanges();
     sel.addRange(range);
 }
-
+/*
 function aviso_generico(tipo, mensaje, formulario, celdas)
 {
     if (tipo == "1") {
@@ -1427,102 +1118,9 @@ function aviso_generico(tipo, mensaje, formulario, celdas)
         } else if (formulario == 'EDITAR') {
             actualizar_celdas(celdas);
         }
-
-
-    }
-
-
-
-}
-
-function seleccionar_mixtos(cod_carrito)
-{
-    if ($("#" + cod_carrito).html() == "SELECCIONE")
-    {
-        $("#" + cod_carrito).removeClass('btn-dark ').addClass(' btn-primary  bg1 ')
-        $("#" + cod_carrito).html("SELECCIONADO");
-    } else
-    {
-        $("#" + cod_carrito).removeClass(' btn-primary bg1').addClass('btn-dark ')
-        $("#" + cod_carrito).html("SELECCIONE");
-    }
-
-    contar_mixtos_seleccionados();
-
-    var mixto_cargado = $('#txt_tipo_mixtoc').val();
-    var mixto_ingresado = $('#txt_tipo_mixto').val();
-    if (parseInt(mixto_cargado) > parseInt(mixto_ingresado))
-    {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'red';
-    } else if (parseInt(mixto_cargado) == parseInt(mixto_ingresado)) {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'black';
-    } else
-    {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'green';
     }
 }
-
-function contar_mixtos_seleccionados()
-{
-    contador_mixto_pedido_log = 0;
-    var filas_pre = document.querySelectorAll("#tb_preembarque_mixto tbody tr");
-    var verificar_excedido_td = 1;
-    var carro = "";
-    var boton = "";
-    var area = "";
-    var contenido_mixto = "";
-    array_mixto_pedidos = "";
-    var cantidad = 0;
-    //SE INICIALIZAN LAS VARIABLES
-    contador_mixto_pedido_log_ccha = 0;
-    contador_mixto_pedido_log_cchb = 0;
-    contador_mixto_pedido_log_cchh = 0;
-    contador_mixto_pedido_log_lavado = 0;
-    contador_mixto_pedido_log_cyo = 0;
-
-    filas_pre.forEach(function (e)
-    {
-        var columnas_pre = e.querySelectorAll("td");
-        carro = columnas_pre[0].textContent;
-        area = columnas_pre[1].textContent;
-        puesta = columnas_pre[2].textContent;
-        boton = columnas_pre[4].textContent;
-
-        if (boton.length == 15)//ES SELECCIONADO
-        {
-            cantidad++;
-            if (cantidad == 1)
-            {
-                array_mixto_pedidos = puesta + "&-&" + area + "&LIB&0&" + carro + "&MIXTO&FCO";
-            } else
-            {
-                array_mixto_pedidos = array_mixto_pedidos + "," + puesta + "&-&" + area + "&LIB&0&" + carro + "&MIXTO&FCO";
-            }
-            contador_mixto_pedido_log++;
-            //       FECHAPUESTA_TIPOHUEVO_CLASIFICADORA_TIPOLOTE_CANTIDAD_CARRITO_UMEDIDA
-            switch (area)
-            {
-                case "CCHA":
-                    contador_mixto_pedido_log_ccha++;
-                    break;
-                case "CCHB":
-                    contador_mixto_pedido_log_cchb++;
-                    break;
-                case "CCHH":
-                    contador_mixto_pedido_log_cchh++;
-                    break;
-                case "CYO":
-                    contador_mixto_pedido_log_cyo++;
-                    break;
-                default :
-                    contador_mixto_pedido_log_lavado++;
-                    break;
-            }
-        }
-    });
-    calculo_mixto_enteros_pedidos();
-}
-
+*/ 
 function calculo_mixto_enteros_pedidos()
 {
     $('#td_ccha').html('CCHA  TOTAL CARGADOS:' + (parseInt(contador_mixto_pedido_log_ccha) + parseInt(cantidad_total_ccha)));
@@ -1570,66 +1168,6 @@ function calculo_mixto_enteros_pedidos_cyo(area)
     {
         $('#txt_cargados').css('background-color', 'green');
     }
-}
-
-
-function registrar_pedido(id_camion, cantidad_total, contenido, mensaje, pagina)
-{
-    var contenido_mixto = "";
-    if (array_mixto_pedidos.length > 0)
-    {
-        contenido_mixto = "," + array_mixto_pedidos;
-    }
-
-    Swal.fire({
-
-        title: 'CONFIRMACION',
-        text: mensaje,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'SI!',
-        cancelButtonText: 'NO!'}).then((result) =>
-    {
-        if (result.value)
-        {
-            $.ajax({
-                type: "POST",
-                url: cruds + pagina,
-                data: ({id_camion: id_camion, cantidad_total: cantidad_total, contenido: contenido + contenido_mixto, id_pedido: $('#id_pedido').val(), id_chofer: $('#cbox_chofer').val(), obs: $('#txt_obs').val()}),
-                beforeSend: function ()
-                {
-                    Swal.fire({
-                        title: 'PROCESANDO!',
-                        html: 'ESPERE<strong></strong>...',
-                        allowOutsideClick: false,
-                        onBeforeOpen: () => {
-                            Swal.showLoading()
-                            timerInterval = setInterval(() => {
-                                Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft()
-                            }, 1000);
-                        }
-                    });
-                },
-                success: function (res)
-                {
-                    aviso_generico(res.tipo_respuesta, res.mensaje, 'PEDIDOS', res.carros_excedentes);
-                }
-                ,
-                error: function (error)
-                {
-                    swal.fire({
-                        type: 'error',
-                        html: 'Ha ocurrido un error, intente de nuevo.',
-                        confirmButtonText: "CERRAR"
-                    });
-                }
-            });
-
-
-        }
-    });
 }
 
 function registrar_pedido_cyo(contenido, area)
@@ -1725,7 +1263,7 @@ function anular_pedido(id)
     });
 }
 
-function reset_cero_variables()
+function reset_cero_variables_log()
 {
     contador_mixto_pedido_log_ccha = 0;
     contador_mixto_pedido_log_cchb = 0;
@@ -1793,7 +1331,7 @@ function registrar_factura(id)
         });
     });
 }
-
+/*
 function actualizar_celdas(celdas) {
     var split_celdas = celdas.split("&");
     var split_valores = "";
@@ -1808,7 +1346,7 @@ function actualizar_celdas(celdas) {
     obtener_valores_celda('1');
 
 }
-
+*/
 
 function cargar_cantidades() {
 
@@ -1876,124 +1414,6 @@ function consultar_cantidades() {
     });
 }
 
-function sumar_tipos_huevos(tipoA, tipoB, tipoC, tipoD, tipoS, tipoJ) {
-
-    $('#txt_tipo_ac').val(tipoA);
-    $('#txt_tipo_bc').val(tipoB);
-    $('#txt_tipo_cc').val(tipoC);
-    $('#txt_tipo_dc').val(tipoD);
-    $('#txt_tipo_sc').val(tipoS);
-    $('#txt_tipo_jc').val(tipoJ);
-
-    var A = $('#txt_tipo_a').val();
-    var B = $('#txt_tipo_b').val();
-    var C = $('#txt_tipo_c').val();
-    var D = $('#txt_tipo_d').val();
-    var S = $('#txt_tipo_s').val();
-    var J = $('#txt_tipo_j').val();
-
-    $('#txt_tipo_af').val((parseInt(A) - parseInt(tipoA)));
-    $('#txt_tipo_bf').val((parseInt(B) - parseInt(tipoB)));
-    $('#txt_tipo_cf').val((parseInt(C) - parseInt(tipoC)));
-    $('#txt_tipo_df').val((parseInt(D) - parseInt(tipoD)));
-    $('#txt_tipo_sf').val((parseInt(S) - parseInt(tipoS)));
-    $('#txt_tipo_jf').val((parseInt(J) - parseInt(tipoJ)));
-
-    var ac = tipoA;
-    var bc = tipoB;
-    var cc = tipoC;
-    var dc = tipoD;
-    var sc = tipoS;
-    var jc = tipoJ;
-
-    if (parseInt(ac) > parseInt(A))
-    {
-        document.getElementById('txt_tipo_ac').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_ac').style.color = 'white';
-    } else if (parseInt(ac) == parseInt(A)) {
-        document.getElementById('txt_tipo_ac').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_ac').style.color = 'white';
-
-    } else
-    {
-        $("#txt_tipo_ac").attr('style', 'background-color:green');
-        // document.getElementById('txt_tipo_ac').style.backgroundColor = 'green';        
-    }
-    if (parseInt(bc) > parseInt(B))
-    {
-        document.getElementById('txt_tipo_bc').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_bc').style.color = 'white';
-
-    } else if (parseInt(bc) == parseInt(B)) {
-        document.getElementById('txt_tipo_bc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_bc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_bc').style.backgroundColor = 'green';
-    }
-    if (parseInt(cc) > parseInt(C))
-    {
-        document.getElementById('txt_tipo_cc').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_cc').style.color = 'white';
-
-    } else if (parseInt(cc) == parseInt(C)) {
-        document.getElementById('txt_tipo_cc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_cc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_cc').style.backgroundColor = 'green';
-    }
-    if (parseInt(dc) > parseInt(D))
-    {
-        document.getElementById('txt_tipo_dc').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_dc').style.color = 'white';
-    } else if (parseInt(dc) == parseInt(D)) {
-        document.getElementById('txt_tipo_dc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_dc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_dc').style.backgroundColor = 'green';
-    }
-    if (parseInt(sc) > parseInt(S))
-    {
-        document.getElementById('txt_tipo_sc').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_sc').style.color = 'white';
-    } else if (parseInt(sc) == parseInt(S)) {
-        document.getElementById('txt_tipo_sc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_sc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_sc').style.backgroundColor = 'green';
-    }
-    if (parseInt(jc) > parseInt(J))
-    {
-        document.getElementById('txt_tipo_jc').style.backgroundColor = 'red';
-        document.getElementById('txt_tipo_jc').style.color = 'white';
-    } else if (parseInt(jc) == parseInt(J)) {
-        document.getElementById('txt_tipo_jc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_jc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_jc').style.backgroundColor = 'green';
-    }
-
-    var mixto_cargado = $('#txt_tipo_mixtoc').val();
-    var mixto_ingresado = $('#txt_tipo_mixto').val();
-
-    if (parseInt(mixto_cargado) > parseInt(mixto_ingresado))
-    {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'red';
-    } else if (parseInt(mixto_cargado) == parseInt(mixto_ingresado)) {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'black';
-        document.getElementById('txt_tipo_mixtoc').style.color = 'white';
-    } else
-    {
-        document.getElementById('txt_tipo_mixtoc').style.backgroundColor = 'green';
-    }
-
-
-}
-
 function seleccionar_todo_input()
 {
     $("input").blur(function ()
@@ -2039,7 +1459,7 @@ function cargar_cantidades_ingresadas_editar(tipo)
 
 
 
-function filtro_reporte(tipo) {
+function filtro_reporte_pedidos_log(tipo) {
     switch (tipo)
     {
         case "7":
@@ -2059,7 +1479,7 @@ function filtro_reporte(tipo) {
 
 }
 
-function buscar_reporte() {
+function buscar_reporte_pedidos_log() {
 
 
     $.ajax({

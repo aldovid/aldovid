@@ -10,7 +10,7 @@
 <%@page contentType="application/json; charset=utf-8" %>
 <%   
     String grilla         = request.getParameter("valor");
-    String usuario        = (String) sesionOk.getAttribute("usuario");
+    String usuario        = (String) sesionOk.getAttribute("nombre_usuario");
     String arr_chofer     = request.getParameter("chofer");
     String arr_camion     = request.getParameter("camion");
     String destino        = request.getParameter("destino");

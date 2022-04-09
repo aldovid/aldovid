@@ -111,8 +111,8 @@ function cargar_grilla(cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha
     }
     if (contador == 0)
     {
-        registrar_pendientes(cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha_puesta, estado, identificador);
-        //var table = $('#myTable').DataTable();   
+       // registrar_pendientes(cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha_puesta, estado, identificador);
+        
         var newData = [cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha_puesta, '<a class="btn btn-danger font-weight-bold remove"   > <i class="fa fa-trash-o fa-lg"></i> Eliminar</a>',
             estado, identificador, counter];
 

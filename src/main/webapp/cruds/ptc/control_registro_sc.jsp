@@ -111,36 +111,10 @@
                 }
             }
               
-              ResultSet result_cantidad_existente=  fuente.obtenerDato("exec [mae_ptc_select_lotesCantExist_SC] @cod_carrito='"+nrocarro+"' ");
-                
-                if (result_cantidad_existente.next())
-                {
-                    cantidad_bd= result_cantidad_existente.getInt("cantidad");
-                }
-          
-                if ((cantidad_bd+cantidad_movimiento)>12)
-                {
-                    //res_out= resultad_final;
-                    tipo_respuesta=2;
-                    mensaje="CANTIDAD EXCEDIDA, TOTAL DE CAJONES CARGADOS "+cantidad_bd;
-                    //CANTIDAD EXCEDIDA
-                    ResultSet consulta_tipos_cargados=  fuente.obtenerDato("exec [mae_ptc_select_tipos_cargados] @cod_carrito='"+nrocarro+"'");
-
-                    while (consulta_tipos_cargados.next())
-                     {
-                         contenido_cajones_cargados=contenido_cajones_cargados+"<tr><td>"+consulta_tipos_cargados.getString("tipo_huevo")+"</td><td>"+
-                         consulta_tipos_cargados.getString("cantidad")+"</td><td>"+consulta_tipos_cargados.getString("fecha_puesta")+"</td><td>"+
-                         consulta_tipos_cargados.getString("clasificadora_actual")+"</td><td>"+consulta_tipos_cargados.getString("estado")+"</td></tr>";
-                     } 
-                     table_cuerpo="<table class='table'> "
-                     + "<thead> <tr>  <th>Tipo</th><th>Cantidad</th><th>Puesta</th><th>Area</th><th>Estado</th></tr> </thead>"
-                     + "<tbody>"+contenido_cajones_cargados+"</tbody></table> ";
-                }
-        else 
-            {
+              
                 cn.setAutoCommit(false);
                 CallableStatement  callableStatement=null;   
-                callableStatement = cn.prepareCall("{call mae_ptc_insert_liberado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+                callableStatement = cn.prepareCall("{call mae_ptc_insert_liberado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
                 callableStatement .setString(1,  fecha_puesta );
                 callableStatement .setString(2,  fecha );
                 callableStatement .setString(3, clasificadora);
@@ -170,7 +144,7 @@
                 callableStatement .setString(27, aviarios);
                 callableStatement .setString(28, fechas_involucradas);
                 callableStatement .setString(29, tipo_reco);
-
+                callableStatement .setInt(30, cantidad_movimiento); 
                 callableStatement.registerOutParameter("estado_registro", java.sql.Types.INTEGER);
                 callableStatement.registerOutParameter("mensaje", java.sql.Types.VARCHAR);
                 callableStatement.execute();
@@ -183,10 +157,27 @@
                 else  
                 {
                     cn.commit();
-                     //cn.rollback(); 
+                 //    cn.rollback(); 
+                }
+                 if(mensaje.equals("DUPLICADO")){
+                        tipo_respuesta=2;
+                      
+                        //CANTIDAD EXCEDIDA
+                        ResultSet consulta_tipos_cargados=  fuente.obtenerDato("exec [mae_ptc_select_tipos_cargados] @cod_carrito='"+nrocarro+"'");
+
+                        while (consulta_tipos_cargados.next())
+                         {
+                             contenido_cajones_cargados=contenido_cajones_cargados+"<tr><td>"+consulta_tipos_cargados.getString("tipo_huevo")+"</td><td>"+
+                             consulta_tipos_cargados.getString("cantidad")+"</td><td>"+consulta_tipos_cargados.getString("fecha_puesta")+"</td><td>"+
+                             consulta_tipos_cargados.getString("clasificadora_actual")+"</td><td>"+consulta_tipos_cargados.getString("estado")+"</td></tr>";
+                             cantidad_bd=cantidad_bd+consulta_tipos_cargados.getInt("cantidad");
+                         } 
+                          mensaje="CANTIDAD EXCEDIDA, TOTAL DE CAJONES CARGADOS "+cantidad_bd;
+                         table_cuerpo="<table class='table'> "
+                         + "<thead> <tr>  <th>Tipo</th><th>Cantidad</th><th>Puesta</th><th>Area</th><th>Estado</th></tr> </thead>"
+                         + "<tbody>"+contenido_cajones_cargados+"</tbody></table> ";
                 }
                
-              }
             ob.put("mensaje", mensaje);
             ob.put("tipo_respuesta", tipo_respuesta);
             ob.put("cajones_cargados", table_cuerpo);

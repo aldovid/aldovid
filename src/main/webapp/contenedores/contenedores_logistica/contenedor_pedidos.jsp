@@ -37,23 +37,16 @@ LOG
    
     
         <div id="div_pedido"> 
-    <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
-
-    <select id="cbox_camion" class="btn btn-dark"  style="font-weight: bold;color:white;" onchange="separar_codigo_camion();">
-        <option value="-">CAMION</option>
-        <%while(rs.next())
-        { %><option id="<%=rs.getString("u_capacidad")%>_<%=rs.getString("code")%>" value="<%=rs.getString("u_capacidad")%>_<%=rs.getString("code")%>"><%=rs.getString("code")%>-<%=rs.getString("u_desc")%> </option><%  } %>
-    </select>
+  
      <a style="font-weight: bold;color:black">SELECCIONE CHOFER</a> 
-    <select id="cbox_chofer" class="btn btn-dark"  style="font-weight: bold;color:white;" onchange="separar_codigo_camion();">
-        <option value="-">CHOFER</option>
+    <select id="cbox_chofer" class="btn btn-dark"  style="font-weight: bold;color:white;" >
+        <option codigo="-"  value="-">CHOFER</option>
         <%while(rs2.next())
-        { %><option id="<%=rs2.getString("code")%>" value="<%=rs2.getString("code")%>"><%=rs2.getString("name")%> </option><%  } %>
+        { %><option codigo="<%=rs2.getString("code")%>" id="<%=rs2.getString("code")%>" value="<%=rs2.getString("code")%>"><%=rs2.getString("name")%> </option><%  } %>
     </select>
     
      
     
-    <a style="font-weight: bold;color:black">DISPONIBILIDAD:</a><input type="text" disabled id="txt_disponibilidad" style="font-weight: bold;color:black" value="0" >
     <a style="font-weight: bold;color:black">CARROS CARGADOS:</a><input type="text" disabled id="txt_cargados" style="font-weight: bold;color:black" value="0" >
     <input type="hidden" id="id_pedido"> 
     <input type="hidden" id="validacion_cantidades"> 
@@ -63,8 +56,8 @@ LOG
    
     
         <form  class="row align-items-end"  action="cruds/logistica/control_reporte_log_stock_ptc.jsp" target="_blank">
-            <input type="button" value="GENERAR PEDIDO" class="form-control col bg-success inline" id="btn_generar"style="font-weight: bold;color:white;"   >
-            <input type="submit" value="GENERAR REPORTE" class="form-control col bg-dark "  style="font-weight: bold;color:white;"   >
+            <input type="button" value="GENERAR PEDIDO"   onclick="registrar_pedido_log();"  class="form-control col bg-success inline" id="btn_generar"style="font-weight: bold;color:white;"   >
+            <input type="submit" value="GENERAR REPORTE"    class="form-control col bg-dark "  style="font-weight: bold;color:white;"   >
 
        </form> <br>
        
@@ -85,14 +78,28 @@ LOG
                        <b>0004-PAN-01032022-A</b>  <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                             <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                         </button>
+                       
+
                     </div>
                     <div class="modal-body">
                         
                         <a style="font-weight: bold;color:black">CARROS RESTANTES:</a><input type="text" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
-                        <div id="contenido_grillas"   class="table-responsive">
+                        <input type="button" value="Refrescar" class="btn bg-navy" onclick="generar_grilla_pedido_log(7)">
+                       <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
+
+                       <select class="btn btn-dark"  id="cbox_camion" style="font-weight: bold;color:white;" onchange="generar_grilla_pedido_log(6),$('#contenido_grillas').show()">
+                           <option  capacidad="0" codigo="0" disabled selected class="btn btn-dark" >CAMION</option>
+                        <%while(rs.next())
+                        { %><option capacidad="<%=rs.getString("u_capacidad")%>" codigo="<%=rs.getString("code")%>" class=" select_camion btn bg-dark <%=rs.getString("code")%>"  id="<%=rs.getString("code")%>" value="<%=rs.getString("code")%>"><%=rs.getString("code")%>-<%=rs.getString("u_desc")%> </option><%  } %>
+                    </select>
+                        <a style="font-weight: bold;color:black">DISPONIBILIDAD:</a><input type="text" disabled id="txt_disponibilidad" style="font-weight: bold;color:black" value="0" >
+
+                        <div id="contenido_grillas"   class="table-responsive" style="display: none">
 
                         </div>  
+                        <div id="contenido_grillas_mixto"   class="table-responsive">
 
+                        </div>  
                     </div>
                     <div class="modal-footer-full-width  modal-footer">
                         <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Cerrar</button>

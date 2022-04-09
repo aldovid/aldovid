@@ -22,6 +22,8 @@
 	<field name="fecha_clasificacion" class="java.lang.String"/>
 	<field name="tipo_recogida" class="java.lang.String"/>
 	<field name="clasificadora_actual" class="java.lang.String"/>
+	<field name="cod_interno" class="java.lang.Integer"/>
+	<field name="aviarios_involucrados" class="java.lang.String"/>
 	<variable name="cantidad_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
 	</variable>
@@ -317,6 +319,13 @@
 				<reportElement x="3" y="0" width="49" height="20" uuid="e50d7ea2-8b80-4f36-8d43-a39c545aaffa"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{cod_carrito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="198" y="0" width="86" height="20" uuid="3bb7345c-e8d9-4747-9fce-5b8c3234f83d"/>
+				<textElement>
+					<font size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aviarios_involucrados}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -91,7 +91,9 @@ function traer_control_embarque(id, calendario)
                     } else if (item.estado_liberacion == 'R' || item.estado_liberacion == 'Z') {
                         aviso_error_carro_retenido();
                     } else {
-                        cargar_grilla(item.cod_lote, item.tipo, item.nro_carrito, item.item_codigo, item.cantidad, item.fecha_puesta, item.estado, item.identificador_lote);
+                    cargar_grilla(item.cod_lote, item.tipo, item.nro_carrito, item.item_codigo, item.cantidad, item.fecha_puesta, item.estado, item.identificador_lote);
+                  // function cargar_grilla(cod_lote, tipo, nro_carrito, item_codigo, cantidad, fecha_puesta, estado, identificador)
+
                     }
                 }
             });

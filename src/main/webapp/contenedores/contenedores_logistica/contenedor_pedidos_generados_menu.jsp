@@ -9,9 +9,13 @@
     clases.controles.connectarBD();
     fuente.setConexion(clases.controles.connect);
     ResultSet rs,rs2;
-    rs = fuente.obtenerDato(" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy hh:mm') as fecha_registro,concat(code,'-',name) as camion "
-             + "                from mae_log_pct_cab_pedidos a "
-             + "                inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in (1,2)");  
+    rs = fuente.obtenerDato("   select "
+            + "                     a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy hh:mm') as fecha_registro,concat(b.code,'-',b.name) as camion,"
+            + "                     b.code as cod_camion,id_chofer,c.Name as nombre_chofer  "
+            + "                 from "
+            + "                     mae_log_ptc_cab_pedidos a  "
+            + "                     inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in (1,2)   "
+            + "                     inner join maehara.dbo.[@CHOFERES] C 	on a.id_chofer collate database_default=c.Code ");  
      String version=clases.versiones.contenedores_logistica_contenedor_pedidos_generados_menu;
      
 try {
@@ -41,6 +45,8 @@ LOG
                         <th>NRO PEDIDO</th> 
                         <th>FECHA</th> 
                         <th>CAMION</th> 
+                        <th>CHOFER</th> 
+                        <th>ACCION</th> 
                         <th>ACCION</th> 
                     </tr> 
                  </thead>
@@ -50,7 +56,8 @@ LOG
                             <td><%=rs.getString("id") %></td>
                             <td><%=rs.getString("fecha_registro") %></td>
                             <td><%=rs.getString("camion") %></td>
-                            <td><input type="button" value="IR AL PEDIDO" class="form-control btn-black" onclick="ir_pedido(2,<%=rs.getString("id")%>)"></td>
+                            <td><%=rs.getString("nombre_chofer") %></td>
+                            <td><input type="button" value="IR AL PEDIDO" class="form-control btn-black" onclick="ir_pedido_modificar_logistica(2,<%=rs.getString("id")%>,<%=rs.getString("cod_camion")%>,<%=rs.getString("id_chofer")%>)"></td>
                             <td><input type="button" value="ANULAR" class="form-control btn-danger" onclick="anular_pedido(<%=rs.getString("id")%>)"></td>
                         </tr>                             
                         <% }

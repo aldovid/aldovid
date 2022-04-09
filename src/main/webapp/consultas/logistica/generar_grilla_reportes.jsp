@@ -38,7 +38,7 @@
      
      if(estado.equals("7")){
         query =" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy HH:mm') as fecha_registro,concat(b.code,'-',b.name) as camion ,a.cantidad ,C.Name AS chofer  ,a.estado,d.descripcion as desc_estado,NRO_FACTURA                          "
-            + "from mae_log_pct_cab_pedidos a                         "
+            + "from mae_log_ptc_cab_pedidos a                         "
             + "inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in (1,2,5)					  "
             + " inner join maehara.dbo.[@CHOFERES] C ON A.id_chofer =C.Code collate database_default"
                 + " INNER JOIN mae_log_ptc_estados d on a.estado=d.id "
@@ -64,7 +64,7 @@
      }
      else if (estado.equals("5")) {
          query =" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy HH:mm') as fecha_registro,concat(b.code,'-',b.name) as camion ,a.cantidad ,C.Name AS chofer  ,a.estado  ,NRO_FACTURA                         "
-            + "from mae_log_pct_cab_pedidos a                         "
+            + "from mae_log_ptc_cab_pedidos a                         "
             + "inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado    in ("+estado+"  )					  "
             + " inner join maehara.dbo.[@CHOFERES] C ON A.id_chofer =C.Code collate database_default"
                  + " where convert(date,a.fecha_registro) between '"+fecha_desde+"' and '"+fecha_hasta+"' ";
@@ -85,7 +85,7 @@
      }
      else {
            query =" select a.id,FORMAT (a.fecha_registro, 'dd/MM/yyyy HH:mm') as fecha_registro,concat(b.code,'-',b.name) as camion ,a.cantidad ,C.Name AS chofer  ,a.estado ,NRO_FACTURA                          "
-            + "from mae_log_pct_cab_pedidos a                         "
+            + "from mae_log_ptc_cab_pedidos a                         "
             + "inner join maehara.dbo.[@CAMIONES] b    on a.id_camion=b.Code collate database_default and estado   in ("+estado+"  )					  "
             + " inner join maehara.dbo.[@CHOFERES] C ON A.id_chofer =C.Code collate database_default";
            

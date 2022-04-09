@@ -150,7 +150,21 @@
                     + rs2.getString("diferencia_porcen") + '%'+"</td></tr>";
                 
       
-                 } 
+                 }
+                if(rs2.getString("aviario").startsWith("H")){
+                grilla_html_h = grilla_html_h + "<tr class='tablagrilla'><td align='center'style= 'dislay: none; ';>"
+                    + rs2.getString("aviario") + "       </td> <td align='center' style= 'dislay: none; ';>  "
+                    + rs2.getString("lote_nombre") + "    </td><td align='center'  style= 'dislay: none; ';> " 
+                    + rs2.getString("edad_semanas") +" </td><td align='center'  style= 'dislay: none; ';>  "
+                    + rs2.getString("aves_acumulado") + "  </td><td align='center'  style= 'dislay: none;';>  " 
+                    + rs2.getString("balanceado") + "   </td><td align='center'  style= 'dislay: none; background-color:"+rs2.getString("color_gramo")  +"' ;>  " 
+                    + rs2.getString("gramo_ave") +  "    </td><td align='center'  style= 'dislay: none;  ';>  " 
+                    + rs2.getString("balan_pad") + "     </td><td align='center'  style= 'dislay: none; background-color:"+rs2.getString("color_diferencia")  +" ';>  "
+                    + rs2.getString("diferencia") + "     </td><td align='center'  style= 'dislay: none;background-color:"+rs2.getString("color_porcentaje")  +"';>  "
+                    + rs2.getString("diferencia_porcen") + '%'+"</td></tr>";
+                
+      
+                 }
               
                
             lote_id = rs2.getString("aviario");
@@ -163,26 +177,7 @@
          
 
         }
-        PreparedStatement ptt = clases.controles.connectSesion.prepareStatement("exec stp_mae_ppr_select_balanceados_bloque_H @ano='"+ano_mort+"',@mes='"+mes_mort+"'");
-        ResultSet rs3 = ptt.executeQuery();
-        while (rs3.next()) {
-           
-                 if(rs3.getString("aviario").startsWith("H")){
-                grilla_html_h = grilla_html_h + "<tr class='tablagrilla'><td align='center'style= 'dislay: none; ';>"
-                    + rs3.getString("aviario") + "       </td> <td align='center' style= 'dislay: none; ';>  "
-                    + rs3.getString("lote_nombre") + "    </td><td align='center'  style= 'dislay: none; ';> " 
-                    + rs3.getString("edad_semanas") +" </td><td align='center'  style= 'dislay: none; ';>  "
-                    + rs3.getString("aves_acumulado") + "  </td><td align='center'  style= 'dislay: none;';>  " 
-                    + rs3.getString("balanceado") + "   </td><td align='center'  style= 'dislay: none; background-color:"+rs3.getString("color_gramo")  +"' ;>  " 
-                    + rs3.getString("gramo_ave") +  "    </td><td align='center'  style= 'dislay: none;  ';>  " 
-                    + rs3.getString("balan_pad") + "     </td><td align='center'  style= 'dislay: none; background-color:"+rs3.getString("color_diferencia")  +" ';>  "
-                    + rs3.getString("diferencia") + "     </td><td align='center'  style= 'dislay: none;background-color:"+rs3.getString("color_porcentaje")  +"';>  "
-                    + rs3.getString("diferencia_porcen") + '%'+"</td></tr>";
-                
-      
-                 } 
-         
-        }
+        
         objet.put("grilla_a", miles+cabecera + grilla_html + "</tbody>  </table>  </div></center></div>  </div>" );
         objet.put("grilla_b", miles+cabecera_b + grilla_html_b + "</tbody>  </table> </div></center></div>  </div>" );
         objet.put("grilla_h", miles+cabecera_h + grilla_html_h + "</tbody>  </table> </div></center></div>  </div>" );
@@ -196,7 +191,7 @@
         objet.put("grilla", grilla_html);
         objet.put("grillacabecera", cabecera);
    
-        clases.controles.DesconnectarBDsession();             
+
         out.print(objet);
     } catch (Exception e) {
         String asda = e.getMessage();
