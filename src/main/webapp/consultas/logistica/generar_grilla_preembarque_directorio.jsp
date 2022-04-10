@@ -161,51 +161,89 @@
                 + "</tr>";
         }
         
+           
+       String titulo_estado="";
+       String tipo_huevo_cantidad="";
         
         
+    String Cab="  ";
+        String color_estrella="";
+        String icono="";
+        
+        
+           f=0;
         
          ResultSet rs4 = fuente.obtenerDato("select * from v_mae_log_reserva_directorio_mensaje order by estado ");
     String mensaje_div="";
+    String estado="";
       while(rs4.next())
         {
-            mensaje_div=mensaje_div+rs4.getString("ESTADO_tr");
+            //mensaje_div=mensaje_div+rs4.getString("ESTADO_tr");
+             if(f==0){
+                estado=rs4.getString("estado");
+                 
+                titulo_estado=rs4.getString("estado_desc");
+                tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
+                                icono=rs4.getString("icono");
+
+            }
+              else if(estado.equals(""))
+            {
+                estado=rs4.getString("estado");
+                titulo_estado=rs4.getString("estado_desc");
+                tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
+                icono=rs4.getString("icono");
+            }
+            else if(estado.equals(rs4.getString("estado")))
+             { 
+                estado=rs4.getString("estado");
+                 titulo_estado=rs4.getString("estado_desc");
+                tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
+                      color_estrella=rs4.getString("color_estrella");
+                icono=rs4.getString("icono");
+                   }
+             else 
+            { 
+            Cab=Cab+"    <div class='media'>           <div class='media-body'>            "
+            + "     <h3 class='dropdown-item-title'>"+titulo_estado+" <span class='float-right text-sm text-"+color_estrella+"'><i class='fas fa-star'></i></span>  </h3>          "
+            + tipo_huevo_cantidad    
+            + "     <p class='text-sm text-muted'><i class='"+icono+" mr-1'>        "
+            + "     </i> </p>  </div>  </div> <div class='dropdown-divider'></div>";
+            titulo_estado="";
+            tipo_huevo_cantidad="";
+            icono="";
+            titulo_estado=rs4.getString("estado_desc");
+            tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
+           color_estrella=rs4.getString("color_estrella");
+            icono=rs4.getString("icono");
+                estado=rs4.getString("estado");
+            }
+            f++;
          }
         
-        
-        
-        
-        
-    String asd="    <div class='media'>           <div class='media-body'>            "
-            + "     <h3 class='dropdown-item-title'>   En reserva <span class='float-right text-sm text-success'><i class='fas fa-star'></i></span>  </h3>          "
-            + "     <p class='text-sm'>Tipo J 360 Docenas </p>   <p class='text-sm text-muted'><i class='far fa-clock mr-1'>        "
+         if(f>0){ //LA ULTIMA FILA YA NO TRAE, ENTONCES CONSULTO SI EXISTIO ENTONCES TRAE.
+              Cab=Cab+"    <div class='media'>           <div class='media-body'>            "
+            + "     <h3 class='dropdown-item-title'>"+titulo_estado+" <span class='float-right text-sm text-"+color_estrella+"'><i class='fas fa-star'></i></span>  </h3>          "
+            + tipo_huevo_cantidad    
+            + "     <p class='text-sm text-muted'><i class='"+icono+" mr-1'>        "
             + "     </i> </p>  </div>  </div> <div class='dropdown-divider'></div>";
+        }
         
-        
-        
-        
-        
-        
+        int cantidad_mensaje=0;
+                 ResultSet rs6 = fuente.obtenerDato("select count(*) as contador from v_mae_log_reserva_directorio_mensaje  ");
+            while(rs6.next())
+                  {
+                  cantidad_mensaje=rs6.getInt("contador");
+              }
         ob.put("grilla",cabecera+grilla_html+"</tbody></table>");
         ob.put("grilla_mixto",cabecera_mixto+grilla_html2+"</tbody></table></div></div></div></div>");
-        ob.put("mensaje_div",mensaje_div);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        ob.put("mensaje_div",Cab);
+        ob.put("cantidad_mensaje",cantidad_mensaje);
         
         
         out.print(ob); 
      } catch (Exception e) {
+     String men=e.toString();
      }
 finally{
         clases.controles.DesconnectarBD();

@@ -28,7 +28,7 @@
             String nombre_usu = rs.getString("nombre");
             String clasificadora = rs.getString("clasificadora");
             String cod_usuario = rs.getString("cod_usuario");
-            
+            String notificacion="  <a class='nav-link  ' data-toggle='dropdown' href='#' aria-expanded='false'>  <i class='far fa-bell '></i>     <span class='badge badge-danger navbar-badge animacion' id='contador_notificacion'>0</span>    </a><div class='dropdown-menu dropdown-menu-lg dropdown-menu-right ' style='left: inherit; right: 0px;' id='notificacion'>   <span class='dropdown-item dropdown-header bg-navy'>Notificaciones</span>   </div>";
             HttpSession sesionOk = request.getSession();
             sesionOk.setAttribute("user_name", user_name);
             sesionOk.setAttribute("nombre_usuario", nombre_usu);
@@ -67,6 +67,12 @@
                 nav_area="<i class='fas fa-home'>SUBPRODUCTOS</i>";
                 area_form = "SUBPRODUCTOS";
             } 
+             else if (area.equals("D")) 
+            {
+                notificacion="";
+                nav_area="<i class='fas fa-home'>DIRECTORIO</i>";
+                area_form = "SUBPRODUCTOS";
+            } 
             else if (area.equals("O")) 
             {
                 nav_area="<i class='fas fa-home'>LAVADOS</i>";
@@ -77,6 +83,7 @@
             } 
             
             
+                sesionOk.setAttribute("notificacion",notificacion); 
                 sesionOk.setAttribute("titulo_reproceso",titulo_modulo_reproceso); 
                 sesionOk.setAttribute("area_cch", area_form);
                 sesionOk.setAttribute("area_fallas",area_fallas);

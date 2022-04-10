@@ -7,6 +7,9 @@
            String id_usuario = (String) sesionOk.getAttribute("id_usuario");
            String area  = (String) sesionOk.getAttribute("clasificadora");
            String nav_area  = (String) sesionOk.getAttribute("nav_area");
+           String notificacion  = (String) sesionOk.getAttribute("notificacion");
+           
+
         %> 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,22 +117,16 @@
                     </li>
                     <li class="nav-item dropdown ">
                         <!-- ESTO VA EN LA TABLA PADRE MODULO -->
-                        <a class="nav-link  " data-toggle="dropdown" href="#" aria-expanded="false">
-                            <i class="far fa-bell "></i>
-                            <span class="badge badge-danger navbar-badge animacion" id="contador_notificacion">0</span>
-                        </a>
+                         
                         <!--------------------------------------------------->   
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right " style="left: inherit; right: 0px;" id="notificacion">
-
-                            <span class="dropdown-item dropdown-header bg-navy">Notificaciones</span>
-                        </div>
+                         <%=notificacion%>
 
                     </li>
                     
                     <li class="nav-item dropdown show">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
+                        <span class="badge badge-danger navbar-badge" id="cantidad_mensaje">0</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                             <a href="#" class="dropdown-item" id="mensaje_div">

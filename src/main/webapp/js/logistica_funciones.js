@@ -307,6 +307,7 @@
                 $("#contenido_grilla").html(res.grilla);
                 $("#contenido_grilla_mixto").html(res.grilla_mixto);
                 $("#mensaje_div").html(res.mensaje_div);
+                $("#cantidad_mensaje").html(res.cantidad_mensaje);
                 
                 
                     ocultar_td_cyo_stock_directorio();
