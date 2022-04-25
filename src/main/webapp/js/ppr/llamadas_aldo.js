@@ -5,7 +5,9 @@ var ruta_grilla_ppr = "./grillas/ppr/";
 var ruta_vistas_general = "./contenedores/";
 var ruta_imagen_necropsias = "./necropsias_imagen/";
 var serial = 0;
-
+ function abc(){
+   //es una prueba  
+ }
 
 function registrar_usuario_ppr() {
     Swal.fire({
