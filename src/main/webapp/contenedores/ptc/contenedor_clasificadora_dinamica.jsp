@@ -5,13 +5,14 @@
 --%>
 
 <% 
-   String version= "";// clases.versiones.contenedores_ptc_informe_kpi_dinamico;
- 
+     String version=clases.versiones.contenedores_ptc_informe_kpi_dinamico;
+  
  %> 
+ --%>
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
-     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>')">
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>','DESCRIPCION:<%=clases.versiones.DESC_contenedores_ptc_informe_kpi_dinamico%>')">
     <label neme="label_contenido" id="label_contenido"><%=version%></label>  
 </div>
 </head>
@@ -32,9 +33,9 @@ PTC
                 <tr>
                     <th>DESDE</th>
                     <th>HASTA</th>
-                     <%-- 
+                    
                     <th>CLASIFICADORA</th>
-                     --%>
+                   
                     <th>SERIE(%)</th>
                     <%-- 
                     <th>TIPO RESULTADO</th>
@@ -52,21 +53,22 @@ PTC
                         <input type="date" id="fecha_hasta_cla" name="fecha_hasta_cla">
                     </td>
                     
-                    <%--
+                   
                     <td><select class="selectpicker" multiple data-live-search="true" id="clasif_cla" name="clasif_cla"  required="true" data-actions-box="true">
-                            <option class="text-center" value="A">A  </option>
-                            <option class="text-center" value="B">B  </option>
-                            <option class="text-center" value="H">H  </option>
-                            <option class="text-center" value="O">O  </option>
-                            <option class="text-center" value="S">S  </option>
+                            <option class="text-center" value="A">CCHA  </option>
+                            <option class="text-center" value="B">CCHB  </option>
+                            <option class="text-center" value="H">CCHH  </option>
+                            <option class="text-center" value="O">LAVADOS  </option>
+
                         </select></td>
                      
-    --%>
+ 
 
                     <td><select class="selectpicker" multiple data-live-search="true" id="categorias2_cla" name="categorias2_cla"  required="true" data-actions-box="true">
                             <option class="text-center" value=ptcc>   PTC</option>
-                            <option class="text-center" value=rpp> RP</option>
-                            <option class="text-center" value=pii>     PI</option>
+                            <option class="text-center" value=rpp> REPROCESO</option>
+                            <option class="text-center" value=pii>     SUBPRODUCTO</option>
+                            <option class="text-center" value=rr>     ROTOS</option>
                         </select>
                     </td>
                      <%-- 
@@ -104,3 +106,44 @@ PTC
 <div  id="div_graficop_clasificadora"  ></div>
 <div  id="div_graficop_total"  ></div>
 <div  id="div_principal_clasificadora"  ></div>
+<%-- 
+<script>
+  var ctx = document.getElementById('myChart');
+  
+  Chart.register(ChartDataLabels); // first way of registering the plugin, registers them for all your charts
+  
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    plugins: [ChartDataLabels], // second way of registering plugin, register plugin for only this chart
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [{
+        data: [12, 19, 3, 5, 2, 3],
+        label: 'Advisor Closed MTD',
+        backgroundColor: 'rgb(192,111,94)',
+        barThickness: 25,
+        datalabels: {
+          color: '#FFCE56'
+        }
+
+      }],
+    },
+    options: {
+      responsive: false,
+      plugins: {
+        datalabels: {
+          anchor: 'end', // remove this line to get label in middle of the bar
+          align: 'end',
+          formatter: (val) => (`${val}%`),
+          labels: {
+            value: {
+              color: 'blue'
+            }
+          }
+
+        }
+      }
+    }
+  });
+</script>
+--%>

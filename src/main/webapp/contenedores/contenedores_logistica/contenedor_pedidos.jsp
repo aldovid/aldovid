@@ -19,7 +19,7 @@
 <head>   
 <label  ><b></b></label> 
 <div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx" 
-     onclick="cargar_datos_modal_version('<%=version%> ','VERSION: <%=version%> ')">
+     onclick="cargar_datos_modal_version('<%=version%>','VERSION: <%=version%>','DESCRIPCION:<%=clases.versiones.desc_contenedores_logistica_contenedor_pedidos%>')">
     <label ><%=version%> </label>  
 </div>
 </head>
@@ -53,7 +53,9 @@ LOG
     <input type="hidden" id="validacion_tipos"> 
     
     <br> <br>
-   
+     <form  class="row align-items-end"  action="../../Yemsys/menu.jsp?#pprGraficoAviariosDinamico" target="_blank">
+            <input type="submit" value="ABRIR OTRA PESTAÑA"    class="form-control col bg-navy "  style="font-weight: bold;color:white;"   >
+    </form>
     
         <form  class="row align-items-end"  action="cruds/logistica/control_reporte_log_stock_ptc.jsp" target="_blank">
             <input type="button" value="GENERAR PEDIDO"   onclick="registrar_pedido_log();"  class="form-control col bg-success inline" id="btn_generar"style="font-weight: bold;color:white;"   >
@@ -87,13 +89,15 @@ LOG
                         <input type="button" value="Refrescar" class="btn bg-navy" onclick="generar_grilla_pedido_log(7)">
                        <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
 
-                       <select class="btn btn-dark"  id="cbox_camion" style="font-weight: bold;color:white;" onchange="generar_grilla_pedido_log(6),$('#contenido_grillas').show()">
+                        <select class="btn btn-dark"  id="cbox_camion" style="font-weight: bold;color:white;" onchange="generar_grilla_pedido_log(6),$('#contenido_grillas').show()">
                            <option  capacidad="0" codigo="0" disabled selected class="btn btn-dark" >CAMION</option>
                         <%while(rs.next())
                         { %><option capacidad="<%=rs.getString("u_capacidad")%>" codigo="<%=rs.getString("code")%>" class=" select_camion btn bg-dark <%=rs.getString("code")%>"  id="<%=rs.getString("code")%>" value="<%=rs.getString("code")%>"><%=rs.getString("code")%>-<%=rs.getString("u_desc")%> </option><%  } %>
-                    </select>
+                        </select>
                         <a style="font-weight: bold;color:black">DISPONIBILIDAD:</a><input type="text" disabled id="txt_disponibilidad" style="font-weight: bold;color:black" value="0" >
-
+                        <input type="button" value="Cancelar carga" class="btn bg-danger" onclick="cerar_pedido_log()">    
+                        <input type="hidden" id="filtro_tipo">
+                        
                         <div id="contenido_grillas"   class="table-responsive" style="display: none">
 
                         </div>  

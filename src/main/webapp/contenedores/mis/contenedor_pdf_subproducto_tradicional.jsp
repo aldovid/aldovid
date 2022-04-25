@@ -28,7 +28,7 @@ MIS
 
      <div class="input-append">  
         <a>FECHA DE RECEPCIÓN</a>
-        <input id="calendario_reporte_reproceso" name="calendario_reporte_reproceso" data-format="dd/mm/yyyy"  width="276" required="true"  />
+        <input id="calendario_reporte_reproceso" name="calendario_reporte_reproceso" class="datepicker" width="276" required="true"  />
      </div> 
     
     <br> 

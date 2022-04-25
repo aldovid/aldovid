@@ -17,7 +17,9 @@ $(document).ready(function () {
     
 });
 
- 
+ function test_2(){
+      $('input[type="search"]').val('ccha');
+  }
 function boton_atras() 
 {
     window.onhashchange = function () 
@@ -626,10 +628,10 @@ function formato_hora_input() {
     );
 }
 
-
-
-function cargar_datos_modal_version(ribbon,titulo)
+function cargar_datos_modal_version(ribbon,titulo,descripcion)
 {
    $("#ribbon_version").html(ribbon);      
    $("#ribbon_titulo").html(titulo); 
+   $("#ribbon_descripcion").html(""); 
+   $("#ribbon_descripcion").html(descripcion); 
 }   

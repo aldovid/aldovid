@@ -84,8 +84,7 @@ LOG
                     <div class="modal-body">
                         
                         <a style="font-weight: bold;color:black">CARROS RESTANTES:</a><input type="text" disabled id="txt_restantes" style="font-weight: bold;color:black" value="0" >
-                        <input type="button" value="Refrescar" class="btn bg-navy" onclick="generar_grilla_pedido_log(7)">
-                       <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
+                        <a style="font-weight: bold;color:black">SELECCIONE CAMION</a> 
 
                        <select class="btn btn-dark"  id="cbox_camion"  style="font-weight: bold;color:white;" onchange="generar_grilla_pedido_log(8),$('#contenido_grillas').show()">
                            <option  capacidad="0" codigo="0" disabled selected class="btn btn-dark" >CAMION</option>

@@ -38,42 +38,42 @@
         area_form="CYO"; 
     }
         String grilla_html="";
-        String cabecera=" <div id='div_grilla'  class='table_wrapper' >"
-            + "<div id='container' style='width: 1500px; margin: left;'>"
-            + "<div id='first' style=' width: 1000px; float: left; height: 700px;'> "
-            + " <table id='tb_preembarque' class='table table-bordered table-hover' style='width:50%'>"
+        String cabecera="  "
+            + " "
+            + " "
+            + " <table id='tb_preembarque' class='display compact' style='width: 100%;'>"
             + "<thead>"
             + " <tr>"
-            + "<th rowspan='2'  style='color: #fff; background: gray;'><b>Fecha puesta</b></th>  "
-            + " <th rowspan='2' ><b>Tipo</b></th>  "
-            + " <th colspan='10' class='text-center' style='color: #fff; background: green;  ' ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
+            + "<th rowspan='2'  style='color: #fff;' class='bg-navy'><b>Fecha puesta</b></th>  "
+            + " <th rowspan='2' class='bg-navy' ><b>Tipo</b></th>  "
+            + " <th colspan='10'  style='color: #fff;'   class='bg-navy text-center'  ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
             + " <tr>" 
-            + " <th  style='color: #fff; background: black;' >LIB</th>      <th style='color: #fff; background: black;' >Cant</th>"
-            + " <th  style='color: #fff; background: green;'>Acep</th>      <th style='color: #fff; background: green;' >Cant</th>"
-            + " <th  style='color: #fff; background: green;'>Invo</th>      <th  style='color: #fff; background: green;'>Cant</th>"
-            + " <th  style='color: #fff; background: green;'>LDO</th>      <th  style='color: #fff; background: green;'>Cant</th>  "
-            + " <th  style='color: #fff; background: green;'>Pallet</th>      <th  style='color: #fff; background: green;'>Cant</th>"
+            + " <th  style='color: #fff;   ' class='bg-navy'>LIB</th>      <th style='color: #fff;' class='bg-navy'>Cant</th>"
+            + " <th  style='color: #fff;  'class='bg-navy'>Acep</th>      <th style='color: #fff; 'class='bg-navy' >Cant</th>"
+            + " <th  style='color: #fff;  'class='bg-navy'>Invo</th>      <th  style='color: #fff;  'class='bg-navy'>Cant</th>"
+            + " <th  style='color: #fff;  'class='bg-navy'>LDO</th>      <th  style='color: #fff;  'class='bg-navy'>Cant</th>  "
+            + " <th  style='color: #fff;  'class='bg-navy'>Pallet</th>      <th  style='color: #fff;  'class='bg-navy'>Cant</th>"
             + " </tr>"
             + "</thead> <tbody >";
    
      if(area.equals("O"))
      {
          cabecera=" "
-            + "<div id='div_grilla'  class='table_wrapper' >"
-            + "<div id='container' style='width: 1500px; margin: left;'>"
-            + "<div id='first' style=' width: 1000px; float: left; height: 700px;'>  "
+            + " "
+            + " "
+            + "  "
             + "<table id='tb_preembarque' class='table table-bordered table-hover' style='width:50%'>"
             + "<thead>"
             + " <tr>"
-            + "<th rowspan='2'  style='color: #fff; background: gray;'><b>Fecha puesta</b></th>  "
+            + "<th rowspan='2'  style='color: #fff;'><b>Fecha puesta</b></th>  "
             + " <th rowspan='2' ><b>Tipo</b></th>  "
-            + " <th colspan='6' class='text-center' style='color: #fff; background: green;  ' ><b><a id='td_"+area_form+"'>"+area_form+ " </a></b></th>   </tr>"
+            + " <th colspan='6' class='text-center'   class='bg-navy'   ><b><a id='td_"+area_form+"'>"+area_form+ " </a></b></th>   </tr>"
             + " <tr>" 
-            + " <th  style='color: #fff; background: black;' >LIB</th>      <th style='color: #fff; background: black;' >Cant</th>"
-            + " <th  style='color: #fff; background: green;'>Acep</th>      <th style='color: #fff; background: green;' >Cant</th>"
-            + " <th  style='color: #fff; background: green;'>Invo</th>      <th  style='color: #fff; background: green;'>Cant</th>"
-            + " <th  style = 'display:none' style='color: #fff; background: green;' >LDO</th>      <th  style = 'display:none' style='color: #fff; background: green;'>Cant</th>  "
-            + " <th  style='color: #fff; background: green;'>Pallet</th>      <th  style='color: #fff; background: green;'>Cant</th>"
+            + " <th  style='color: #fff;  black;' >LIB</th>              <th style='color: #fff;' class='bg-navy' >Cant</th>"
+            + " <th  style='color: #fff;  'class='bg-navy'>Acep</th>     <th style='color: #fff;  'class='bg-navy' >Cant</th>"
+            + " <th  style='color: #fff;  'class='bg-navy'>Invo</th>     <th  style='color: #fff;  'class='bg-navy'>Cant</th>"
+            + " <th  style = 'display:none' style='color: #fff;  'class='bg-navy' >LDO</th>      <th  style = 'display:none' style='color: #fff;  'class='bg-navy'>Cant</th>  "
+            + " <th  style='color: #fff;  'class='bg-navy'>Pallet</th>      <th  style='color: #fff;  'class='bg-navy'>Cant</th>"
             + " </tr>"
             + "</thead> <tbody >";
      }
@@ -109,10 +109,10 @@
         while(rs3.next())
         {
             if(c==0){
-              grilla_tipos="<input type='text' id='"+rs3.getString("tipo_huevo")+"' texto='true' cantidad='"+rs3.getString("cantidad")+"' cargado='"+rs3.getString("cantidad")+"' tipo_huevo='"+rs3.getString("tipo_huevo")+"' value='"+rs3.getString("cantidad")+"' ><br>" ;  
+              grilla_tipos="<input type='hidden' id='"+rs3.getString("tipo_huevo")+"' texto='true' cantidad='"+rs3.getString("cantidad")+"' cargado='"+rs3.getString("cantidad")+"' tipo_huevo='"+rs3.getString("tipo_huevo")+"' value='"+rs3.getString("cantidad")+"' ><br>" ;  
             }
             else{
-              grilla_tipos=grilla_tipos+"<input type='text' id='"+rs3.getString("tipo_huevo")+"' texto='true' cantidad='"+rs3.getString("cantidad")+"' cargado='"+rs3.getString("cantidad")+"' tipo_huevo='"+rs3.getString("tipo_huevo")+"' value='"+rs3.getString("cantidad")+"' ><br>";  
+              grilla_tipos=grilla_tipos+"<input type='hidden' id='"+rs3.getString("tipo_huevo")+"' texto='true' cantidad='"+rs3.getString("cantidad")+"' cargado='"+rs3.getString("cantidad")+"' tipo_huevo='"+rs3.getString("tipo_huevo")+"' value='"+rs3.getString("cantidad")+"' ><br>";  
             }
             c++;
         }
@@ -120,7 +120,7 @@
 
         
         ob=new JSONObject();
-        ob.put("grilla",cabecera+grilla_html+"</tbody></table></div>");
+        ob.put("grilla",cabecera+grilla_html+"</tbody></table> ");
         ob.put("huevos_cargados",huevos_cargados);
         ob.put("grilla_tipos",grilla_tipos);
     } catch (Exception e) 

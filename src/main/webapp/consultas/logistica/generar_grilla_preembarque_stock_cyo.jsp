@@ -27,7 +27,7 @@
         area_form="CCHB"; 
     }
     else if(area.equals("H")){
-        area="CCHH"; 
+        area_form="CCHH"; 
     }
     else if(area.equals("O")){
         area_form="LAVADOS"; 
@@ -42,32 +42,34 @@
             + " <tr>"
             + "  "
             + " "
-            + " <th colspan='12' class='text-center' style='color: #fff; background: black;  ' ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
+            + " <th colspan='12'  style='color: #fff;'   class='bg-navy text-center'   ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
             + " <tr>" 
-            + "<th   style='color: #fff; background: black;'><b>Fecha puesta</b></th>"
-                + " <th  style='color: #fff; background: black;' ><b>Tipo</b></th>  "
-                + "<th  style='color: #fff; background: black;' >LIB</th>       "
-            + " <th  style='color: #fff; background: black;'>Acep</th>     "
-            + " <th  style='color: #fff; background: black;'>Invo</th>      "
-            + " <th  style='color: #fff; background: black;'>LDO</th>        "
-            + " <th  style='color: #fff; background: black;'>Pallet</th>    "
+            + "<th   style='color: #fff; ' class='bg-navy'><b>Fecha puesta</b></th>"
+                + " <th  style='color: #fff; ' class='bg-navy' ><b>Tipo</b></th>  "
+                + "<th  style='color: #fff; ' class='bg-navy' >LIB</th>       "
+            + " <th  style='color: #fff; ' class='bg-navy'>Acep</th>     "
+            + " <th  style='color: #fff; ' class='bg-navy'>Invo</th>      "
+            + " <th  style='color: #fff; ' class='bg-navy'>LDO</th>        "
+            + " <th  style='color: #fff; ' class='bg-navy'>Pallet</th>    "
             + " </tr>"
             + "</thead> <tbody >";
    
      if(area.equals("O"))
      {
-         cabecera=  "<table id='tb_preembarque' class='display compact hover cell-border stripe' style='width:50%'>"
+         cabecera= 
+            "<table id='tb_preembarque' class='display compact hover cell-border stripe' style='width:50%'>"
             + "<thead>"
             + " <tr>"
             + "  "
             + " "
-            + " <th colspan='12' class='text-center' style='color: #fff; background: black;  ' ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
-            + " <tr>"  
-            + " <th  style='color: #fff; background: black;' >LIB</th>     "
-            + " <th  style='color: #fff; background: black;'>Acep</th>   "
-            + " <th  style='color: #fff; background: black;'>Invo</th>      "
-            + " <th  style = 'display:none' style='color: #fff; background: black;' >LDO</th>        "
-            + " <th  style='color: #fff; background: black;'>Pallet</th>     "
+            + " <th colspan='12'  style='color: #fff;'   class='bg-navy text-center'   ><b><a id='td_"+area_form+"'>"+area_form+ "</a></b></th>   </tr>"
+            + " <tr>" 
+            + "<th   style='color: #fff; ' class='bg-navy'><b>Fecha puesta</b></th>"
+                + " <th  style='color: #fff; ' class='bg-navy' ><b>Tipo</b></th>  "
+                + "<th  style='color: #fff; ' class='bg-navy' >LIB</th>       "
+            + " <th  style='color: #fff; ' class='bg-navy'>Acep</th>     "
+            + " <th  style='color: #fff; ' class='bg-navy'>Invo</th>      "
+             + " <th  style='color: #fff; ' class='bg-navy'>Pallet</th>    "
             + " </tr>"
             + "</thead> <tbody >";
      }
@@ -90,9 +92,102 @@
          
 
         
+        
+           String cabecera_mixto="  "
+                      + " <table id='tb_preembarque_mixto' class='display compact' style='width:100%'>"
+            + "<thead>"
+               + " <tr>"
+            + "<th colspan='6'  style='color: #fff; '  class='text-center bg-navy'  ><b>CARROS MIXTOS</b></th>  </tr>"
+            + "<tr>"
+            + "<th  style='color: #fff;' class='bg-navy'>CARRO</th>      "
+               + "<th style='color: #fff; ' class='bg-navy' >AREA</th>"
+               + "<th style='color: #fff; ' class='bg-navy' >PUESTA</th>"
+               + "<th style='color: #fff; ' class='bg-navy' >DETALLE CAJONES</th>"
+              + "</tr>"
+            + "</thead> <tbody > ";
+              
+              
+              
+              
+     String grilla_html2 ="";  
+    ResultSet     rs5 = fuente.obtenerDato("select cod_carrito,cantidad_caj,clasificadora_actual,convert(varchar,fecha_puesta,103) as fecha_puesta,tipo_huevo "
+                 + "from v_mae_log_stock_pedidos_maehara_cajones"
+                 + " where clasificadora_actual='"+area_form+"'  and  cod_carrito not in (select cod_carrito from  mae_log_ptc_det_pedidos2 with(nolock) where estado in (1,2) and u_medida='MIXTO') order by 1,4");
+        String cod_carrito="";
+        String cajones_unidos="";
+        String fp_unido="";
+        String area_unido="";
+        String cod_carro_bd="";
+        String tipo_huevo_bd="";
+        int f=0;
+        while(rs5.next())
+        {
+           cod_carro_bd=rs5.getString("cod_carrito");
+           tipo_huevo_bd=rs5.getString("tipo_huevo");
+           
+           if(f==0){
+              cod_carrito=rs5.getString("cod_carrito");
+                fp_unido=rs5.getString("fecha_puesta");
+                area_unido=rs5.getString("clasificadora_actual");
+                cajones_unidos=cajones_unidos+rs5.getString("tipo_huevo")+":"+rs5.getString("cantidad_caj"); 
+           }
+           else if(cod_carrito.equals(""))
+            {
+                cod_carrito=fp_unido;
+                fp_unido=fp_unido;
+                area_unido=area_unido;
+                cajones_unidos=cajones_unidos;
+            }
+            else if(cod_carrito.equals(rs5.getString("cod_carrito")))
+            {
+                 cajones_unidos=cajones_unidos+","+rs5.getString("tipo_huevo")+":"+rs5.getString("cantidad_caj");
+            }
+            else
+            {
+                grilla_html2=grilla_html2+ 
+                "<tr>" + 
+                "<td style='font-weight:bold' >"+cod_carrito+"</td>"+  
+                "<td style='font-weight:bold'  >"+area_unido+"</td>"+   
+                "<td style='font-weight:bold'  >"+fp_unido+"</td>"+ 
+                "<td style='font-weight:bold' class='something' >"+cajones_unidos+"</td>"+ " "
+                 + "</tr>";
+                cod_carrito="";
+                cajones_unidos="";
+                fp_unido="";
+                area_unido="";
+                
+                cod_carrito=rs5.getString("cod_carrito");
+                fp_unido=rs5.getString("fecha_puesta");
+                area_unido=rs5.getString("clasificadora_actual");
+                cajones_unidos=cajones_unidos+rs5.getString("tipo_huevo")+":"+rs5.getString("cantidad_caj");
+                
+            }
+            f++; 
+        }
+        
+        if(f>0){ //LA ULTIMA FILA YA NO TRAE, ENTONCES CONSULTO SI EXISTIO ENTONCES TRAE.
+             grilla_html2=grilla_html2+ 
+                "<tr>" + 
+                "<td style='font-weight:bold' >"+cod_carrito+"</td>"+  
+                "<td style='font-weight:bold'  >"+area_unido+"</td>"+   
+                "<td style='font-weight:bold'  >"+fp_unido+"</td>"+ 
+                "<td style='font-weight:bold' class='something' >"+cajones_unidos+"</td>"+ " "
+                 + "</tr>";
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         ob=new JSONObject();
         ob.put("grilla",cabecera+grilla_html+"</tbody></table>");
-         
+        ob.put("grilla_mixto",cabecera_mixto+grilla_html2+"</tbody></table> ");
     } catch (Exception e) 
     {
         String error=e.getMessage();

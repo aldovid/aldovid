@@ -93,12 +93,11 @@
             + "</table> </div>"
             + " <div id='div_grilla' style=' margin: left; height: 700px;'  >"
             
-            + "<div id='container'   margin: left;'>"
+            + "<div id='container'  style='width:100%'  >"
             + ""
-            + ""
-            + "<div id='first' style='  float: left; '> "
+             + "<div id='first'style='width:100%'  > "
             
-            + "<table id='tb_preembarque' class='stripe order-column dataTable no-footer ' style='width:50%'>"
+            + "<table id='tb_preembarque' class=' compact   ' style='width:100%'>"
             + "<thead>"
             + " <tr >"
                 + " <th rowspan='1'     style='color: #fff; background:     black;' ><b> </b></th>  "
@@ -139,7 +138,7 @@
                 + " <th  style='color: #fff; background: black;'>Pal    </th>      <th  style='color: #fff; background: black;'>Cant</th>   <th  style='color: #fff; background: black;'>Res</th>"
             + "</tr>"
             + "</thead> <tbody >";
-      rs = fuente.obtenerDato(" exec mae_log_stock_pedidos_maehara_3 @tipo=2 ,@id_pedido="+id_pedido);
+      rs = fuente.obtenerDato(" exec mae_log_stock_pedidos_maehara_3 @tipo=3 ,@id_pedido="+id_pedido);
      
       while(rs.next())
         {

@@ -2,7 +2,7 @@
     {
             $.ajax({
                         type: "POST",
-                        url: ruta_contenedores+pagina,
+                        url: ruta_contenedores+pagina+"",
                         beforeSend: function() 
                         {
                             cargar_load();
@@ -150,6 +150,7 @@
             url: ruta_contenedores+'contenedor_pedidos_cyo.jsp',
             beforeSend: function() 
             {
+                    cargar_load();
                 $("#contenedor_principal").html("");
             },           
             success: function (res) 
@@ -176,6 +177,7 @@
             url: ruta_contenedores+'contenedor_pedidos_stock_cyo.jsp',
             beforeSend: function() 
             {
+                    cargar_load();
                 $("#contenedor_principal").html("");
             },           
             success: function (res) 
@@ -242,18 +244,26 @@
             },           
             success: function (res) 
             {
-                $("#contenido_grilla").html(res.grilla);
-                 $("#tb_preembarque").DataTable(
+                $("#contenido_grilla").html(res.grilla + res.grilla_mixto);
+                    $("#tb_preembarque").DataTable(
                     {   
-                       
                         paging: false,
-                        
                         "language":
-                                {
-                                    "sUrl": "js/Spanish.txt"
-                                },
+                        {
+                            "sUrl": "js/Spanish.txt"
+                        },
                    
-                    });        
+                    });     
+                    
+                     $("#tb_preembarque_mixto").DataTable(
+                    {   
+                        paging: false,
+                        "language":
+                        {
+                            "sUrl": "js/Spanish.txt"
+                        },
+                   
+                    });   
                      grilla_funciones_cyo();
             },
             error: function (error) 
@@ -319,6 +329,15 @@
                             "sUrl": "js/Spanish.txt"
                         },
                     });   
+                    
+                      $("#tb_preembarque_mixto").DataTable(
+                {   
+                    paging: false,
+                    "language":
+                        {
+                            "sUrl": "js/Spanish.txt"
+                        },
+                    }); 
                     cerrar_load();
   
             },

@@ -25,45 +25,45 @@
      String cabecera="   "
            
             
-             + "<table id='tb_preembarque' class='compact ' style='width:100%'>"
+             + "<table id='tb_preembarque' class='display compact '  >"
             + "<thead>"
             + " <tr >"
-                + " <th rowspan='1'     style='color: #fff; background:     black;' ><b> </b></th>  "
-                + " <th rowspan='1'     style='color: #fff; background:     brown;font-weight:bold'  ><b></b></th>  "
-                + " <th colspan='10' class='text-center'    id='th_ccha' style='color: #fff; background: black;'     ><b>    <a id='td_ccha'>CCHA TOTAL CARGADOS:0   </a></b></th>   "
-                + " <th colspan='10' class='text-center'    id='th_cchb'  style='color: #fff; background: green;'     ><b>    <a id='td_cchb'>CCHB TOTAL CARGADOS:0   </a></b></th>   "
-                + " <th colspan='10' class='text-center'    id='th_cchh' style='color: #fff; background: black;'     ><b>    <a id='td_cchh'>CCHH TOTAL CARGADOS:0   </a></b></th>   "
-                + " <th colspan='8' class='text-center'     id='th_ovo'  style='color: #fff; background: green;'     ><b>    <a id='td_ovo'>LAVADOS TOTAL CARGADOS:0 </a></b></th>   "
-                + " <th colspan='10' class='text-center'    id='th_cyo'  style='color: #fff; background: black;'     ><b>    <a id='td_cyo'>CYO TOTAL CARGADOS:0     </a></b></th>   "
+                + " <th rowspan='1'     style='color: #fff;' class='bg-dark' ><b> </b></th>  "
+                + " <th rowspan='1'     style='color: #fff;font-weight:bold'  class='bg-red'><b></b></th>  "
+                + " <th colspan='10' class='text-center bg-dark '    id='th_ccha' style='color: #fff;  '     ><b>    <a id='td_ccha'>CCHA CARROS DOCENAS   </a></b></th>   "
+                + " <th colspan='10' class='text-center bg-navy'    id='th_cchb'  style='color: #fff; '      ><b>    <a id='td_cchb'>CCHB CARROS DOCENAS   </a></b></th>   "
+                + " <th colspan='10' class='text-center  bg-dark'    id='th_cchh' style='color: #fff;  '     ><b>    <a id='td_cchh'>CCHH CARROS DOCENAS  </a></b></th>   "
+                + " <th colspan='8' class='text-center bg-navy'      id='th_ovo'  style='color: #fff;      ><b>    <a id='td_ovo'>LAVADOS CARROS DOCENAS </a></b></th>   "
+                + " <th colspan='10' class='text-center  bg-dark'    id='th_cyo'  style='color: #fff; '     ><b>    <a id='td_cyo'>CYO CARROS DOCENAS     </a></b></th>   "
             + "</tr>"
             
             + " <tr>" 
-                + " <th       style='color: #fff; background:     black;'   > Fecha puesta  </th>     "
-                + " <th     style='color: #fff; background:     brown;font-weight:bold' >  Tipo  </th>       "
-                + " <th  style='color: #fff; background: black;' >LIB   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Acep   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Invo   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>LDO    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Pal    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: green;' >LIB   </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Acep   </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Invo   </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>LDO    </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Pal    </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>LIB    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Acep   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Invo   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>LDO    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Pal    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>LIB    </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Acep   </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Invo   </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: green;'>Pal    </th>        <th  style='color: #fff; background: green;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>LIB    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Acep   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Invo   </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>LDO    </th>        <th  style='color: #fff; background: black;'>Res</th>"
-                + " <th  style='color: #fff; background: black;'>Pal    </th>        <th  style='color: #fff; background: black;'>Res</th>"
+                + " <th       style='color: #fff; ' class='bg-dark'  > Fecha puesta  </th>     "
+                + " <th     style='color: #fff; ;font-weight:bold' class='bg-red'>  Tipo  </th>       "
+                + " <th  style='color: #fff; ' class='bg-dark' >LIB   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Aceptado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Involucrado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>LDO    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Pal    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy' >LIB   </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Aceptado   </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Involucrado   </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>LDO    </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Pal    </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>LIB    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Aceptado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Involucrado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>LDO    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Pal    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>LIB    </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Aceptado   </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Involucrado   </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-navy'>Pal    </th>        <th  style='color: #fff; ' class='bg-navy'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>LIB    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Aceptado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Involucrado   </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>LDO    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
+                + " <th  style='color: #fff; ' class='bg-dark'>Pal    </th>        <th  style='color: #fff; ' class='bg-dark'>Res</th>"
             + "</tr>"
             + "</thead> <tbody >";
        rs = fuente.obtenerDato("exec [mae_log_select_reserva_directorio]  ");
@@ -77,22 +77,22 @@
         
 
               String cabecera_mixto="<div id='second'  style='width:50%'  '> "
-                      + " <table id='tb_preembarque_mixto' class='stripe order-column dataTable no-footer' style='width:100%'>"
+                      + " <table id='tb_preembarque_mixto'  class='display compact '   >"
             + "<thead>"
                + " <tr>"
-            + "<th colspan='6'  style='color: #fff; background: black;'  class='text-center'  ><b>CARROS MIXTOS</b></th>  </tr>"
+            + "<th colspan='6'  style='color: #fff;  '  class='text-center  bg-dark'  ><b>CARROS MIXTOS DOCENAS</b></th>  </tr>"
             + "<tr>"
-            + "<th  style='color: #fff; background: black;'>CARRO</th>      "
-               + "<th style='color: #fff; background: green;' >AREA</th>"
-               + "<th style='color: #fff; background: green;' >PUESTA</th>"
-               + "<th style='color: #fff; background: green;' >DETALLE CAJONES</th>"
-               + "<th style='color: #fff; background: green;' >ESTADO</th>"
+            + "<th  style='color: #fff;'class='bg-navy'>CARRO</th>      "
+               + "<th style='color: #fff;' class='bg-navy' >AREA</th>"
+               + "<th style='color: #fff; ' class='bg-navy' >PUESTA</th>"
+               + "<th style='color: #fff; ' class='bg-navy' >DETALLE CAJONES</th>"
+               + "<th style='color: #fff; ' class='bg-navy' >ESTADO</th>"
              + "</tr>"
             + "</thead> <tbody > ";
               
                       
         String grilla_html2 ="";  
-         rs2 = fuente.obtenerDato("   select * from v_mae_log_mixtos_directorio order by 1,4");
+         rs2 = fuente.obtenerDato("   select * from v_mae_log_mixtos_directorio order by   fecha_puesta asc,cod_carrito");
         String cod_carrito="";
         String cajones_unidos="";
         String fp_unido="";
@@ -181,10 +181,10 @@
             //mensaje_div=mensaje_div+rs4.getString("ESTADO_tr");
              if(f==0){
                 estado=rs4.getString("estado");
-                 
                 titulo_estado=rs4.getString("estado_desc");
                 tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
-                                icono=rs4.getString("icono");
+                icono=rs4.getString("icono");
+                      color_estrella=rs4.getString("color_estrella");
 
             }
               else if(estado.equals(""))
@@ -193,6 +193,7 @@
                 titulo_estado=rs4.getString("estado_desc");
                 tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
                 icono=rs4.getString("icono");
+                      color_estrella=rs4.getString("color_estrella");
             }
             else if(estado.equals(rs4.getString("estado")))
              { 
@@ -214,7 +215,7 @@
             icono="";
             titulo_estado=rs4.getString("estado_desc");
             tipo_huevo_cantidad=tipo_huevo_cantidad+"<p class='text-sm'>"+rs4.getString("titulo_desc")+"</p>"; 
-           color_estrella=rs4.getString("color_estrella");
+            color_estrella=rs4.getString("color_estrella");
             icono=rs4.getString("icono");
                 estado=rs4.getString("estado");
             }

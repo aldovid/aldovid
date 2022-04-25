@@ -46,7 +46,7 @@ MIS
      <br> <br>
             <div class="input-append">  
             <span class="input-group-addon">Fecha de clasificación</span>
-            <input id="calendario_mesa" name="calendario_mesa" data-format="dd/mm/yyyy"  width="276"  value="<%=rs.getString(1)%>"   />
+            <input id="calendario_mesa" name="calendario_mesa"  class="datepicker"    />
            
           
             <%}

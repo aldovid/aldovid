@@ -157,8 +157,6 @@ function consulta_clasificadora_dinamico_ptc2(serial2)
 function generar_cuadros_consultas_clasificadora_dinamicos_ptc() {
 
     serial2++;
-    var navy="card-navy";
-    var warning="card-warning"
     var idcyo="'#datoscyo"+serial2+"'";
     var outerhtml="'outerHTML'";
     var html = '<div class="card card-warning "style="width:100%;height:100%">    <div class="card-header">   <center><h3 class="card-title"> Cuadro ' + serial2 + '</h3></center>    <div class="card-tools">    <button type="button" class="btn btn-tool" data-card-widget="collapse">      <i class="fas fa-minus"></i>     </button>     <button type="button" class="btn btn-tool"  data-card-widget="remove">        <i class="fas fa-times"></i>   </button>   </div>     </div>      <div class="card-body">\n\
@@ -189,9 +187,10 @@ function generar_cuadros_consultas_clasificadora_dinamicos_ptc() {
                             </td>   \n\
                             <td>\n\
                                 <select class="selectpicker" multiple data-live-search="true" name="categorias2_cla" required="true" data-actions-box="true"> \n\
-                                    <option value=ptcc>Ptc</option> \n\
-                                    <option value=rpp>Rp</option> \n\
-                                    <option value=pii>Pi</option>   \n\
+                                    <option value=ptcc>PTC</option> \n\
+                                    <option value=rpp>REPROCESO</option> \n\
+                                    <option value=pii>SUBPRODUCTO</option>   \n\
+                                    <option value=rr>ROTOS</option>   \n\
                                 </select> \n\
                             </td>\n\
                             <td>\n\
@@ -252,3 +251,4 @@ function ExportToExcel_cyo_ptc(htmlExport) {
         document.body.removeChild(link);
     }
 }
+

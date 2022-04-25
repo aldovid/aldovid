@@ -23,7 +23,7 @@
                
                     
             int verificador_SAP=0;
-             rs_GM = fuente_GM.obtenerDato(" select *,convert(varchar,fecha_puesta,103) as fecha_puesta_form from   v_mae_ptc_reprocesos  where clasificadora_actual ='"+area+"'  AND cod_carrito='"+carro+"'") ;
+             rs_GM = fuente_GM.obtenerDato(" select *,convert(varchar,fecha_puesta,103) as fecha_puesta_form,desFallaZona from   v_mae_ptc_reprocesos  where clasificadora_actual ='"+area+"'  AND cod_carrito='"+carro+"'") ;
         while(rs_GM.next())
         {      
             ob=new JSONObject();
@@ -32,6 +32,8 @@
             ob.put("cod_carrito", rs_GM.getString("cod_carrito"));
             ob.put("cantidad", rs_GM.getString("cantidad"));
             ob.put("fecha_puesta", rs_GM.getString("fecha_puesta_form"));
+            ob.put("descfalla", rs_GM.getString("desFallaZona"));
+            ob.put("clasificadora_origen", rs_GM.getString("clasificadora_origen"));
             verificador_SAP++;
             jarray.put(ob);  
         }
@@ -47,6 +49,8 @@
             ob.put("estado", "0");
             ob.put("motivo", "0");
             ob.put("estado_costeo", "0");
+            ob.put("descfalla", "0");
+            ob.put("clasificadora_origen", "0");
             jarray.put(ob);  
         }
         rs_GM.close();

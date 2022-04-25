@@ -14,8 +14,11 @@ public class versiones {
     public static String contenedores_embarque_registro_embarque                                    ="0003-REP-15032022-A"; 
     
     
-   public static String contenedores_logistica_contenedor_pedidos                                   ="0004-REP-15032022-A"; 
-   public static String contenedores_logistica_contenedor_pedidos_generados_menu                    ="0005-REP-15032022-A"; 
+   public static String contenedores_logistica_contenedor_pedidos                                   ="0070-PAN-09042022-A"; 
+   public static String desc_contenedores_logistica_contenedor_pedidos                              ="SE AGREGO COLUMNA RESERVAS PARA PEDIDOS Y BOTON DE REFRESCAR PEDIDO POR CAMION"; 
+   
+   public static String contenedores_logistica_contenedor_pedidos_generados_menu                    ="0071-PAN-09042022-A";
+   public static String desc_contenedores_logistica_contenedor_pedidos_generados_menu               ="EN MODIFICACION SE AGREGO COLUMNA PARA RESERVAS";
    public static String contenedores_logistica_contenedor_pedidos_facturar                          ="0006-REP-15032022-A"; 
    public static String contenedores_logistica_contenedor_pedidos_generados_cyo                     ="0007-REP-15032022-A"; 
    public static String contenedores_logistica_contenedor_reporte                                   ="0008-REP-15032022-A"; 
@@ -94,8 +97,11 @@ public class versiones {
       
    public static String contenedores_ppr_vista_informe_mortandad_mensual                            ="0069-REP-18032022-A"; 
    public static String contenedores_ppr_vista_registro_necropsias                                  ="0070-REP-18032022-A"; 
+  public static String contenedores_ptc_informe_kpi_dinamico                                        ="0069-REP-09042022-A";
+  public static String DESC_contenedores_ptc_informe_kpi_dinamico                                   ="Nuevo";
+  public static String contenedores_ptc_stock_cyo                                                   ="0072-PAN-09042022-A";
   
   
-  
-  
+     public static String contenedores_stok_vimar_directorio                                          ="0072-PAN-09042022-A"; 
+
 }

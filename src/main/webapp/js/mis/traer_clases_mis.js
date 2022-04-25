@@ -16,6 +16,21 @@ function traer_eliminar_mis()
 
     });
 }
+
+function traer_eliminar__subproducto_tradi_mis()
+{window.location.hash = "misEliminar_tradicional";
+    $.get(ruta_contenedores_mis + 'contenedor_eliminar_subproducto_tradi.jsp', function (res) {
+        $("#contenedor_principal").html('');
+        $("#contenedor_principal").html(res);
+
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
+        elminar_fila();
+        
+
+    });
+}
+
+
 function traer_detalle_eliminar_mis(fecha) {
     $.get(ruta_grillas_mis + 'grilla_eliminar.jsp', {fecha: fecha}, function (res) {
 
@@ -27,6 +42,17 @@ function traer_detalle_eliminar_mis(fecha) {
     });
 }
   
+  
+function traer_detalle_eliminar_tradicional_mis(fecha) {
+    $.get(ruta_grillas_mis + 'grilla_eliminar_tradicional_subproducto.jsp', {fecha: fecha}, function (res) {
+
+        $("#div_eliminar").html('');
+        $("#div_eliminar").html(res);
+        $("#grilla_eliminar").DataTable();
+
+
+    });
+}
 function ir_registro_tipo_reproceso_mis() {
     window.location.hash = "panelRegistroReproceso";
     $.get(ruta_contenedores_mis + 'contenedor_registro_tipo_reproceso.jsp', function (data) {
@@ -137,9 +163,7 @@ function ir_registro_sp_tradicional() {
     $.get(ruta_contenedores_mis + 'contenedor_registro_tradicional_supro.jsp', function (res) {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
-
-        $('#calendario_registro').datepicker();
-        $('#fecha_puesta').datepicker();
+        cargar_estilo_calendario_insert("yyyy/mm/dd")
         inicializar_unidad_medida_mis();
     });
 }
@@ -183,7 +207,9 @@ function ir_carro_a_mesa() {
         $("#contenedor_principal").html('');
         $("#contenedor_principal").html(res);
 
-        $("#calendario_mesa").datepicker();
+      //  $("#calendario_mesa").datepicker();
+        
+        cargar_estilo_calendario_insert("dd/mm/yyyy");
     });
 }
 
@@ -239,6 +265,7 @@ function llenar_grilla_pendientes_alimentacion_mis()
         drawCallback: function () //SIRVE PARA QUE AL TIPEAR EL FILTRO SE EJECUTE
         {
             var sum = $('#example').DataTable().column(2, {filter: 'applied'}).data().sum();
+            
             $('#total').html((sum).toLocaleString().replace(/,/g, ".", ));
         }, "language": {
             "sUrl": "plugins/Spanish.txt"}, "pageLength": 100,
@@ -469,6 +496,7 @@ function enviar_datos_lotes_tradicionales(total) {
                             if (data.tipo_respuesta == "1")
                             {
                                 Swal.fire(data.mensaje, '', 'success');
+                                $("#contenedor_principal").html("");
 
                              } else
                             {
@@ -480,6 +508,33 @@ function enviar_datos_lotes_tradicionales(total) {
     });
 }
 
+          function ir_pagina_reporte_sub_tradicional()
+    {
+            $.ajax({
+                        type: "POST",
+                        url: ruta_contenedores_mis+"contenedor_pdf_subproducto_tradicional.jsp",
+                        beforeSend: function() 
+                        {
+                            cargar_load();
+                            $("#contenedor_principal").html("");
+                        },           
+                        success: function (res) 
+                        {
+                            $("#contenedor_principal").html(res);
+
+                            cerrar_load()
+                            cargar_estilo_calendario_insert("dd/mm/yyyy");
+                            cerrar_load();
+                         },
+                        error: function (error) 
+                        {
+                         cerrar_load()
+                        // alert("HA OCURRIDO UN ERROR, INTENTE DE NUEVO.")
+                        aviso_generico(2,'HA OCURRIDO UN ERROR, INTENTE DE NUEVO.');
+                        }
+                });  
+    }
+    
 function enviar_datos_lotes(total) {
     Swal.fire({
         title: 'CONFIRMACION',

@@ -25,28 +25,26 @@
      String tipo_registro="";
     String mensaje="";
     String passactual         = request.getParameter("passactual");   
-    //incriptar nueva pass
-    MessageDigest m = MessageDigest.getInstance("MD5");
+    
+    /*MessageDigest m = MessageDigest.getInstance("MD5");
     m.reset();
     m.update(passnueva.getBytes());
     byte[] digest = m.digest();
     BigInteger bigInt = new BigInteger(1,digest);
     String clavehASH = bigInt.toString(16);
-      //desencriptar nueva pass
-       MessageDigest mpassactual = MessageDigest.getInstance("MD5");
+        MessageDigest mpassactual = MessageDigest.getInstance("MD5");
     mpassactual.reset();
     mpassactual.update(passactual.getBytes());
     byte[] digest2 = mpassactual.digest();
     BigInteger bigInt2 = new BigInteger(1,digest2);
-    String clavehASH2 = bigInt2.toString(16);
+    String clavehASH2 = bigInt2.toString(16);*/
        try 
     {
-        clases.controles.connectSesion.setAutoCommit(false);
-        CallableStatement  call;   
+         CallableStatement  call;   
                 call = clases.controles.connectSesion.prepareCall("{call  [stp_mae_ppr_nueva_pass] (?,?,?,?,?)}");
                 call .setInt(1,  Integer.parseInt(id_usuario) );
-                call.setString(2, clavehASH2);
-                call.setString(3, clavehASH);
+                call.setString(2, passactual);
+                call.setString(3, passnueva);
                 call.registerOutParameter(4, java.sql.Types.VARCHAR);
                 call.registerOutParameter(5, java.sql.Types.VARCHAR);
                 call.execute(); 
@@ -58,10 +56,10 @@
     
            }
            finally { 
- clases.controles.DesconnectarBDsession();
- ob.put("mensaje", mensaje);
-                      ob.put("tipo_registro",tipo_registro );
-                      out.print(ob);
+                    clases.controles.DesconnectarBDsession();
+                    ob.put("mensaje", mensaje);
+                    ob.put("tipo_registro",tipo_registro );
+                    out.print(ob);
                       
                    }
             %>

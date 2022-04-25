@@ -162,7 +162,7 @@ function consulta_lotes_reproceso_alimentacion(carro) {
                              aviso_existencia(item.cod_carrito);
                     }
                     else {
-                          cargar_grilla_trans_SC(item.tipo_huevo,item.cod_carrito,item.cod_interno,item.cantidad,item.fecha_puesta);   
+                          cargar_grilla_alimentacion_ptc(item.tipo_huevo,item.cod_carrito,item.cod_interno,item.cantidad,item.fecha_puesta,item.descfalla,item.clasificadora_origen);   
                     }
                  }    );
                 $('#txt_lote').val('');
@@ -197,8 +197,6 @@ function cargar_grilla_trans_ptc(item_codigo,nro_carrito,cod_lote,cantidad,fecha
 
 function cargar_grilla_trans_SC(tipo_huevo,cod_carrito,cod_interno,cantidad,fecha_puesta) 
 {
-  
-  
    if (checkId(cod_interno)) {
         return aviso_duplicado();
     }  
@@ -216,6 +214,31 @@ function cargar_grilla_trans_SC(tipo_huevo,cod_carrito,cod_interno,cantidad,fech
             '<td><b>' + tipo_huevo      +'</b></td>'+
             '<td><input type="button" value="ELIMINAR" name="remove" id="' + cod_interno + '" class="btn btn-danger btn_remove"></td> ');
 } 
+
+
+
+function cargar_grilla_alimentacion_ptc(tipo_huevo,cod_carrito,cod_interno,cantidad,fecha_puesta,falla,origen) 
+{
+   if (checkId(cod_interno)) {
+        return aviso_duplicado();
+    }  
+
+  var planchas=parseInt(cantidad)/30;
+  var unidades=parseInt(cantidad)-(parseInt(planchas)*30);
+  
+    $('#grilla_transfer tbody').prepend('<tr class="suma" id="row'+cod_interno + '" > '+
+            '<td for="id"><b>' + cod_interno +'</b></td>'+
+            '<td><b>' + cod_carrito     + '</b></td>'+
+            '<td><b>' + cantidad        + '</b></td>'+
+            '<td><b>' + parseInt(planchas)        + '</b></td>'+
+            '<td><b>' + unidades        + '</b></td>'+
+            '<td><b>' + fecha_puesta    + '</b></td>'+
+            '<td><b>' + tipo_huevo      +'</b></td>'+
+            '<td><b>' + falla      +'</b></td>'+ 
+            '<td><b>' + origen      +'</b></td>'+
+            '<td><input type="button" value="ELIMINAR" name="remove" id="' + cod_interno + '" class="btn btn-danger btn_remove"></td> ');
+} 
+
 
 function checkId(id) {
     let ids = document.querySelectorAll('#grilla_transfer td[for="id"]');

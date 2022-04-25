@@ -17,7 +17,23 @@
          
         try 
         { 
-             CallableStatement  callableStatement=null;   
+            
+            
+       /*     CallableStatement  callableStatement2=null;   
+            callableStatement2 = clases.controles.connect.prepareCall("{call [mae_cch_embarque_eliminar_lotes_disponibles](?,?,?)}");
+            callableStatement2 .setString(   1,  area_cch );
+            callableStatement2 .setString(   2,  area);
+              
+            callableStatement2.registerOutParameter("mensaje", java.sql.Types.INTEGER);
+            callableStatement2.execute();
+            tipo = callableStatement2.getInt("mensaje");
+            mensaje="LOTES SINCRONIZADOS CON EXITO.";
+            
+            
+            */
+            
+            
+            CallableStatement  callableStatement=null;   
             callableStatement = clases.controles.connect.prepareCall("{call [mae_cch_embarque_insertar_lotes_disponibles](?,?,?)}");
             callableStatement .setString(   1,  area_cch );
             callableStatement .setString(   2,  area);

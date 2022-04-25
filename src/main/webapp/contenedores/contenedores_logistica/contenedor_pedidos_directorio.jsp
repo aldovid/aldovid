@@ -28,11 +28,25 @@
     }
        
 %> 
+<label  ><b></b></label> 
+<div class="float-right d-none d-sm-inline-block" href="#" data-toggle="modal" data-target=".bd-example-modal-xx"
+     onclick="cargar_datos_modal_version('<%=clases.versiones.contenedores_stok_vimar_directorio %>','VERSION: <%=clases.versiones.contenedores_stok_vimar_directorio %>'  )">
+    <label ><%=clases.versiones.contenedores_stok_vimar_directorio%></label> 
+</div>
+</head>    
+<div class="col-lg-20 " onclick="ir_stock_directorio_cyo()">
+<div class="position-relative p-3 bg-navy"  >
+<div class="ribbon-wrapper">
+<div class="ribbon bg-warning ">
+DIR
+</div>
+</div>
+ <i class="fas fa-envelope"></i> Última Actualización:<%=fecha_actual%>
+     <center><b>STOCK CYO MAEHARA</b></center>
+</div>
+   </div> 
 
-<a class="btn btn-app bg-navy" onclick="ir_stock_directorio_cyo()">
-<span class="badge bg-info"><i class="fas fa-bell"></i></span>
-<i class="fas fa-envelope"></i> Última Actualización:<%=fecha_actual%>
-</a><!-- comment -->
+<!-- comment -->
 
  
 

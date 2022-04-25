@@ -14,7 +14,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>YemSys</title>
-        <!-- Google Font: Source Sans Pro -->
+        <!-- Google Font: Source Sans Pr
         <link href="plugins/css_net.css" rel="stylesheet" type="text/css"/>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -37,8 +37,7 @@
         <link href="plugins/lib/themes/default.css" rel="stylesheet" id="theme_base" />
         <link href="plugins/lib/themes/default.date.css" rel="stylesheet" id="theme_date" />
     
-        
-                <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
         
      
@@ -77,9 +76,7 @@
         <link href="plugins/jquery-ui.multidatespicker.css" rel="stylesheet" type="text/css"/>
         <link href="css/parpadeo.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-         
-        
-        
+      
     </head>
       <input type="hidden" id="clasificadora_menu" value="<%=area%>">
 
@@ -231,7 +228,7 @@
 
 
                                     <h5><div class="modal-body bg-navy" id="ribbon_titulo"></h5> 
-
+                                     <div class="modal-body" id="ribbon_descripcion"></div> 
 
                                         
                                        
@@ -382,22 +379,22 @@
             <script src="plugins/sum().js" type="text/javascript"></script>
             <script src="plugins/jquery.inputmask.bundle.js" type="text/javascript"></script>
             
-            <script src="js/principal.js?v=1.0" type="text/javascript"></script>
-            <script src="js/embarque.js" type="text/javascript"></script>
-            <script src="js/embarque_funciones.js" type="text/javascript"></script>
-            <script src="js/logistica.js" type="text/javascript"></script>
-            <script src="js/logistica_funciones.js" type="text/javascript"></script>
-            <script src="js/ppr/control_claudio.js" type="text/javascript"></script>
-            <script src="js/ptc/ptc_claudio.js" type="text/javascript"></script>
-            <script src="js/ppr/llamadas_aldo.js?v=4.0" type="text/javascript"></script>
-            <script src="js/ppr/llamadas_claudio.js?v=1.0" type="text/javascript"></script>
-            <script src="js/ptc/enviar_datos.js?v=4.0" type="text/javascript"></script>
-            <script src="js/ptc/envio_retenido_liberado.js?v=4.0" type="text/javascript"></script>
-            <script src="js/ptc/traer_clases.js?v=4.0" type="text/javascript"></script>
-            <script src="js/ptc/transferencia.js?v=4.0" type="text/javascript"></script>
-            <script src="js/mis/formulas_mis.js?v=4.0" type="text/javascript"></script>
-            <script src="js/mis/traer_clases_mis.js?v=4.0" type="text/javascript"></script>
-            <script src="js/mis/transferencia_mis.js?v=4.0" type="text/javascript"></script>
+            <script src="js/principal.js?v=9.0" type="text/javascript"></script>
+            <script src="js/embarque.js?v=9.0" type="text/javascript"></script>
+            <script src="js/embarque_funciones.js?v=9.0" type="text/javascript"></script>
+            <script src="js/logistica.js?v=9.0" type="text/javascript"></script>
+            <script src="js/logistica_funciones.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ppr/control_claudio.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ptc/ptc_claudio.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ppr/llamadas_aldo.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ppr/llamadas_claudio.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ptc/enviar_datos.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ptc/envio_retenido_liberado.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ptc/traer_clases.js?v=9.0" type="text/javascript"></script>
+            <script src="js/ptc/transferencia.js?v=9.0" type="text/javascript"></script>
+            <script src="js/mis/formulas_mis.js?v=9.0" type="text/javascript"></script>
+            <script src="js/mis/traer_clases_mis.js?v=9.0" type="text/javascript"></script>
+            <script src="js/mis/transferencia_mis.js?v=9.0" type="text/javascript"></script>
               
               
                 

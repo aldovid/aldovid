@@ -26,7 +26,7 @@
      String cabecera="   "
            
             
-             + "<table id='tb_preembarque' class='stripe order-column dataTable no-footer ' style='width:50%'>"
+             + "<table id='tb_preembarque' class='display compact' style='width: 20%;'>"
             + "<thead>"
             + " <tr >"
                 + " <th rowspan='1'     style='color: #fff; background:     black;' ><b> </b></th>  "

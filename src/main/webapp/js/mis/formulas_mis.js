@@ -213,7 +213,7 @@
        } 
     }  
  
-  function calculo() {
+   function calculo() {
         
         var valor_combo,valor_cantidad,resultado;
         valor_combo=document.getElementById('unidad_medida').value;

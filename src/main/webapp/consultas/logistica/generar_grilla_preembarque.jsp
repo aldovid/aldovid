@@ -97,7 +97,7 @@
             + "<div id='container'  style='width:100%'  >"
             + ""
             + ""
-            + "<div id='first'style='width:80%'  > "
+            + "<div id='first'style='width:100%'  > "
             
             
           //  + "<table id='tb_preembarque' class='stripe row-border order-column' style='width:100%'>"
@@ -153,7 +153,7 @@
       
       
               String cabecera_mixto="<div id='second'  style='width:50%'  '> "
-                      + " <table id='tb_preembarque_mixto' class='stripe order-column dataTable no-footer' style='width:100%'>"
+                      + " <table id='tb_preembarque_mixto' class='display compact' style='width:100%'>"
             + "<thead>"
                + " <tr>"
             + "<th colspan='6'  style='color: #fff; background: black;'  class='text-center'  ><b>CARROS MIXTOS</b></th>  </tr>"

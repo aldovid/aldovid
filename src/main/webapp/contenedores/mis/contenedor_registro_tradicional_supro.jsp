@@ -16,7 +16,7 @@
      
             <div class="input-append">  
             <span class="input-group-addon">Fecha de recepcion</span>
-            <input id="calendario_registro" name="calendario_registro" data-format="yyyy/mm/dd"  width="276"  value="<%=rs.getString(1)%>"   />
+            <input id="calendario_registro" name="calendario_registro"  class="datepicker"  width="276"  value="<%=rs.getString(1)%>"   />
            
             <input id="id_date" name="id_date" style="display: none" type="text"  width="276"  value="<%=rs.getString(2)%>"   />
             <input id="id_clasificadora" name="id_clasificadora" style="display: none"  type="text"  width="276"  value="<%=area_registro%>"   />
@@ -30,18 +30,16 @@
             <br>
             
             <span class="input-group-addon">Fecha de puesta</span>
-            <input id="fecha_puesta" name="fecha_puesta" data-format="yyyy/mm/dd"  width="276" value="<%=rs.getString(1)%>" placeholder="Fecha puesta"  />
+            <input id="fecha_puesta" name="fecha_puesta" class="datepicker"  width="276" value="<%=rs.getString(1)%>" placeholder="Fecha puesta"  />
                     <%} %> 
-         
+         <br>
     
             <span class="input-group-addon">Codigo de carro/mesa</span>
             <input name="cod_carrito" id="cod_carrito" type="number"  autocomplete="off"  class="form-control" placeholder="Codigo carrito,Mesa,Pallet" onkeyup="contar()"  >
             
              
-             
+         <br>
     
-        
-        <br>
          <div class="form-group">
        Cantidad
             <div class="input-group" style="display: none" id="div_kgramos">

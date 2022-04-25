@@ -1,5 +1,4 @@
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%-- 
+ <%-- 
     Document   : contenedor_registro_reprocesos
     Created on : 15-dic-2021, 9:51:44
     Author     : hvelazquez
@@ -39,6 +38,8 @@
     <th>UNIDADES</th>
     <th>FECHAPUESTA</th>
      <th>TIPO</th>
+     <th>TIPO FALLA</th>
+     <th>ORIGEN</th>
      <th>ACCION</th>
        </tr>
      </thead>

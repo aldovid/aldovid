@@ -15,6 +15,9 @@
 
 <%     
     String id_camion            = request.getParameter("id_camion");
+    String id_pedido            = request.getParameter("id_pedido");
+    
+    
     clases.controles.connectarBD();
     fuente.setConexion(clases.controles.connect);
  try {
@@ -26,7 +29,7 @@
      String cabecera="   "
            
             
-             + "<table id='tb_preembarque' class='stripe order-column dataTable no-footer ' style='width:50%'>"
+             + "<table id='tb_preembarque'  class='display compact' style='width: 20%;'>"
             + "<thead>"
             + " <tr >"
                 + " <th rowspan='1'     style='color: #fff; background:     black;' ><b> </b></th>  "
@@ -67,7 +70,7 @@
                 + " <th  style='color: #fff; background: black;'>Pal    </th>      <th  style='color: #fff; background: black;'>Cant</th>   <th  style='color: #fff; background: black;'>Res</th>"
             + "</tr>"
             + "</thead> <tbody >";
-       rs = fuente.obtenerDato("exec mae_log_select_reserva_camion_modificacion @id_camion="+id_camion+"  ");
+       rs = fuente.obtenerDato("exec mae_log_select_reserva_camion_modificacion @id_camion="+id_camion+" ,@id_pedido="+id_pedido+"  ");
     
       while(rs.next())
         {
