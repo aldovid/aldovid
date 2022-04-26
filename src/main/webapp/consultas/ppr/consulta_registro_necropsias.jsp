@@ -18,7 +18,7 @@
 <%@page import="java.util.*" %>
 
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page" /><%
-     	
+
 SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
  //   SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
     String desde = request.getParameter("desde_necropsias");
@@ -28,7 +28,7 @@ SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
     //2022-01-02
     
 
- DecimalFormat df = new DecimalFormat("0.00");
+ DecimalFormat df = new DecimalFormat("0.0");
  DecimalFormat formatea = new DecimalFormat("###,###.##");
     
     String lote_id = "";
@@ -37,7 +37,7 @@ SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
     String lote_fnac = "";
     String fecha_80_sems = "";
     Date fecha;
-
+    double score= 0;
     String miles = "";
     String grilla_html = "";
     String cabecera = "  "
@@ -55,7 +55,8 @@ SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
                 + "<th  width='200'>Enter.</th>"
                 + "<th  width='200'>Molleja</th>"
                 + "<th  width='200'>Higado</th>"
-                + "<th  width='400'></th>"
+                + "<th  width='300'></th>"
+                + "<th  width='150'></th>"
            + " </tr>"
            + "  </thead>"
            + " <tbody  >" ;   
@@ -69,20 +70,25 @@ SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
         ResultSet rs2 = pt.executeQuery();
         
         while (rs2.next()) {    //phm enteritis molleja higado
-          
+           
             fecha=rs2.getDate("fecha");
              grilla_html = grilla_html + "<tr class='tablagrilla'><td id='fecha2' align='center'style= 'dislay: none; ';>"
             + rs2.getString("fecha") +"  </td> <td id='lote2'align='center' style= 'dislay: none; ';>  "
             + rs2.getString("lote") +"   </td><td id='aviario2'align='center' id='3'  style= 'dislay: none; ';> "
-            + rs2.getString("aviario") +"</td><td align='center'  style= 'dislay: none; ';>  "
-            + rs2.getString("phm") +"</td><td align='center'  style= 'dislay: none; ';>  "
-            + rs2.getString("enteritis") +"</td><td align='center'  style= 'dislay: none; ';>  "
-            + rs2.getString("molleja") +"</td><td align='center'  style= 'dislay: none; ';>  "
-            + rs2.getString("higado") +"</td>"
+            + rs2.getString("aviario")+"</td><td align='center'  style= 'dislay: none; ';>  "
+            + df.format(rs2.getDouble("phm_max"))+"-"+ df.format(rs2.getDouble("phm_pro"))+"-"+ df.format(rs2.getDouble("phm_min"))+"</td><td align='center'  style= 'dislay: none; ';>  "
+            + df.format(rs2.getDouble("enteritis_max"))+"-"+ df.format(rs2.getDouble("enteritis_pro"))+"-"+ df.format(rs2.getDouble("enteritis_min"))+"</td><td align='center'  style= 'dislay: none; ';>  "
+            + df.format(rs2.getDouble("molleja_max"))+"-"+ df.format(rs2.getDouble("molleja_pro"))+"-"+ df.format(rs2.getDouble("molleja_min"))+"</td><td align='center'  style= 'dislay: none; ';>  "
+            + df.format(rs2.getDouble("higado_max"))+"-"+ df.format(rs2.getDouble("higado_pro"))+"-"+ df.format(rs2.getDouble("higado_min"))+"</td>"
             + "<td align='center'  style= 'dislay: none; ';>"  
             + "<button id='btnSelect' type='text'class='text-center bg-navy' "
             + "onclick='traer_vista_necropsias_score_ppr("+rs2.getString("pnecsco_nec")+","+rs2.getDate("fecha")+") '>"
             + "<i class='fa fa-search'></i> ver / editar</button>"
+            + "<input  type='hidden' id='idfecha1' name='idfecha1' ></td> "
+            + "<td align='center'  style= 'dislay: none; ';>"  
+            + "<button id='btnSelect' type='text'class='text-center bg-navy' "
+            + "onclick='modificar_necropsias_ppr("+rs2.getString("idlote")+")'>"
+            + "<i class='fa fa-delete'></i>Borrar</button>"
             + "<input  type='hidden' id='idfecha1' name='idfecha1' ></td> "
             + "</tr>";
              

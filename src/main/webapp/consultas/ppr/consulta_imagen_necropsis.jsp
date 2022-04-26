@@ -20,7 +20,9 @@
 <%@page import="java.util.*" %>
   <% 
     String ave_nro = request.getParameter("ave");
-    String necrop_nro = request.getParameter("nro_necrop");
+    String  necrop_nro= request.getParameter("nro_necrop");
+     int id_ultimo = 1473;
+      int number = Integer.parseInt(necrop_nro);
      String nro = "";
      String ave = "";
      String url="";
@@ -37,6 +39,8 @@
     ArrayList lista_imagen = new ArrayList();
                      //  v7.maehara.com/uploads/ppr/necropsias/ppr-nec-1452-1-DSC00406.JPG
                      // http://v7.maehara.com/uploads/ppr/necropsias/
+                     
+                if(number < id_ultimo) {
                while(rs.next()) {  
                 Map<String, String> datos_lista = new HashMap<String, String>();
                  Map<String, String> imagen_lista = new HashMap<String, String>();
@@ -54,7 +58,32 @@
                 datos.add(datos_lista);
                 lista_imagen.add(imagen_lista);
                   }
-             
+                };
+              
+                if(number >= id_ultimo) 
+                {
+               while(rs.next()) {  
+                Map<String, String> datos_lista = new HashMap<String, String>();
+                 Map<String, String> imagen_lista = new HashMap<String, String>();
+                  url= ("../../necropsias_imagen/"+rs.getString("imagen")); 
+                if (url==rs.getString("imagen")) {
+                        
+                    }
+                datos_lista.put("id",  rs.getString("id"));
+                datos_lista.put("nro",  rs.getString("nro"));
+                datos_lista.put("ave",  rs.getString("ave"));
+                datos_lista.put("imagen",    rs.getString("imagen"));
+                //imagen_lista.put("url", "necropsias_imagen/"+rs.getString("imagen"));
+               //imagen_lista.put("url", "img/img_aldo/Captura_infrom.PNG");
+                imagen_lista.put("url", "necropsias_imagen/"+rs.getString("imagen"));
+                 
+                nro = rs.getString("nro");
+                ave = rs.getString("ave");
+                datos.add(datos_lista);
+                lista_imagen.add(imagen_lista);
+                  }
+                };
+                  
                      
                 
                  obje.put("datos",datos );

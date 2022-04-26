@@ -1,10 +1,11 @@
-var ruta_cruds_ppr = "./cruds/ppr/";
+var ruta_cruds_ppr     = "./cruds/ppr/";
 var ruta_consultas_ppr = "./consultas/ppr/";
-var ruta_vistas_ppr = "./contenedores/contenedores_ppr/";
-var ruta_grilla_ppr = "./grillas/ppr/";
+var ruta_vistas_ppr    = "./contenedores/contenedores_ppr/";
+var ruta_grilla_ppr    = "./grillas/ppr/";
 var ruta_vistas_general = "./contenedores/";
 var ruta_imagen_necropsias = "./necropsias_imagen/";
-var serial = 0;
+var ruta_servlet           ="../../../java/clases/";
+var serial                 = 0;
 
 
 function registrar_usuario_ppr() {
@@ -1060,31 +1061,31 @@ function consulta_contador_huevo_ppr(cant) {
     });
 }
 
-function ppr_contador_onselect_ppr() {
-    var editables = document.querySelectorAll("[contentEditable]");
-    for (var i = 0, len = editables.length; i < len; i++) {
-        editables[i].setAttribute("data-orig", editables[i].innerHTML);
-        editables[i].setAttribute("data-fecha", editables[i].innerHTML);
-        editables[i].onfocus = function () {
-            celda_editable_selectElement(this);
-        };
-        editables[i].onblur = function () {
-            if (this.innerHTML == this.getAttribute("data-orig")) {
-                this.innerHTML = this.getAttribute("data-orig");
-            } else {
-                this.setAttribute("data-orig", this.innerHTML);
-                var valor = this.getAttribute("data-orig");
-                var regex = /<br\s*[\/]?>/gi;
-                valor = valor.replace(regex, "");
-                var fecha = this.setAttribute("fecha");
-                var avi = this.setAttribute("avi");
-                var fila = this.setAttribute("fila");
-                var lote = this.setAttribute("lote");
-                ppr_contador_reg(fecha, avi, lote, fila, valor)
-            }
-        };
-    }
-}
+// function ppr_contador_onselect_ppr() {
+//    var editables = document.querySelectorAll("[contentEditable]");
+//    for (var i = 0, len = editables.length; i < len; i++) {
+//        editables[i].setAttribute("data-orig", editables[i].innerHTML);
+//        editables[i].setAttribute("data-fecha", editables[i].innerHTML);
+//        editables[i].onfocus = function () {
+//            celda_editable_selectElement(this);
+//        };
+//        editables[i].onblur = function () {
+//            if (this.innerHTML == this.getAttribute("data-orig")) {
+//                this.innerHTML = this.getAttribute("data-orig");
+//            } else {
+//                this.setAttribute("data-orig", this.innerHTML);
+//                var valor = this.getAttribute("data-orig");
+//                var regex = /<br\s*[\/]?>/gi;
+//                valor = valor.replace(regex, "");
+//                var fecha = this.setAttribute("fecha");
+//                var avi = this.setAttribute("avi");
+//                var fila = this.setAttribute("fila");
+//                var lote = this.setAttribute("lote");
+//               ppr_contador_reg(fecha, avi, lote, fila, valor)
+//            }
+//        };
+//    }
+//}
 
 function ppr_contador_reg_ppr(fecha, avi, lote, fila, valor) {
     var phen = $("#phen").val();
@@ -1792,10 +1793,10 @@ function ir_consultar_registro_necropsias_ppr() {
     });
 }
 
-
+   
 
 function traer_vista_necropsias_score_ppr(id_necrop_score) {
-    
+    let input = document.querySelector("#edad");
   $('#datosnecropsiasregistrados1 tr').on('click', function(){
   var fecha = $(this).find('td:first').html();
   var lote = $(this).find('td:nth-child(2)').html();
@@ -1827,13 +1828,20 @@ function traer_vista_necropsias_score_ppr(id_necrop_score) {
             id_necrop_score: id_necrop_score,
             fecha: fecha
           },
+          
         success: function (data) {
-           
-           
+       
            $('#datosnecropsiasregistrados').html(data.grilla_a);
            $('#edad').html(data.edad);
-           //$("#duration").html(id_necrop_score);
+           var td = $("#datosnecropsiasregistrados tr td").length;
+        
+             if (td < 2) {
+            
+            }else {
+              document.getElementById('btn_agre_ave').disabled=true;  
+            }
              cerrar_load();
+           
           }
        });
         }
@@ -1845,6 +1853,7 @@ function traer_vista_necropsias_score_ppr(id_necrop_score) {
  function consulta_necropsias_imagen_ppr(nro_necrop,ave) {
      $('#ul_contenido_imagenes').html("");
      $('#contenedor_imagenes').html("");
+     $('#contenido_carga_imagen').html("");
     // $('#img_id').html("");
      $('#ave_nro').html("");
       //var s = "";
@@ -1869,26 +1878,67 @@ function traer_vista_necropsias_score_ppr(id_necrop_score) {
                 var  a = '<li data-target="carouselExampleIndicators" data-slide-to="'+d+'" ></li>';
        
                  if(c==0){
-                     contenido_imagen="<div  class='carousel-item active'> <img id='img_id' src='"+data.imagen_lista[c].url+"' alt=''/> </div>"; 
+                 contenido_imagen="<div  class='carousel-item active'> <img id='img_id' src='"+data.imagen_lista[c].url+"' alt=''/> </div>"; 
                  contenido_ul_imagen=" <li data-target='#demo' data-slide-to='"+c+"' class='active'></li>";
                  
                  }
                  else {
-                 contenido_imagen="<div  class='carousel-item'> <img id='img_id' src='"+data.imagen_lista[c].url+"' alt=''/> </div>"; 
+                 contenido_imagen="<div  class='carousel-item'> <img id='img_id' src='"+data.imagen_lista[c].url+"' alt='' style='width: 1150px; height: 650px;' /> </div>"; 
                  contenido_ul_imagen=" <li data-target='#demo' data-slide-to='"+c+"' ></li>";
                  }
+               
                 $("#ul_contenido_imagenes").append(contenido_ul_imagen);
                 $("#contenedor_imagenes").append(contenido_imagen);
+                  
+            
+            
+                
                 
                  c++;
        }); 
-                $("#ave_nro").append(ave_nro);
-           cerrar_load();  
+       
+                 var //contenido_carga_imagen  = '<div class="row" >';
+                     //contenido_carga_imagen += '<div class="col-lg-8 col-sm-12 col-11 main-section">';
+                     //contenido_carga_imagen += '<input type="text" id="nec_id" hidden="true" value="'+nro_necrop+ '" />';
+                     //contenido_carga_imagen += '<input type="text" id="ave"    hidden="true" value="' +ave+ '"  />';
+                     //contenido_carga_imagen += '<h4>Archivos de ave nro.<span class="text-blue"> ' +ave+ '</span></h4>';
+                     //contenido_carga_imagen += '<form enctype="multipart/form-data">';
+                     //contenido_carga_imagen += '<div class="upload-container">';
+                     //contenido_carga_imagen += '<input type="file" id="file" multiple="true"  style="width: 600px;"/>';
+                     //contenido_carga_imagen += '<button class="upload-btn" onclick="subir_imagen_necropsias_prr('+nro_necrop+',' +ave+ ')">subir imagen</button>';
+                     //contenido_carga_imagen += '</div><br></form></div></div>';
+                     
+                    contenido_carga_imagen  = '<div class="row" >';
+                    contenido_carga_imagen += '<div class="col-lg-8 col-sm-12 col-11 main-section">';
+                    contenido_carga_imagen += '<h4>Archivos de ave nro.<span class="text-blue"> ' +ave+ '</span></h4>';
+                    contenido_carga_imagen += '<form >';
+                    contenido_carga_imagen += '<div class="form-control bg-navy" class="upload-container">';
+                    contenido_carga_imagen += '<input  type="file" name="file" id="file" multiple  style="width: 600px;"/></div>';
+                 
+                    contenido_carga_imagen += '<input type="text" name="nec_id" id="nec_id" hidden="true" value="'+nro_necrop+'" />';
+                    contenido_carga_imagen += '<input type="text" name="ave_nro_imagen" id="ave_nro_imagen"    hidden="true" value="' +ave+ '"  />';
+                    contenido_carga_imagen += '<input  type="button"id="boton_file" class="form-control bg-navy" type="button" onclick="upload_imagen_ppr('+nro_necrop+',' +ave+ ')" value="subir imagen"/> ';
+                    contenido_carga_imagen += '<br></form></div></div>';
+
+                    
+
+                 $("#ave_nro").append(ave_nro);
+                 $("#contenido_carga_imagen").append(contenido_carga_imagen);
+                 $("#modal_imagen").modal("show");
+                 
+                // $('#form_imagen').on('submit', function (event)
+                //{
+                //   event.preventDefault();
+                //  consulta_aviarios_dinamico_ppr("p");
+                    //event.stopPropagation(); });
+                cerrar_load();  
            }
            
         
     });
 }
+
+
 $('.carousel-control-prev').click(function() {
   $('#demo_carrusel').carousel('prev');
 });
@@ -1940,27 +1990,269 @@ function ppr_necropsias_files_preview(nro_necrop, ave) {
         }
     });
 }
-
-        function add_fila_prr(){
+   
           
-	var  contenido_imagen = "";
-        var c=1;
-         
-        contenido_imagen="<tr class='tablagrilla'>";
-        contenido_imagen +="<td align='center'style= 'dislay: none; ';>"+c+"</td>";
-        contenido_imagen +="<td contenteditable='true' style='background-color: #ffddb8' align='center' style= 'dislay: none; ';>   </td>";
-        contenido_imagen +="<td contenteditable='true' style='background-color: #ffddb8' align='center' style= 'dislay: none; ';>   </td>";
-        contenido_imagen +="<td contenteditable='true' style='background-color: #ffddb8' align='center' style= 'dislay: none; ';>   </td>";
-        contenido_imagen +="<td contenteditable='true' style='background-color: #ffddb8' align='center' style= 'dislay: none; ';>   </td>";
-        contenido_imagen +="<td><button class='bg-navy' onclick='consulta_necropsias_imagen_ppr();'>ver archivos</button></td> ";
-        contenido_imagen +="</tr>"; 
+     
+function necropsias_nuevafila_ppr(score_id) {
+    
+ $.ajax({
+        type: "POST",
+        url: ruta_consultas_ppr + "consulta_items_necropsias.jsp",
+        beforeSend: function (xhr) {
+            limpiarg_ppr(), cargar_load("Consultando...");
+            
+        },
+        data: { score_id: score_id},
+        
+        success: function (data) {
+            
           
-        c
+            $('#datosnecropsiasregistrados').html(data.grilla_a);  
+            necropsias_detalle_onselect_ppr();
+            cerrar_load();
              
-              $("#datosnecropsiasregistrados").append(contenido_imagen);  
-            
+        //  if (!Object.keys(data.fecha).length) {
+        //      $(".ocultar").hide();
+        //      Swal.fire({
+        //         // title: 'ATENCION!',
+        //          text: "No Existen Registros",
+        //          type: 'warning',
+        //          showCancelButton: false,
+        //          confirmButtonColor: '#001F3F',
+        //          confirmButtonText: 'Aceptar',
+        //          timer: 4000});
+        //  } else {
+             
+                
+           // }
+        }
+    });
+}
+    function registrar_necropsias_score_detalle(valores,score) {
+        
+     
+    $.ajax({
+        url: ruta_cruds_ppr + "crud_agregar_necropsias_score.jsp",
+        type: "post",
+          data: { valores: valores,
+                  score: score
+                 
+                  //valor:valor
+              },
+          success: function (data) {
+          }
+       });
+        } 
+
+  
+function necropsias_detalle_onselect_ppr() {
+    var editables = document.querySelectorAll("[contentEditable]");
+    for (var i = 0, len = editables.length; i < len; i++) {
+        //editables[i].setAttribute("valor", editables[i].innerHTML);
+       editables[i].onfocus = function () {
+          celda_editable_selectElement2(this);
+      };
+        editables[i].onblur = function () {
+            if (this.innerHTML == this.getAttribute("value-data") || this.innerHTML == "") {
+                this.innerHTML =  this.getAttribute("value-data");
+            } else {
+                this.setAttribute("valor", this.innerHTML);
+                var valor = this.getAttribute("valor");
+                var regex = /<br\s*[\/]?>/gi;
+                valor = valor.replace(regex, "");
+                var campo = this.getAttribute("id");
+                var idscore = this.getAttribute("id-score");
+                if (campo === null) {
+                  editar_necropsias_score_detalle   (idscore, valor);
+                }else{
+                registrar_necropsias_score_detalle(campo, valor);
+                }
+               
+            }
         };
-                
-                
-                
-            
+    }
+}       
+ function celda_editable_selectElement2(el)
+{
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
+
+
+
+
+  
+      function modificar_necropsias_ppr(idlote) {
+
+   
+    Swal.fire({
+        title: 'CONFIRMACION',
+        text: "DESEA ELIMINAR NECROPSIAS?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#001F3F',
+        cancelButtonColor: '#001F3F',
+        confirmButtonText: 'SI!',
+        cancelButtonText: 'NO, CANCELAR!'}).then((result) =>
+    {
+        if (result.value)
+        {
+
+            $.ajax({
+                type: "POST",
+                url: ruta_cruds_ppr + "crud_modificar_necropsias.jsp",
+                data: {idlote:idlote},
+                beforeSend: function () 
+                {
+                  cargar_load("Consultando...");
+                        },
+                success: function (res)
+                {
+                    if (res.tipo_respuesta == "2") {
+                        swal.fire({
+                            type: 'success',
+                            text: res.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+
+                       
+                    } 
+                    else 
+                    {
+                        swal.fire({
+                            type: 'error',
+                            text: res.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+                    }
+                    cerrar_load();
+                    ir_consultar_registro_necropsias_ppr();
+                }
+
+
+            });
+        }
+    });
+}
+
+
+  function editar_necropsias_score_detalle(idscore,score) {
+     
+  
+   
+    $.ajax({
+        url: ruta_cruds_ppr + "crud_modificar_necropsias_score_detalle.jsp",
+        type: "post",
+          data: {  idscore: idscore,
+                   score:   score
+                 
+                  //valor:valor
+              },
+          success: function (data) {
+          }
+       });
+        } 
+        
+        
+        
+       function subir_imagen_necropsias_prr(ave_nro_imagen,nec_id) {
+        
+        var files = document.getElementById('file').files;
+        if(files.length==0){
+          alert("Por favor seleccione algun archivo(s)....");
+          return;
+        }
+        var file;
+        var c=0;
+        for(var i=0;i<files.length;i++){
+                   if(c==0){
+                    file=files[i].name+"";  
+                    }
+                    else{
+                    file=file+","+files[i].name; 
+                     }
+                    c++;
+          
+        }
+          
+         $.ajax({
+        url: ruta_cruds_ppr + "crud_agregar_necropsias_imagen12.jsp",
+        type: "post",
+       
+          data: { file:  file,
+                  ave_nro_imagen: ave_nro_imagen,
+                  nec_id:         nec_id
+                 
+              },
+              
+          success: function (data) {
+               if (data.tipo_registro == "2") {
+                        swal.fire({
+                            type: 'success',
+                            text: data.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+
+                    
+                    }
+          }
+       });
+        
+      }
+        
+   function upload_imagen_ppr(nec_id,ave) {
+     Swal.fire({
+        title: 'CONFIRMACION',
+        text: "DESEA GUARDAR IMAGENES?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#001F3F',
+        cancelButtonColor: '#001F3F',
+        confirmButtonText: 'SI!',
+        cancelButtonText: 'NO, CANCELAR!'}).then((result) =>
+    {
+        if (result.value)
+        {
+ 
+  var data = new FormData();
+
+  $.each($("input[type='file']")[0].files, function(i, file) {
+    data.append('file', file); 
+    data.append(nec_id,nec_id); 
+    data.append(ave,ave); 
+  });
+
+  $.ajax({
+    method: "POST",
+    url: ruta_cruds_ppr + "crud_agregar_necropsias_imagen.jsp",
+    contentType: false,
+    processData: false,   
+    data: data,
+    success: function(result){
+         $("#file").val("");
+            if (result.tipo_registro == "2") {
+                        swal.fire({
+                            type: 'success',
+                            text: result.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+                        }
+                        else 
+                    {
+                        swal.fire({
+                            type: 'error',
+                            text: result.mensaje,
+                            confirmButtonText: "CERRAR"
+                        });
+                    }
+    }
+   
+});
+//alert('The file upload with Ajax and Java was a success!');
+    } 
+    });
+  }
+  
